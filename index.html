@@ -182,6 +182,66 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://www.wangjialun.top/2022-02-28-%E5%88%86%E5%B8%83%E5%BC%8F%E9%99%90%E6%B5%81/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/author.jpg">
+      <meta itemprop="name" content="wangJiaLun">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="wangJiaLun-go">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2022-02-28-%E5%88%86%E5%B8%83%E5%BC%8F%E9%99%90%E6%B5%81/" class="post-title-link" itemprop="url">未命名</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+			
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2022-02-28 14:10:31 / 修改时间：17:40:32" itemprop="dateCreated datePublished" datetime="2022-02-28T14:10:31+08:00">2022-02-28</time>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>[TOC]</p>
+<h1 id="分布式限流"><a href="#分布式限流" class="headerlink" title="分布式限流"></a>分布式限流</h1><h2 id="Guava-RateLimiter-客户端限流"><a href="#Guava-RateLimiter-客户端限流" class="headerlink" title="Guava RateLimiter 客户端限流"></a>Guava RateLimiter 客户端限流</h2><h2 id="基于Nginx的IP限流"><a href="#基于Nginx的IP限流" class="headerlink" title="基于Nginx的IP限流"></a>基于Nginx的IP限流</h2><h2 id="基于Nginx的连接数限制"><a href="#基于Nginx的连接数限制" class="headerlink" title="基于Nginx的连接数限制"></a>基于Nginx的连接数限制</h2>
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
     <link itemprop="mainEntityOfPage" href="http://www.wangjialun.top/2021-09-29-sap%20%E9%97%AE%E9%A2%98%E8%AE%B0%E5%BD%95%20no%20sapjco3%20in%20java.library.path/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -383,10 +443,16 @@
                 <i class="far fa-calendar"></i>
               </span>
               <span class="post-meta-item-text">发表于</span>
-              
 
-              <time title="创建时间：2021-08-26 14:32:55 / 修改时间：13:51:42" itemprop="dateCreated datePublished" datetime="2021-08-26T14:32:55+08:00">2021-08-26</time>
+              <time title="创建时间：2021-08-26 14:32:55" itemprop="dateCreated datePublished" datetime="2021-08-26T14:32:55+08:00">2021-08-26</time>
             </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2022-02-10 17:30:26" itemprop="dateModified" datetime="2022-02-10T17:30:26+08:00">2022-02-10</time>
+              </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
                 <i class="far fa-folder"></i>
@@ -416,7 +482,7 @@
 <li><p>安装nginx插件  <a target="_blank" rel="noopener" href="https://github.com/happyfish100/fastdfs-nginx-module.git">下载地址</a> 或者fastDFS安装教程里面的百度云有</p>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> 解压nginx的fastdfs压缩包</span></span><br><span class="line">tar -zxvf fastdfs-nginx-module-1.22.tar.gz</span><br><span class="line">cp mod_fastdfs.conf /etc/fdfs/</span><br></pre></td></tr></table></figure></li>
 <li><p>nginx重新make下<code>add-module</code>是nginx插件解压后的目录</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">./configure \</span><br><span class="line">--prefix=/usr/local/nginx \</span><br><span class="line">--pid-path=/var/run/nginx/nginx.pid \</span><br><span class="line">--lock-path=/var/lock/nginx.lock \</span><br><span class="line">--error-log-path=/var/log/nginx/error.log \</span><br><span class="line">--http-log-path=/var/log/nginx/access.log \</span><br><span class="line">--with-http_gzip_static_module \</span><br><span class="line">--http-client-body-temp-path=/var/temp/nginx/client \</span><br><span class="line">--http-proxy-temp-path=/var/temp/nginx/proxy \</span><br><span class="line">--http-fastcgi-temp-path=/var/temp/nginx/fastcgi \</span><br><span class="line">--http-uwsgi-temp-path=/var/temp/nginx/uwsgi \</span><br><span class="line">--http-scgi-temp-path=/var/temp/nginx/scgi \</span><br><span class="line">--add-module=/root/package/fastdfs-nginx-module-1.22/src</span><br></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">./configure \</span><br><span class="line">--prefix=/usr/local/nginx \</span><br><span class="line">--pid-path=/var/run/nginx/nginx.pid \</span><br><span class="line">--lock-path=/var/lock/nginx.lock \</span><br><span class="line">--error-log-path=/var/log/nginx/error.log \</span><br><span class="line">--http-log-path=/var/log/nginx/access.log \</span><br><span class="line">--with-http_gzip_static_module \</span><br><span class="line">--http-client-body-temp-path=/var/temp/nginx/client \</span><br><span class="line">--http-proxy-temp-path=/var/temp/nginx/proxy \</span><br><span class="line">--http-fastcgi-temp-path=/var/temp/nginx/fastcgi \</span><br><span class="line">--http-uwsgi-temp-path=/var/temp/nginx/uwsgi \</span><br><span class="line">--http-scgi-temp-path=/var/temp/nginx/scgi \</span><br><span class="line">--add-module=/usr/local/package/fastdfs-nginx-module-1.22/src</span><br></pre></td></tr></table></figure>
           <!--noindex-->
             <div class="post-button">
               <a class="btn" href="/2021-08-26-fastDFS%E9%85%8D%E7%BD%AEnginx%E8%AE%BF%E9%97%AE/#more" rel="contents">
@@ -475,7 +541,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2021-08-25 14:39:11" itemprop="dateModified" datetime="2021-08-25T14:39:11+08:00">2021-08-25</time>
+                <time title="修改时间：2022-02-10 17:15:34" itemprop="dateModified" datetime="2022-02-10T17:15:34+08:00">2022-02-10</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -972,85 +1038,6 @@
   
   
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://www.wangjialun.top/2021-08-10-redis%20%E5%93%A8%E5%85%B5%E6%9C%BA%E5%88%B6%E5%AE%9E%E7%8E%B0/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/author.jpg">
-      <meta itemprop="name" content="wangJiaLun">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="wangJiaLun-go">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2021-08-10-redis%20%E5%93%A8%E5%85%B5%E6%9C%BA%E5%88%B6%E5%AE%9E%E7%8E%B0/" class="post-title-link" itemprop="url">redis 哨兵机制实现</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-			
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-              
-
-              <time title="创建时间：2021-08-10 15:22:51 / 修改时间：16:40:41" itemprop="dateCreated datePublished" datetime="2021-08-10T15:22:51+08:00">2021-08-10</time>
-            </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/redis/" itemprop="url" rel="index"><span itemprop="name">redis</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h2 id="Redis-哨兵-sentinel-模式实现"><a href="#Redis-哨兵-sentinel-模式实现" class="headerlink" title="Redis 哨兵(sentinel)模式实现"></a><strong>Redis 哨兵(sentinel)模式实现</strong></h2><p>之前搭建的<a href="https://www.wangjialun.top/2021-08-07-redis%20%E4%B8%BB%E4%BB%8E%E5%A4%8D%E5%88%B6%EF%BC%88%E8%AF%BB%E5%86%99%E5%88%86%E7%A6%BB%EF%BC%89/">主从复制(读写分离)</a>在主节点宕机后，从节点依然可以提供数据读，但是不能进行数据写操作。</p>
-<p>需要手动将某个从节点切换成主节点才行，哨兵模式就是解决这个手动操作的问题。</p>
-<p>当一个集群中的master失效之后，<strong>sentinel</strong>可以选举出一个新的master继续工作，然后通过发布订阅模式通知其他从服务器，修改配置切换主节点。</p>
-<h3 id="核心配置-sentinel-conf"><a href="#核心配置-sentinel-conf" class="headerlink" title="核心配置 sentinel.conf"></a>核心配置 <strong>sentinel.conf</strong></h3><figure class="highlight properties"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 保护模式</span></span><br><span class="line"><span class="meta">protected-mode</span> <span class="string">no</span></span><br><span class="line"><span class="comment"># 配置端口</span></span><br><span class="line"><span class="attr">port</span> <span class="string">26379</span></span><br><span class="line"><span class="comment"># 以守护进程模式启动（后台运行）</span></span><br><span class="line"><span class="attr">daemonize</span> <span class="string">yes</span></span><br><span class="line"><span class="comment"># 日志文件</span></span><br><span class="line"><span class="attr">logfile</span> <span class="string">/usr/local/redis/sentinel/redis-sentinel.log</span></span><br><span class="line"><span class="comment"># 工作目录</span></span><br><span class="line"><span class="attr">dir</span> <span class="string">/usr/local/redis/sentinel/</span></span><br><span class="line"><span class="comment"></span></span><br><span class="line"><span class="comment"># 配置哨兵</span></span><br><span class="line"><span class="attr">sentinel</span> <span class="string">monitor mymaster 192.168.14.101 6379 2</span></span><br><span class="line"><span class="comment"># 密码</span></span><br><span class="line"><span class="attr">sentinel</span> <span class="string">auth-pass mymaster wangjialun</span></span><br><span class="line"><span class="comment"># master被sentinel认定为失效的间隔时间</span></span><br><span class="line"><span class="attr">sentinel</span> <span class="string">down-after-milliseconds mymaster 30000</span></span><br><span class="line"><span class="comment"># 剩余的slaves重新和新的master做同步的并行个数</span></span><br><span class="line"><span class="attr">sentinel</span> <span class="string">parallel-syncs mymaster 1</span></span><br><span class="line"><span class="comment"># 故障转移开始，三分钟内没有完成，则认为转移失败</span></span><br><span class="line"><span class="attr">sentinel</span> <span class="string">failover-timeout mymaster 180000</span></span><br></pre></td></tr></table></figure>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/2021-08-10-redis%20%E5%93%A8%E5%85%B5%E6%9C%BA%E5%88%B6%E5%AE%9E%E7%8E%B0/#more" rel="contents">
-                阅读全文 &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
 
   
   <nav class="pagination">
@@ -1121,7 +1108,7 @@
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
           <a href="/archives">
-          <span class="site-state-item-count">26</span>
+          <span class="site-state-item-count">27</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -1157,6 +1144,9 @@
     </div>
     <ul class="links-of-recent-posts-list">
         <li class="links-of-recent-posts-item">
+          <a href="/2022-02-28-%E5%88%86%E5%B8%83%E5%BC%8F%E9%99%90%E6%B5%81/" title="2022-02-28-分布式限流&#x2F;"></a>
+        </li>
+        <li class="links-of-recent-posts-item">
           <a href="/2021-09-29-sap%20%E9%97%AE%E9%A2%98%E8%AE%B0%E5%BD%95%20no%20sapjco3%20in%20java.library.path/" title="2021-09-29-sap 问题记录 no sapjco3 in java.library.path&#x2F;">no sapjco3 in java.library.path</a>
         </li>
         <li class="links-of-recent-posts-item">
@@ -1176,9 +1166,6 @@
         </li>
         <li class="links-of-recent-posts-item">
           <a href="/2021-08-17-centos7%E5%AE%89%E8%A3%85%20elasticsearch/" title="2021-08-17-centos7安装 elasticsearch&#x2F;">centos7安装elasticsearch</a>
-        </li>
-        <li class="links-of-recent-posts-item">
-          <a href="/2021-08-13-%E8%A7%A3%E5%86%B3%E5%85%AC%E7%BD%91ip%E7%BB%8F%E5%B8%B8%E5%8F%98%E5%8A%A8/" title="2021-08-13-解决公网ip经常变动&#x2F;">解决公网ip经常变动</a>
         </li>
     </ul>
   </div>
