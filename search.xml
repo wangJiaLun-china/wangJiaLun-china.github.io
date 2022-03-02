@@ -52,36 +52,6 @@
       </tags>
   </entry>
   <entry>
-    <title>centos7安装rabbitMQ</title>
-    <url>/2021-09-02-centos7%E5%AE%89%E8%A3%85rabbitMQ/</url>
-    <content><![CDATA[<h2 id="centos7安装-rabbitMQ"><a href="#centos7安装-rabbitMQ" class="headerlink" title="centos7安装 rabbitMQ"></a><strong>centos7安装 rabbitMQ</strong></h2><ul>
-<li><p>安装准备</p>
-<ul>
-<li><p>rabbitMQ依赖Erlang环境, 参照<a href="https://www.rabbitmq.com/which-erlang.html">版本对应地址</a>至github上下载对应<a href="https://github.com/rabbitmq/erlang-rpm/releases">erlang-rpm</a></p>
-</li>
-<li><p>下载<a href="https://github.com/rabbitmq/rabbitmq-server/releases/">rabbitMQ</a>对应版本rpm</p>
-<p>不能科学上网的可以去百度云获取相关包：<a href="https://pan.baidu.com/s/1PtoOLgC3sIUStxGyECT8kg">https://pan.baidu.com/s/1PtoOLgC3sIUStxGyECT8kg</a><br>提取码：8888 </p>
-</li>
-</ul>
-</li>
-<li><p>安装服务</p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> 安装基础软件包</span></span><br><span class="line">yum install build-essential openssl openssl-devel unixODBC unixODBC-devel make gcc gcc-c++ kernel-devel m4 ncurses-devel tk tc xz</span><br><span class="line"><span class="meta">#</span><span class="bash"> 安装erlang</span></span><br><span class="line">rpm -ivh erlang-24.0.5-1.el8.x86_64.rpm</span><br><span class="line"><span class="meta">#</span><span class="bash"> 安装socat</span></span><br><span class="line">yum install -y socat</span><br><span class="line"><span class="meta">#</span><span class="bash"> 安装rabbitMq</span></span><br><span class="line">rpm -ivh rabbitmq-server-3.8.22-1.el8.noarch.rpm</span><br></pre></td></tr></table></figure></li>
-</ul>
-<span id="more"></span>
-
-<ul>
-<li><p>rabbitMQ命令</p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> 启动服务</span></span><br><span class="line">systemctl start rabbitmq-server</span><br><span class="line"><span class="meta">#</span><span class="bash"> 查看状态</span></span><br><span class="line">systemctl status rabbitmq-server</span><br><span class="line"><span class="meta">#</span><span class="bash"> 停止服务</span></span><br><span class="line">systemctl stop rabbitmq-server</span><br><span class="line"><span class="meta">#</span><span class="bash"> 设置开机启动</span></span><br><span class="line">systemctl enable rabbitmq-server</span><br><span class="line"><span class="meta">#</span><span class="bash"> 开启web管理插件, web默认访问端口是15672</span></span><br><span class="line">rabbitmq-plugins enable rabbitmq_management</span><br><span class="line"><span class="meta">#</span><span class="bash"> rabbitmq有一个默认的guest用户，但只能通过localhost访问，所以需要添加一个能够远程访问的用户。</span></span><br><span class="line"><span class="meta">#</span><span class="bash"> 添加用户</span></span><br><span class="line">rabbitmqctl add_user admin 123456</span><br><span class="line"><span class="meta">#</span><span class="bash"> 为用户分配操作权限</span></span><br><span class="line">rabbitmqctl set_user_tags admin administrator</span><br><span class="line"><span class="meta">#</span><span class="bash"> 为用户分配权限</span></span><br><span class="line">rabbitmqctl set_permissions -p / admin &quot;&quot;.&quot; &quot;.&quot;&quot; &quot;.*”</span><br></pre></td></tr></table></figure></li>
-</ul>
-]]></content>
-      <categories>
-        <category>rabbitMQ</category>
-      </categories>
-      <tags>
-        <tag>rabbitMQ</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>centos7安装elasticsearch</title>
     <url>/2021-08-17-centos7%E5%AE%89%E8%A3%85%20elasticsearch/</url>
     <content><![CDATA[<h2 id="centos7安装elasticsearch"><a href="#centos7安装elasticsearch" class="headerlink" title="centos7安装elasticsearch"></a><strong>centos7安装elasticsearch</strong></h2><ul>
@@ -320,6 +290,36 @@
       </tags>
   </entry>
   <entry>
+    <title>centos7安装rabbitMQ</title>
+    <url>/2021-09-02-centos7%E5%AE%89%E8%A3%85rabbitMQ/</url>
+    <content><![CDATA[<h2 id="centos7安装-rabbitMQ"><a href="#centos7安装-rabbitMQ" class="headerlink" title="centos7安装 rabbitMQ"></a><strong>centos7安装 rabbitMQ</strong></h2><ul>
+<li><p>安装准备</p>
+<ul>
+<li><p>rabbitMQ依赖Erlang环境, 参照<a href="https://www.rabbitmq.com/which-erlang.html">版本对应地址</a>至github上下载对应<a href="https://github.com/rabbitmq/erlang-rpm/releases">erlang-rpm</a></p>
+</li>
+<li><p>下载<a href="https://github.com/rabbitmq/rabbitmq-server/releases/">rabbitMQ</a>对应版本rpm</p>
+<p>不能科学上网的可以去百度云获取相关包：<a href="https://pan.baidu.com/s/1PtoOLgC3sIUStxGyECT8kg">https://pan.baidu.com/s/1PtoOLgC3sIUStxGyECT8kg</a><br>提取码：8888 </p>
+</li>
+</ul>
+</li>
+<li><p>安装服务</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> 安装基础软件包</span></span><br><span class="line">yum install build-essential openssl openssl-devel unixODBC unixODBC-devel make gcc gcc-c++ kernel-devel m4 ncurses-devel tk tc xz</span><br><span class="line"><span class="meta">#</span><span class="bash"> 安装erlang</span></span><br><span class="line">rpm -ivh erlang-24.0.5-1.el8.x86_64.rpm</span><br><span class="line"><span class="meta">#</span><span class="bash"> 安装socat</span></span><br><span class="line">yum install -y socat</span><br><span class="line"><span class="meta">#</span><span class="bash"> 安装rabbitMq</span></span><br><span class="line">rpm -ivh rabbitmq-server-3.8.22-1.el8.noarch.rpm</span><br></pre></td></tr></table></figure></li>
+</ul>
+<span id="more"></span>
+
+<ul>
+<li><p>rabbitMQ命令</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> 启动服务</span></span><br><span class="line">systemctl start rabbitmq-server</span><br><span class="line"><span class="meta">#</span><span class="bash"> 查看状态</span></span><br><span class="line">systemctl status rabbitmq-server</span><br><span class="line"><span class="meta">#</span><span class="bash"> 停止服务</span></span><br><span class="line">systemctl stop rabbitmq-server</span><br><span class="line"><span class="meta">#</span><span class="bash"> 设置开机启动</span></span><br><span class="line">systemctl enable rabbitmq-server</span><br><span class="line"><span class="meta">#</span><span class="bash"> 开启web管理插件, web默认访问端口是15672</span></span><br><span class="line">rabbitmq-plugins enable rabbitmq_management</span><br><span class="line"><span class="meta">#</span><span class="bash"> rabbitmq有一个默认的guest用户，但只能通过localhost访问，所以需要添加一个能够远程访问的用户。</span></span><br><span class="line"><span class="meta">#</span><span class="bash"> 添加用户</span></span><br><span class="line">rabbitmqctl add_user admin 123456</span><br><span class="line"><span class="meta">#</span><span class="bash"> 为用户分配操作权限</span></span><br><span class="line">rabbitmqctl set_user_tags admin administrator</span><br><span class="line"><span class="meta">#</span><span class="bash"> 为用户分配权限</span></span><br><span class="line">rabbitmqctl set_permissions -p / admin &quot;&quot;.&quot; &quot;.&quot;&quot; &quot;.*”</span><br></pre></td></tr></table></figure></li>
+</ul>
+]]></content>
+      <categories>
+        <category>rabbitMQ</category>
+      </categories>
+      <tags>
+        <tag>rabbitMQ</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>fastDFS配置nginx访问</title>
     <url>/2021-08-26-fastDFS%E9%85%8D%E7%BD%AEnginx%E8%AE%BF%E9%97%AE/</url>
     <content><![CDATA[<h2 id="fastDFS配置nginx访问"><a href="#fastDFS配置nginx访问" class="headerlink" title="fastDFS配置nginx访问"></a><strong>fastDFS配置nginx访问</strong></h2><ul>
@@ -348,81 +348,6 @@
       </categories>
       <tags>
         <tag>fastDFS</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>keepalived 双主热备</title>
-    <url>/2021-08-03-keepalived%20%E5%8F%8C%E4%B8%BB%E7%83%AD%E5%A4%87/</url>
-    <content><![CDATA[<h2 id="keepalived-双主热备"><a href="#keepalived-双主热备" class="headerlink" title="keepalived 双主热备"></a><strong>keepalived 双主热备</strong></h2><ul>
-<li><p>首先配置好双机主备参照 我之前的 <a href="https://www.wangjialun.top/2021-08-02-keepalived%20%E5%8F%8C%E6%9C%BA%E4%B8%BB%E5%A4%87/#more"><strong>安装配置</strong></a>  </p>
-</li>
-<li><p>在之前主机的keepalived核心配置文件中新增一个<strong>BACKUP</strong>虚拟节点</p>
-<p>在之前备用机的keepalived核心配置文件中新增一个<strong>MASTER</strong>虚拟节点</p>
-<span id="more"></span>
-
-<h1 id="之前主机配置"><a href="#之前主机配置" class="headerlink" title="之前主机配置"></a>之前主机配置</h1><figure class="highlight properties"><table><tr><td class="code"><pre><span class="line"><span class="comment">! Configuration File for keepalived</span></span><br><span class="line"></span><br><span class="line"><span class="attr">global_defs</span> <span class="string">&#123;</span></span><br><span class="line">   <span class="attr">router_id</span> <span class="string">keep_96</span></span><br><span class="line"><span class="attr">&#125;</span></span><br><span class="line"><span class="comment">## 节省篇幅省略，之前主机配置不需要修改</span></span><br><span class="line"><span class="attr">vrrp_instance</span> <span class="string">VI_1 &#123;</span></span><br><span class="line">	<span class="attr">//...</span></span><br><span class="line"><span class="attr">&#125;</span></span><br><span class="line"><span class="comment">## 新增</span></span><br><span class="line"><span class="comment"># 可以复制之前的备用机核心配置过来修改为VI_2</span></span><br><span class="line"><span class="attr">vrrp_instance</span> <span class="string">VI_2 &#123;</span></span><br><span class="line">    <span class="attr">state</span> <span class="string">BACKUP</span></span><br><span class="line">    <span class="attr">interface</span> <span class="string">enp0s3</span></span><br><span class="line"><span class="comment">    # 修改 router_id</span></span><br><span class="line">    <span class="attr">virtual_router_id</span> <span class="string">52</span></span><br><span class="line">    <span class="attr">priority</span> <span class="string">80</span></span><br><span class="line">    <span class="attr">advert_int</span> <span class="string">1</span></span><br><span class="line">    <span class="attr">authentication</span> <span class="string">&#123;</span></span><br><span class="line">        <span class="attr">auth_type</span> <span class="string">PASS</span></span><br><span class="line">        <span class="attr">auth_pass</span> <span class="string">1111</span></span><br><span class="line">    <span class="attr">&#125;</span></span><br><span class="line"><span class="comment">     # 修改 虚拟ip</span></span><br><span class="line">    <span class="attr">virtual_ipaddress</span> <span class="string">&#123;</span></span><br><span class="line">        <span class="attr">192.168.31.197</span></span><br><span class="line">    <span class="attr">&#125;</span></span><br><span class="line"><span class="attr">&#125;</span></span><br></pre></td></tr></table></figure>
-
-<h1 id="之前备用机配置"><a href="#之前备用机配置" class="headerlink" title="之前备用机配置"></a>之前备用机配置</h1><figure class="highlight properties"><table><tr><td class="code"><pre><span class="line"><span class="comment">! Configuration File for keepalived</span></span><br><span class="line"></span><br><span class="line"><span class="attr">global_defs</span> <span class="string">&#123;</span></span><br><span class="line"><span class="comment">   # 路由id: 当前安装keepalived节点主机的标识符，全局唯一</span></span><br><span class="line">   <span class="attr">router_id</span> <span class="string">keep_226</span></span><br><span class="line"><span class="attr">&#125;</span></span><br><span class="line"><span class="comment"></span></span><br><span class="line"><span class="comment">## 节省篇幅省略，之前备用机配置不需要修改</span></span><br><span class="line"><span class="attr">vrrp_instance</span> <span class="string">VI_1 &#123;</span></span><br><span class="line"><span class="attr">&#125;</span></span><br><span class="line"><span class="comment"></span></span><br><span class="line"><span class="comment">## 新增</span></span><br><span class="line"><span class="comment"># 可以复制之前的主机核心配置过来修改为VI_2</span></span><br><span class="line"><span class="attr">vrrp_instance</span> <span class="string">VI_2 &#123;</span></span><br><span class="line">    <span class="attr">state</span> <span class="string">MASTER</span></span><br><span class="line">    <span class="attr">interface</span> <span class="string">enp0s3</span></span><br><span class="line"><span class="comment">    # 修改 router_id</span></span><br><span class="line">    <span class="attr">virtual_router_id</span> <span class="string">52</span></span><br><span class="line">    <span class="attr">priority</span> <span class="string">100</span></span><br><span class="line">    <span class="attr">advert_int</span> <span class="string">1</span></span><br><span class="line">    <span class="attr">authentication</span> <span class="string">&#123;</span></span><br><span class="line">        <span class="attr">auth_type</span> <span class="string">PASS</span></span><br><span class="line">        <span class="attr">auth_pass</span> <span class="string">1111</span></span><br><span class="line">    <span class="attr">&#125;</span></span><br><span class="line"><span class="comment">     # 修改 虚拟ip</span></span><br><span class="line">    <span class="attr">virtual_ipaddress</span> <span class="string">&#123;</span></span><br><span class="line">        <span class="attr">192.168.31.197</span></span><br><span class="line">    <span class="attr">&#125;</span></span><br><span class="line"><span class="attr">&#125;</span></span><br></pre></td></tr></table></figure></li>
-</ul>
-<p>配置完成后重启一下keepalived</p>
-<p>ip addr 会发现两台服务器都绑定了一个keepalived里配置的<code>MASTER</code>的ip</p>
-<p>此时就实现了两台服务器互为主备配置</p>
-]]></content>
-      <categories>
-        <category>keepalived</category>
-      </categories>
-      <tags>
-        <tag>工具</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>keepalived 双机主备</title>
-    <url>/2021-08-02-keepalived%20%E5%8F%8C%E6%9C%BA%E4%B8%BB%E5%A4%87/</url>
-    <content><![CDATA[<h2 id="keepalived-双机主备"><a href="#keepalived-双机主备" class="headerlink" title="keepalived 双机主备"></a><strong>keepalived 双机主备</strong></h2><h4 id="主机配置"><a href="#主机配置" class="headerlink" title="主机配置"></a>主机配置</h4><ul>
-<li><p>安装 </p>
-<p>到<a href="https://keepalived.org/download.html">https://keepalived.org/download.html</a> 官网下载</p>
-<p><code>wget https://keepalived.org/software/keepalived-2.2.2.tar.gz</code></p>
-<p><code>tar -zxvf keepalived-2.2.2.tar.gz </code></p>
-<p>创建makefile 文件</p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">./configure --prefix=/usr/local/keepalived --sysconf=/etc</span><br></pre></td></tr></table></figure>
-
-<p><code>make</code></p>
-<p><code>make install</code></p>
-</li>
-</ul>
-<span id="more"></span>
-
-<ul>
-<li><p>注册成系统服务</p>
-<p>进入<code>keepalived/etc</code>下面</p>
-<p>先拷贝到系统的etc下面，提示覆盖就直接覆盖</p>
-<p><code>cp  init.d/keepalived /etc/init.d/</code></p>
-<p><code>cp  sysconfig/keepalived /etc/sysconfig</code></p>
-<p>再刷新一下</p>
-<p><code>systemctl daemon-reload</code></p>
-</li>
-<li><p>配置</p>
-<p>核心配置文件在前面指定的<code>/etc/keepalived</code>下面的<code>keepalived.conf</code>文件中</p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">! Configuration File for keepalived</span><br><span class="line"></span><br><span class="line">global_defs &#123;</span><br><span class="line"><span class="meta">   #</span><span class="bash"> 路由id: 当前安装keepalived节点主机的标识符，全局唯一</span></span><br><span class="line">   router_id keep_96</span><br><span class="line">&#125;</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> 计算机节点</span></span><br><span class="line">vrrp_instance VI_1 &#123;</span><br><span class="line"><span class="meta">	#</span><span class="bash"> 表示状态是MASTER主机还是备用机BACKUP</span></span><br><span class="line">    state MASTER</span><br><span class="line"><span class="meta">	#</span><span class="bash"> 该实例绑定的网卡 通过 ip addr 查看网卡信息</span></span><br><span class="line">    interface enp0s3</span><br><span class="line"><span class="meta">	#</span><span class="bash"> 保证主备节点一致即可</span></span><br><span class="line">    virtual_router_id 51</span><br><span class="line"><span class="meta">	#</span><span class="bash"> 权重，master权重一般高于backup，如果有多个，那就是选举，谁的权重高，谁就当选</span></span><br><span class="line">    priority 100</span><br><span class="line"><span class="meta">	#</span><span class="bash"> 主备之间同步检查时间间隔(心跳)，单位秒</span></span><br><span class="line">    advert_int 1</span><br><span class="line"><span class="meta">	#</span><span class="bash"> 认证权限密码，防止非法节点进入</span></span><br><span class="line">    authentication &#123;</span><br><span class="line">        auth_type PASS</span><br><span class="line">        auth_pass 1111</span><br><span class="line">    &#125;</span><br><span class="line"><span class="meta">	#</span><span class="bash"> 虚拟出来的ip，可以有多个（vip）</span></span><br><span class="line">    virtual_ipaddress &#123;</span><br><span class="line">        192.168.31.196</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
-<li><p>启动</p>
-<p>到安装路径<code>/usr/local/keepalived</code>文件下面的<code>sbin</code>内执行<code>./keepalived</code></p>
-<p>或者前面注册成系统服务的也可以通过<code>systemctl start keepalived.service</code>来操作</p>
-<p>此时访问192.168.31.196也能访问到这台主机</p>
-</li>
-</ul>
-<h4 id="双机主备"><a href="#双机主备" class="headerlink" title="双机主备"></a>双机主备</h4><p>在另外一台主机上按上述步骤安装后修改核心配置文件<code>keepalived.conf</code>文件</p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">! Configuration File for keepalived</span><br><span class="line"></span><br><span class="line">global_defs &#123;</span><br><span class="line"><span class="meta">   #</span><span class="bash"> 路由id: 当前安装keepalived节点主机的标识符，全局唯一</span></span><br><span class="line">   router_id keep_226</span><br><span class="line">&#125;</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> 计算机节点 名称不需要修改</span></span><br><span class="line">vrrp_instance VI_1 &#123;</span><br><span class="line"><span class="meta">	#</span><span class="bash"> 状态修改为BACKUP</span></span><br><span class="line">    state BACKUP</span><br><span class="line"><span class="meta">	#</span><span class="bash"> 查看修改网卡信息</span></span><br><span class="line">    interface enp0s3</span><br><span class="line"><span class="meta">	#</span><span class="bash"> 保证主备节点一致即可</span></span><br><span class="line">    virtual_router_id 51</span><br><span class="line"><span class="meta">	#</span><span class="bash"> 权重修改比主节点小</span></span><br><span class="line">    priority 80</span><br><span class="line"><span class="meta">	#</span><span class="bash"> 主备之间同步检查时间间隔(心跳)，单位秒</span></span><br><span class="line">    advert_int 1</span><br><span class="line"><span class="meta">	#</span><span class="bash"> 认证权限密码，防止非法节点进入</span></span><br><span class="line">    authentication &#123;</span><br><span class="line">        auth_type PASS</span><br><span class="line">        auth_pass 1111</span><br><span class="line">    &#125;</span><br><span class="line"><span class="meta">	#</span><span class="bash"> 虚拟出来的ip，配置和主节点的一样</span></span><br><span class="line">    virtual_ipaddress &#123;</span><br><span class="line">        192.168.31.196</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>此时<code>ip addr</code>查看信息，发现keepalived并未绑定192.168.31.196的ip</p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">enp0s3: &lt;BROADCAST,MULTICAST,UP,LOWER_UP&gt; mtu 1500 qdisc fq_codel state UP group default qlen 1000</span><br><span class="line">   link/ether 08:00:27:19:36:03 brd ff:ff:ff:ff:ff:ff</span><br><span class="line">   inet 192.168.31.226/24 brd 192.168.31.255 scope global dynamic noprefixroute enp0s3</span><br><span class="line">      valid_lft 18581sec preferred_lft 18581sec</span><br><span class="line">   inet6 240e:3a1:43f:8b0:a00:27ff:fe19:3603/64 scope global dynamic noprefixroute </span><br><span class="line">      valid_lft 7172sec preferred_lft 7172sec</span><br><span class="line">   inet6 fe80::a00:27ff:fe19:3603/64 scope link noprefixroute </span><br><span class="line">      valid_lft forever preferred_lft forever</span><br></pre></td></tr></table></figure>
-<p>当去主机的服务器执行<code>systemctl stop keepalived.service</code>关闭 keepalived 后<br>执行<code>ip addr</code>查看信息, 发现备用机生效绑定了192.168.31.196的ip</p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">enp0s3: &lt;BROADCAST,MULTICAST,UP,LOWER_UP&gt; mtu 1500 qdisc fq_codel state UP group default qlen 1000</span><br><span class="line">    link/ether 08:00:27:19:36:03 brd ff:ff:ff:ff:ff:ff</span><br><span class="line">    inet 192.168.31.226/24 brd 192.168.31.255 scope global dynamic noprefixroute enp0s3</span><br><span class="line">       valid_lft 18313sec preferred_lft 18313sec</span><br><span class="line">    inet 192.168.31.196/32 scope global enp0s3</span><br><span class="line">       valid_lft forever preferred_lft forever</span><br><span class="line">    inet6 240e:3a1:43f:8b0:a00:27ff:fe19:3603/64 scope global dynamic noprefixroute </span><br><span class="line">       valid_lft 7135sec preferred_lft 7135sec</span><br><span class="line">    inet6 fe80::a00:27ff:fe19:3603/64 scope link noprefixroute </span><br><span class="line">       valid_lft forever preferred_lft forever</span><br></pre></td></tr></table></figure>
-<p>此时再去主机的服务器执行<code>systemctl start keepalived.service</code> 恢复启动 keepalived 后，会发现备用机解绑ip，主机接管</p>
-]]></content>
-      <categories>
-        <category>keepalived</category>
-      </categories>
-      <tags>
-        <tag>工具</tag>
       </tags>
   </entry>
   <entry>
@@ -658,6 +583,81 @@
       </tags>
   </entry>
   <entry>
+    <title>keepalived 双主热备</title>
+    <url>/2021-08-03-keepalived%20%E5%8F%8C%E4%B8%BB%E7%83%AD%E5%A4%87/</url>
+    <content><![CDATA[<h2 id="keepalived-双主热备"><a href="#keepalived-双主热备" class="headerlink" title="keepalived 双主热备"></a><strong>keepalived 双主热备</strong></h2><ul>
+<li><p>首先配置好双机主备参照 我之前的 <a href="https://www.wangjialun.top/2021-08-02-keepalived%20%E5%8F%8C%E6%9C%BA%E4%B8%BB%E5%A4%87/#more"><strong>安装配置</strong></a>  </p>
+</li>
+<li><p>在之前主机的keepalived核心配置文件中新增一个<strong>BACKUP</strong>虚拟节点</p>
+<p>在之前备用机的keepalived核心配置文件中新增一个<strong>MASTER</strong>虚拟节点</p>
+<span id="more"></span>
+
+<h1 id="之前主机配置"><a href="#之前主机配置" class="headerlink" title="之前主机配置"></a>之前主机配置</h1><figure class="highlight properties"><table><tr><td class="code"><pre><span class="line"><span class="comment">! Configuration File for keepalived</span></span><br><span class="line"></span><br><span class="line"><span class="attr">global_defs</span> <span class="string">&#123;</span></span><br><span class="line">   <span class="attr">router_id</span> <span class="string">keep_96</span></span><br><span class="line"><span class="attr">&#125;</span></span><br><span class="line"><span class="comment">## 节省篇幅省略，之前主机配置不需要修改</span></span><br><span class="line"><span class="attr">vrrp_instance</span> <span class="string">VI_1 &#123;</span></span><br><span class="line">	<span class="attr">//...</span></span><br><span class="line"><span class="attr">&#125;</span></span><br><span class="line"><span class="comment">## 新增</span></span><br><span class="line"><span class="comment"># 可以复制之前的备用机核心配置过来修改为VI_2</span></span><br><span class="line"><span class="attr">vrrp_instance</span> <span class="string">VI_2 &#123;</span></span><br><span class="line">    <span class="attr">state</span> <span class="string">BACKUP</span></span><br><span class="line">    <span class="attr">interface</span> <span class="string">enp0s3</span></span><br><span class="line"><span class="comment">    # 修改 router_id</span></span><br><span class="line">    <span class="attr">virtual_router_id</span> <span class="string">52</span></span><br><span class="line">    <span class="attr">priority</span> <span class="string">80</span></span><br><span class="line">    <span class="attr">advert_int</span> <span class="string">1</span></span><br><span class="line">    <span class="attr">authentication</span> <span class="string">&#123;</span></span><br><span class="line">        <span class="attr">auth_type</span> <span class="string">PASS</span></span><br><span class="line">        <span class="attr">auth_pass</span> <span class="string">1111</span></span><br><span class="line">    <span class="attr">&#125;</span></span><br><span class="line"><span class="comment">     # 修改 虚拟ip</span></span><br><span class="line">    <span class="attr">virtual_ipaddress</span> <span class="string">&#123;</span></span><br><span class="line">        <span class="attr">192.168.31.197</span></span><br><span class="line">    <span class="attr">&#125;</span></span><br><span class="line"><span class="attr">&#125;</span></span><br></pre></td></tr></table></figure>
+
+<h1 id="之前备用机配置"><a href="#之前备用机配置" class="headerlink" title="之前备用机配置"></a>之前备用机配置</h1><figure class="highlight properties"><table><tr><td class="code"><pre><span class="line"><span class="comment">! Configuration File for keepalived</span></span><br><span class="line"></span><br><span class="line"><span class="attr">global_defs</span> <span class="string">&#123;</span></span><br><span class="line"><span class="comment">   # 路由id: 当前安装keepalived节点主机的标识符，全局唯一</span></span><br><span class="line">   <span class="attr">router_id</span> <span class="string">keep_226</span></span><br><span class="line"><span class="attr">&#125;</span></span><br><span class="line"><span class="comment"></span></span><br><span class="line"><span class="comment">## 节省篇幅省略，之前备用机配置不需要修改</span></span><br><span class="line"><span class="attr">vrrp_instance</span> <span class="string">VI_1 &#123;</span></span><br><span class="line"><span class="attr">&#125;</span></span><br><span class="line"><span class="comment"></span></span><br><span class="line"><span class="comment">## 新增</span></span><br><span class="line"><span class="comment"># 可以复制之前的主机核心配置过来修改为VI_2</span></span><br><span class="line"><span class="attr">vrrp_instance</span> <span class="string">VI_2 &#123;</span></span><br><span class="line">    <span class="attr">state</span> <span class="string">MASTER</span></span><br><span class="line">    <span class="attr">interface</span> <span class="string">enp0s3</span></span><br><span class="line"><span class="comment">    # 修改 router_id</span></span><br><span class="line">    <span class="attr">virtual_router_id</span> <span class="string">52</span></span><br><span class="line">    <span class="attr">priority</span> <span class="string">100</span></span><br><span class="line">    <span class="attr">advert_int</span> <span class="string">1</span></span><br><span class="line">    <span class="attr">authentication</span> <span class="string">&#123;</span></span><br><span class="line">        <span class="attr">auth_type</span> <span class="string">PASS</span></span><br><span class="line">        <span class="attr">auth_pass</span> <span class="string">1111</span></span><br><span class="line">    <span class="attr">&#125;</span></span><br><span class="line"><span class="comment">     # 修改 虚拟ip</span></span><br><span class="line">    <span class="attr">virtual_ipaddress</span> <span class="string">&#123;</span></span><br><span class="line">        <span class="attr">192.168.31.197</span></span><br><span class="line">    <span class="attr">&#125;</span></span><br><span class="line"><span class="attr">&#125;</span></span><br></pre></td></tr></table></figure></li>
+</ul>
+<p>配置完成后重启一下keepalived</p>
+<p>ip addr 会发现两台服务器都绑定了一个keepalived里配置的<code>MASTER</code>的ip</p>
+<p>此时就实现了两台服务器互为主备配置</p>
+]]></content>
+      <categories>
+        <category>keepalived</category>
+      </categories>
+      <tags>
+        <tag>工具</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>keepalived 双机主备</title>
+    <url>/2021-08-02-keepalived%20%E5%8F%8C%E6%9C%BA%E4%B8%BB%E5%A4%87/</url>
+    <content><![CDATA[<h2 id="keepalived-双机主备"><a href="#keepalived-双机主备" class="headerlink" title="keepalived 双机主备"></a><strong>keepalived 双机主备</strong></h2><h4 id="主机配置"><a href="#主机配置" class="headerlink" title="主机配置"></a>主机配置</h4><ul>
+<li><p>安装 </p>
+<p>到<a href="https://keepalived.org/download.html">https://keepalived.org/download.html</a> 官网下载</p>
+<p><code>wget https://keepalived.org/software/keepalived-2.2.2.tar.gz</code></p>
+<p><code>tar -zxvf keepalived-2.2.2.tar.gz </code></p>
+<p>创建makefile 文件</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">./configure --prefix=/usr/local/keepalived --sysconf=/etc</span><br></pre></td></tr></table></figure>
+
+<p><code>make</code></p>
+<p><code>make install</code></p>
+</li>
+</ul>
+<span id="more"></span>
+
+<ul>
+<li><p>注册成系统服务</p>
+<p>进入<code>keepalived/etc</code>下面</p>
+<p>先拷贝到系统的etc下面，提示覆盖就直接覆盖</p>
+<p><code>cp  init.d/keepalived /etc/init.d/</code></p>
+<p><code>cp  sysconfig/keepalived /etc/sysconfig</code></p>
+<p>再刷新一下</p>
+<p><code>systemctl daemon-reload</code></p>
+</li>
+<li><p>配置</p>
+<p>核心配置文件在前面指定的<code>/etc/keepalived</code>下面的<code>keepalived.conf</code>文件中</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">! Configuration File for keepalived</span><br><span class="line"></span><br><span class="line">global_defs &#123;</span><br><span class="line"><span class="meta">   #</span><span class="bash"> 路由id: 当前安装keepalived节点主机的标识符，全局唯一</span></span><br><span class="line">   router_id keep_96</span><br><span class="line">&#125;</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> 计算机节点</span></span><br><span class="line">vrrp_instance VI_1 &#123;</span><br><span class="line"><span class="meta">	#</span><span class="bash"> 表示状态是MASTER主机还是备用机BACKUP</span></span><br><span class="line">    state MASTER</span><br><span class="line"><span class="meta">	#</span><span class="bash"> 该实例绑定的网卡 通过 ip addr 查看网卡信息</span></span><br><span class="line">    interface enp0s3</span><br><span class="line"><span class="meta">	#</span><span class="bash"> 保证主备节点一致即可</span></span><br><span class="line">    virtual_router_id 51</span><br><span class="line"><span class="meta">	#</span><span class="bash"> 权重，master权重一般高于backup，如果有多个，那就是选举，谁的权重高，谁就当选</span></span><br><span class="line">    priority 100</span><br><span class="line"><span class="meta">	#</span><span class="bash"> 主备之间同步检查时间间隔(心跳)，单位秒</span></span><br><span class="line">    advert_int 1</span><br><span class="line"><span class="meta">	#</span><span class="bash"> 认证权限密码，防止非法节点进入</span></span><br><span class="line">    authentication &#123;</span><br><span class="line">        auth_type PASS</span><br><span class="line">        auth_pass 1111</span><br><span class="line">    &#125;</span><br><span class="line"><span class="meta">	#</span><span class="bash"> 虚拟出来的ip，可以有多个（vip）</span></span><br><span class="line">    virtual_ipaddress &#123;</span><br><span class="line">        192.168.31.196</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+<li><p>启动</p>
+<p>到安装路径<code>/usr/local/keepalived</code>文件下面的<code>sbin</code>内执行<code>./keepalived</code></p>
+<p>或者前面注册成系统服务的也可以通过<code>systemctl start keepalived.service</code>来操作</p>
+<p>此时访问192.168.31.196也能访问到这台主机</p>
+</li>
+</ul>
+<h4 id="双机主备"><a href="#双机主备" class="headerlink" title="双机主备"></a>双机主备</h4><p>在另外一台主机上按上述步骤安装后修改核心配置文件<code>keepalived.conf</code>文件</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">! Configuration File for keepalived</span><br><span class="line"></span><br><span class="line">global_defs &#123;</span><br><span class="line"><span class="meta">   #</span><span class="bash"> 路由id: 当前安装keepalived节点主机的标识符，全局唯一</span></span><br><span class="line">   router_id keep_226</span><br><span class="line">&#125;</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> 计算机节点 名称不需要修改</span></span><br><span class="line">vrrp_instance VI_1 &#123;</span><br><span class="line"><span class="meta">	#</span><span class="bash"> 状态修改为BACKUP</span></span><br><span class="line">    state BACKUP</span><br><span class="line"><span class="meta">	#</span><span class="bash"> 查看修改网卡信息</span></span><br><span class="line">    interface enp0s3</span><br><span class="line"><span class="meta">	#</span><span class="bash"> 保证主备节点一致即可</span></span><br><span class="line">    virtual_router_id 51</span><br><span class="line"><span class="meta">	#</span><span class="bash"> 权重修改比主节点小</span></span><br><span class="line">    priority 80</span><br><span class="line"><span class="meta">	#</span><span class="bash"> 主备之间同步检查时间间隔(心跳)，单位秒</span></span><br><span class="line">    advert_int 1</span><br><span class="line"><span class="meta">	#</span><span class="bash"> 认证权限密码，防止非法节点进入</span></span><br><span class="line">    authentication &#123;</span><br><span class="line">        auth_type PASS</span><br><span class="line">        auth_pass 1111</span><br><span class="line">    &#125;</span><br><span class="line"><span class="meta">	#</span><span class="bash"> 虚拟出来的ip，配置和主节点的一样</span></span><br><span class="line">    virtual_ipaddress &#123;</span><br><span class="line">        192.168.31.196</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>此时<code>ip addr</code>查看信息，发现keepalived并未绑定192.168.31.196的ip</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">enp0s3: &lt;BROADCAST,MULTICAST,UP,LOWER_UP&gt; mtu 1500 qdisc fq_codel state UP group default qlen 1000</span><br><span class="line">   link/ether 08:00:27:19:36:03 brd ff:ff:ff:ff:ff:ff</span><br><span class="line">   inet 192.168.31.226/24 brd 192.168.31.255 scope global dynamic noprefixroute enp0s3</span><br><span class="line">      valid_lft 18581sec preferred_lft 18581sec</span><br><span class="line">   inet6 240e:3a1:43f:8b0:a00:27ff:fe19:3603/64 scope global dynamic noprefixroute </span><br><span class="line">      valid_lft 7172sec preferred_lft 7172sec</span><br><span class="line">   inet6 fe80::a00:27ff:fe19:3603/64 scope link noprefixroute </span><br><span class="line">      valid_lft forever preferred_lft forever</span><br></pre></td></tr></table></figure>
+<p>当去主机的服务器执行<code>systemctl stop keepalived.service</code>关闭 keepalived 后<br>执行<code>ip addr</code>查看信息, 发现备用机生效绑定了192.168.31.196的ip</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">enp0s3: &lt;BROADCAST,MULTICAST,UP,LOWER_UP&gt; mtu 1500 qdisc fq_codel state UP group default qlen 1000</span><br><span class="line">    link/ether 08:00:27:19:36:03 brd ff:ff:ff:ff:ff:ff</span><br><span class="line">    inet 192.168.31.226/24 brd 192.168.31.255 scope global dynamic noprefixroute enp0s3</span><br><span class="line">       valid_lft 18313sec preferred_lft 18313sec</span><br><span class="line">    inet 192.168.31.196/32 scope global enp0s3</span><br><span class="line">       valid_lft forever preferred_lft forever</span><br><span class="line">    inet6 240e:3a1:43f:8b0:a00:27ff:fe19:3603/64 scope global dynamic noprefixroute </span><br><span class="line">       valid_lft 7135sec preferred_lft 7135sec</span><br><span class="line">    inet6 fe80::a00:27ff:fe19:3603/64 scope link noprefixroute </span><br><span class="line">       valid_lft forever preferred_lft forever</span><br></pre></td></tr></table></figure>
+<p>此时再去主机的服务器执行<code>systemctl start keepalived.service</code> 恢复启动 keepalived 后，会发现备用机解绑ip，主机接管</p>
+]]></content>
+      <categories>
+        <category>keepalived</category>
+      </categories>
+      <tags>
+        <tag>工具</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>Keepalived配置nginx自动重启</title>
     <url>/2021-08-02-keepalived%E9%85%8D%E7%BD%AENginx%E8%87%AA%E5%8A%A8%E9%87%8D%E5%90%AF/</url>
     <content><![CDATA[<h3 id="Keepalived配置nginx自动重启"><a href="#Keepalived配置nginx自动重启" class="headerlink" title="Keepalived配置nginx自动重启"></a>Keepalived配置nginx自动重启</h3><ul>
@@ -675,153 +675,6 @@
       <tags>
         <tag>keepalived</tag>
         <tag>nginx</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>nginx.conf 详解</title>
-    <url>/2021-07-27-nginx.conf%20%E8%AF%A6%E8%A7%A3/</url>
-    <content><![CDATA[<h2 id="nginx-conf-详解"><a href="#nginx-conf-详解" class="headerlink" title="nginx.conf 详解"></a>nginx.conf 详解</h2><h3 id="结构"><a href="#结构" class="headerlink" title="结构"></a>结构</h3><ul>
-<li>main （全局配置）<ul>
-<li>event （配置工作模式以及连接数）</li>
-<li>http （http模块相关配置）<ul>
-<li>server （虚拟主机配置，可以配置多个虚拟主机）<ul>
-<li>location (路由规则)</li>
-<li>upstream (集群，内网服务器)</li>
-</ul>
-</li>
-</ul>
-</li>
-</ul>
-</li>
-</ul>
-<span id="more"></span>
-
-<h3 id="参数"><a href="#参数" class="headerlink" title="参数"></a>参数</h3><figure class="highlight yaml"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 设置worker进程的用户，指的linux中的用户，涉及到nginx操作目录或文件的一权限，默认为 nobody</span></span><br><span class="line"><span class="comment">#user  nobody;</span></span><br><span class="line"><span class="comment"># worker进程工作数设置，CPU有几个，就可以设置几个，或者设置为N-1也行</span></span><br><span class="line"><span class="string">worker_processes</span>  <span class="number">1</span><span class="string">;</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 错误日志级别 debug | info | notice | warn | error | crit | alert | emerg ，错误级别从左到右越来越大</span></span><br><span class="line"><span class="comment">#error_log  logs/error.log;</span></span><br><span class="line"><span class="comment">#error_log  logs/error.log  notice;</span></span><br><span class="line"><span class="comment">#error_log  logs/error.log  info;</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#pid        logs/nginx.pid;</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="string">events</span> &#123;</span><br><span class="line">    <span class="comment"># 默认使用epoll多路复用IO模型</span></span><br><span class="line">    <span class="string">use</span> <span class="string">epoll;</span></span><br><span class="line">    <span class="comment"># 每个workder允许连接的客户端最大连接数</span></span><br><span class="line">    <span class="string">worker_connections</span>  <span class="number">10240</span><span class="string">;</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="string">http</span> &#123;</span><br><span class="line">    <span class="comment"># include 导入外部mime.types（请求类型）文件 </span></span><br><span class="line">    <span class="string">include</span>       <span class="string">mime.types;</span></span><br><span class="line">    <span class="comment"># 配置默认type类型</span></span><br><span class="line">    <span class="string">default_type</span>  <span class="string">application/octet-stream;</span></span><br><span class="line">    </span><br><span class="line">    <span class="comment"># $remote_addr 客户端ip</span></span><br><span class="line">    <span class="comment"># $remote_user 远程客户端用户名，一般为：’-’</span></span><br><span class="line">    <span class="comment"># $time_local 时间和时区</span></span><br><span class="line">    <span class="comment"># $request 请求的url以及method</span></span><br><span class="line">    <span class="comment"># $status 响应状态码</span></span><br><span class="line">    <span class="comment"># $body_bytes_send 响应客户端内容字节数</span></span><br><span class="line">    <span class="comment"># $http_referer 记录用户从哪个链接跳转过来的</span></span><br><span class="line">    <span class="comment"># $http_user_agent 用户所使用的代理，一般来时都是浏览器</span></span><br><span class="line">    <span class="comment"># $http_x_forwarded_for 通过代理服务器来记录客户端的ip</span></span><br><span class="line">    </span><br><span class="line">    <span class="comment">#log_format  main  &#x27;$remote_addr - $remote_user [$time_local] &quot;$request&quot; &#x27;</span></span><br><span class="line">    <span class="comment">#                  &#x27;$status $body_bytes_sent &quot;$http_referer&quot; &#x27;</span></span><br><span class="line">    <span class="comment">#                  &#x27;&quot;$http_user_agent&quot; &quot;$http_x_forwarded_for&quot;&#x27;;</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">#access_log  logs/access.log  main;</span></span><br><span class="line"></span><br><span class="line">    <span class="comment"># 使用高效文件传输，提升传输性能。启用后才能使用 tcp_nopush ，是指当数据表累积一定大小后才发送，提高了效率</span></span><br><span class="line">    <span class="string">sendfile</span>        <span class="string">on;</span></span><br><span class="line">    <span class="comment"># tcp_nopush     on;</span></span><br><span class="line">    </span><br><span class="line">    <span class="comment"># 设置客户端与服务端请求的超时时间，保证客户端多次请求的时候不会重复建立新的连接，节约资源损耗</span></span><br><span class="line">    <span class="comment"># keepalive_timeout  0;</span></span><br><span class="line">    <span class="string">keepalive_timeout</span>  <span class="number">65</span><span class="string">;</span></span><br><span class="line">    </span><br><span class="line">    <span class="comment">#gzip  on;</span></span><br><span class="line"></span><br><span class="line">    <span class="comment"># 虚拟主机配置</span></span><br><span class="line">    <span class="string">server</span> &#123;</span><br><span class="line">        <span class="comment"># 监听端口号</span></span><br><span class="line">        <span class="string">listen</span>       <span class="number">80</span><span class="string">;</span></span><br><span class="line">        <span class="comment"># 虚拟主机名称</span></span><br><span class="line">        <span class="comment"># 如果同时匹配多个，按下列1，2，3，4顺序规则确定主机。和server顺序无关</span></span><br><span class="line">        <span class="comment"># 1.精确名称</span></span><br><span class="line">        <span class="comment"># 2.以星号开头最长的通配符名称，例如*.example.org”</span></span><br><span class="line">        <span class="comment"># 3.以星号结尾的最长通配符名称，例如mail.*</span></span><br><span class="line">        <span class="comment"># 4.第一个匹配的正则表达式(按配置文件中配置的顺序)</span></span><br><span class="line">        <span class="string">server_name</span>  <span class="string">localhost;</span></span><br><span class="line">        </span><br><span class="line">        <span class="comment">#允许跨域请求的域，*代表所有</span></span><br><span class="line">        <span class="string">add_header</span> <span class="string">&#x27;Access-Control-Allow-Origin&#x27;</span> <span class="string">*;</span></span><br><span class="line">        <span class="comment">#允许带上cookie请求</span></span><br><span class="line">        <span class="string">add_header</span> <span class="string">&#x27;Access-Control-Allow-Credentials&#x27;</span> <span class="string">&#x27;true&#x27;</span><span class="string">;</span></span><br><span class="line">        <span class="comment">#允许请求的方法，比如 GET/POST/PUT/DELETE</span></span><br><span class="line">        <span class="string">add_header</span> <span class="string">&#x27;Access-Control-Allow-Methods&#x27;</span> <span class="string">*;</span></span><br><span class="line">        <span class="comment">#允许请求的header</span></span><br><span class="line">        <span class="string">add_header</span> <span class="string">&#x27;Access-Control-Allow-Headers&#x27;</span> <span class="string">*;</span></span><br><span class="line">        </span><br><span class="line">        <span class="comment">#对源站点验证</span></span><br><span class="line">        <span class="string">valid_referers</span> <span class="string">*.wangjialun.top;</span></span><br><span class="line">        <span class="comment">#非法引入会进入下方判断</span></span><br><span class="line">        <span class="string">if</span> <span class="string">($invalid_referer)</span> &#123;</span><br><span class="line">            <span class="string">return</span> <span class="number">404</span><span class="string">;</span></span><br><span class="line">        &#125;</span><br><span class="line">        </span><br><span class="line">        <span class="comment"># 路由 </span></span><br><span class="line">        <span class="string">location</span> <span class="string">/</span> &#123;</span><br><span class="line">            <span class="string">root</span>   <span class="string">html;</span></span><br><span class="line">            <span class="string">index</span>  <span class="string">index.html</span> <span class="string">index.htm;</span></span><br><span class="line">            </span><br><span class="line">            <span class="comment"># expires 浏览器缓存</span></span><br><span class="line">            <span class="string">expires</span> <span class="string">10s;</span></span><br><span class="line">        &#125;</span><br><span class="line">        </span><br><span class="line">        <span class="comment"># 错误页面</span></span><br><span class="line">        <span class="string">error_page</span>   <span class="number">500</span> <span class="number">502</span> <span class="number">503</span> <span class="number">504</span>  <span class="string">/50x.html;</span></span><br><span class="line">        <span class="string">location</span> <span class="string">=</span> <span class="string">/50x.html</span> &#123;</span><br><span class="line">            <span class="string">root</span>   <span class="string">html;</span></span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line"><span class="comment"># 配置上游服务器 默认轮询</span></span><br><span class="line"><span class="string">upstream</span> <span class="string">tomcats</span> &#123;</span><br><span class="line">	<span class="string">server</span> <span class="number">192.168</span><span class="number">.31</span><span class="number">.96</span><span class="string">:8088;</span></span><br><span class="line">	<span class="string">server</span> <span class="number">192.168</span><span class="number">.31</span><span class="number">.226</span><span class="string">:8088;</span></span><br><span class="line">	<span class="string">server</span> <span class="number">192.168</span><span class="number">.31</span><span class="number">.23</span><span class="string">:8088;</span></span><br><span class="line">&#125;</span><br><span class="line">	</span><br><span class="line">    <span class="string">server</span> &#123;</span><br><span class="line">        <span class="string">listen</span>       <span class="number">80</span><span class="string">;</span></span><br><span class="line">        <span class="string">server_name</span>  <span class="string">www.shop.com;</span></span><br><span class="line">        <span class="string">location</span> <span class="string">/</span> &#123;</span><br><span class="line">			<span class="string">proxy_pass</span> <span class="string">http://tomcats;</span></span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<h3 id="备注"><a href="#备注" class="headerlink" title="备注"></a>备注</h3><ul>
-<li><h4 id="路由-root-与-alias-区别"><a href="#路由-root-与-alias-区别" class="headerlink" title="路由 root 与 alias 区别"></a>路由 root 与 alias 区别</h4><p>假如服务器路径为：/home/resource/files/img/face.png root </p>
-<ul>
-<li>路径完全匹配访问 配置的时候为： <figure class="highlight properties"><table><tr><td class="code"><pre><span class="line"><span class="attr">location</span> <span class="string">/resource &#123; </span></span><br><span class="line">  	<span class="attr">root</span> <span class="string">/home </span></span><br><span class="line"><span class="meta">&#125;</span> <span class="string"></span></span><br></pre></td></tr></table></figure></li>
-</ul>
-<p>用户访问的时候请求为： url:port/resource/files/img/face.png </p>
-<ul>
-<li><p>alias 可以为你的路径做一个别名，对用户透明 配置的时候为： </p>
- <figure class="highlight properties"><table><tr><td class="code"><pre><span class="line"><span class="attr">location</span> <span class="string">/hello &#123; </span></span><br><span class="line"> 	<span class="attr">alias</span> <span class="string">/home/resource </span></span><br><span class="line"><span class="attr">&#125;</span></span><br></pre></td></tr></table></figure></li>
-</ul>
-<p> 用户访问的时候请求为： url:port/hello/files/img/face.png ，如此相当于为目录 resource 做一个自定义的别名。</p>
-</li>
-<li><h4 id="Gzip压缩"><a href="#Gzip压缩" class="headerlink" title="Gzip压缩"></a>Gzip压缩</h4><p>开启gzip压缩功能，目的：提高传输效率，节约带宽</p>
-<figure class="highlight properties"><table><tr><td class="code"><pre><span class="line"><span class="attr">gzip</span>  <span class="string">on;</span></span><br><span class="line"><span class="comment"># 限制最小压缩，小于1字节文件不会压缩</span></span><br><span class="line"><span class="attr">gzip_min_length</span> <span class="string">1;</span></span><br><span class="line"><span class="comment"># 定义压缩级别(压缩比，文件越大,压缩越多，cpu使用率也会提高)</span></span><br><span class="line"><span class="attr">gzip_comp_level</span> <span class="string">3;</span></span><br><span class="line"><span class="comment"># 定义压缩文件的类型</span></span><br><span class="line"><span class="attr">gzip_types</span> <span class="string">text/plain text/css application/json application/javascript text/xml application/xml application/xml+rss text/javascript;</span></span><br></pre></td></tr></table></figure></li>
-<li><h4 id="location-的匹配规则"><a href="#location-的匹配规则" class="headerlink" title="location 的匹配规则"></a>location 的匹配规则</h4><ul>
-<li><p><code>空格</code> ：默认匹配，普通匹配 </p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">location / &#123;</span><br><span class="line">	root /home; </span><br><span class="line">&#125; </span><br></pre></td></tr></table></figure></li>
-<li><p><code>=</code> ：精确匹配 </p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">location = /resource/img/face1.png &#123;</span><br><span class="line">	root /home; </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
-<li><p><code> ~*</code> ：匹配正则表达式，不区分大小写 </p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash">符合图片的显示</span> </span><br><span class="line">location ~* \.(GIF|jpg|png|jpeg) &#123; </span><br><span class="line">	root /home; </span><br><span class="line">&#125; </span><br></pre></td></tr></table></figure></li>
-<li><p><code>~</code> ：匹配正则表达式，区分大小写</p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta"> #</span><span class="bash">GIF必须大写才能匹配到</span> </span><br><span class="line">location ~ \.(GIF|jpg|png|jpeg) &#123; </span><br><span class="line">	root /home; </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
-<li><p><code>^~</code> ：以某个字符路径开头 </p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">location ^~ /resource/img &#123;</span><br><span class="line">	root /home; </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
-</ul>
-</li>
-<li><h4 id="跨域支持"><a href="#跨域支持" class="headerlink" title="跨域支持"></a>跨域支持</h4><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash">允许跨域请求的域，*代表所有</span></span><br><span class="line">add_header &#x27;Access-Control-Allow-Origin&#x27; *;</span><br><span class="line"><span class="meta">#</span><span class="bash">允许带上cookie请求</span></span><br><span class="line">add_header &#x27;Access-Control-Allow-Credentials&#x27; &#x27;true&#x27;;</span><br><span class="line"><span class="meta">#</span><span class="bash">允许请求的方法，比如 GET/POST/PUT/DELETE</span></span><br><span class="line">add_header &#x27;Access-Control-Allow-Methods&#x27; *;</span><br><span class="line"><span class="meta">#</span><span class="bash">允许请求的header</span></span><br><span class="line">add_header &#x27;Access-Control-Allow-Headers&#x27; *;</span><br></pre></td></tr></table></figure></li>
-<li><h4 id="防盗链配置支持"><a href="#防盗链配置支持" class="headerlink" title="防盗链配置支持"></a>防盗链配置支持</h4><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash">对源站点验证</span></span><br><span class="line">valid_referers *.wangjialun.top;</span><br><span class="line"><span class="meta">#</span><span class="bash">非法引入会进入下方判断</span></span><br><span class="line">if ($invalid_referer) &#123;</span><br><span class="line">	return 404;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
-<li><h4 id="upstream-集群配置"><a href="#upstream-集群配置" class="headerlink" title="upstream 集群配置"></a>upstream 集群配置</h4><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash">配置上游服务器</span></span><br><span class="line">upstream tomcats &#123;</span><br><span class="line">	server 192.168.31.96:8088 down;</span><br><span class="line">	server 192.168.31.226:8088;</span><br><span class="line">	server 192.168.31.23:8088;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">    server &#123;</span><br><span class="line">        listen       80;</span><br><span class="line">        server_name  www.shop.com;</span><br><span class="line">        location / &#123;</span><br><span class="line">			proxy_pass http://tomcats;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
-
-<h5 id="常用指令"><a href="#常用指令" class="headerlink" title="常用指令"></a>常用指令</h5><table>
-<thead>
-<tr>
-<th>指令</th>
-<th align="left">介绍</th>
-</tr>
-</thead>
-<tbody><tr>
-<td>weight</td>
-<td align="left">默认是1,数值越小，权重越小</td>
-</tr>
-<tr>
-<td>down</td>
-<td align="left">用于标记服务节点不可用</td>
-</tr>
-<tr>
-<td>backup</td>
-<td align="left">表示当前服务器节点是备用机，只有在其他的服务器都宕机以后，自己才会加入到集群中，被用户访问。不能在 hash 和 random load balancing 中使用。</td>
-</tr>
-<tr>
-<td>max_conns</td>
-<td align="left">最大连接数</td>
-</tr>
-<tr>
-<td>max_fails</td>
-<td align="left">表示失败几次，则标记server已宕机，剔出上游服务。</td>
-</tr>
-<tr>
-<td>fail_timeout</td>
-<td align="left">表示失败的重试时间, 配合max_fails 使用</td>
-</tr>
-<tr>
-<td>slow_start</td>
-<td align="left">设置服务器权重从0恢复到标准值的时间</td>
-</tr>
-</tbody></table>
-</li>
-<li><h4 id="配置keepalived提供吞吐量"><a href="#配置keepalived提供吞吐量" class="headerlink" title="配置keepalived提供吞吐量"></a>配置keepalived提供吞吐量</h4><ul>
-<li><p>keepalived ： 设置长连接处理的数量 </p>
-</li>
-<li><p>proxy_http_version ：设置长连接http版本为1.1 </p>
-</li>
-<li><p>proxy_set_header ：清除connection header 信息</p>
-</li>
-</ul>
-<figure class="highlight properties"><table><tr><td class="code"><pre><span class="line"><span class="attr">upstream</span> <span class="string">tomcats &#123;</span></span><br><span class="line">	<span class="attr">server</span> <span class="string">192.168.31.96:8088;</span></span><br><span class="line">	<span class="attr">server</span> <span class="string">192.168.31.226:8088;</span></span><br><span class="line">	<span class="attr">server</span> <span class="string">192.168.31.23:8088;</span></span><br><span class="line"><span class="comment">	</span></span><br><span class="line"><span class="comment">	# 设置长连接处理的数量</span></span><br><span class="line">	<span class="attr">keepalive</span> <span class="string">32;</span></span><br><span class="line"><span class="attr">&#125;</span></span><br><span class="line">    <span class="attr">server</span> <span class="string">&#123;</span></span><br><span class="line">        <span class="attr">listen</span>       <span class="string">80;</span></span><br><span class="line">        <span class="attr">server_name</span>  <span class="string">www.shop.com;</span></span><br><span class="line">        <span class="attr">location</span> <span class="string">/ &#123;</span></span><br><span class="line">			<span class="attr">proxy_pass</span> <span class="string">http://tomcats;</span></span><br><span class="line"><span class="comment">			# 设置长连接http版本为1.1</span></span><br><span class="line">			<span class="attr">proxy_http_version</span> <span class="string">1.1;</span></span><br><span class="line"><span class="comment">			# 清除connection header 信息</span></span><br><span class="line">			<span class="attr">proxy_set_header</span> <span class="string">Connection &quot;&quot;;</span></span><br><span class="line">        <span class="attr">&#125;</span></span><br><span class="line">    <span class="attr">&#125;</span></span><br><span class="line"><span class="attr">&#125;</span></span><br></pre></td></tr></table></figure></li>
-<li><h4 id="ip-hash"><a href="#ip-hash" class="headerlink" title="ip_hash"></a>ip_hash</h4><p>通过客户端请求ip的前三段进行hash求模，再通过hash值选择后端server。<br>当需要某ip一直请求同一台服务器时候，例如分片上传文件场景。<br><strong>注意</strong>： 当需要删除某台服务器时候，使用down，不可以直接删除。<br>​            直接删除hash会重新计算，会导致用户会话，缓存失效等很多问题。</p>
-<figure class="highlight properties"><table><tr><td class="code"><pre><span class="line"><span class="attr">upstream</span> <span class="string">tomcats &#123;</span></span><br><span class="line">	<span class="attr">ip_hash;</span></span><br><span class="line">	<span class="attr">server</span> <span class="string">192.168.31.96:8088;</span></span><br><span class="line">	<span class="attr">server</span> <span class="string">192.168.31.226:8088;</span></span><br><span class="line">	<span class="attr">server</span> <span class="string">192.168.31.23:8088;</span></span><br><span class="line"><span class="attr">&#125;</span></span><br></pre></td></tr></table></figure></li>
-<li><h4 id="url-hash-和-least-conn"><a href="#url-hash-和-least-conn" class="headerlink" title="url_hash 和 least_conn"></a>url_hash 和 least_conn</h4><p>根据每次请求的url地址，hash后访问到固定的服务器节点</p>
-<figure class="highlight properties"><table><tr><td class="code"><pre><span class="line"><span class="attr">upstream</span> <span class="string">tomcats &#123;</span></span><br><span class="line"><span class="comment">    # url_hash </span></span><br><span class="line">	<span class="attr">hash</span> <span class="string">$request_uri;</span></span><br><span class="line"><span class="comment">	# 最少连接数</span></span><br><span class="line"><span class="comment">	# least_conn</span></span><br><span class="line">	</span><br><span class="line">	<span class="attr">server</span> <span class="string">192.168.31.96:8088;</span></span><br><span class="line">	<span class="attr">server</span> <span class="string">192.168.31.226:8088;</span></span><br><span class="line">	<span class="attr">server</span> <span class="string">192.168.31.23:8088;</span></span><br><span class="line"><span class="attr">&#125;</span></span><br></pre></td></tr></table></figure></li>
-<li><h4 id="一致性hash"><a href="#一致性hash" class="headerlink" title="一致性hash"></a>一致性hash</h4><p>当某台务器宕机后，hash也会重新计算，导致很多问题。可以配置一致性hash算法<br>理解成一个hash闭环，用户和服务器都hash后落在环上。访问通过顺时针命中最近的服务器，当某台服务器宕机，访问落在下一台上面。不会整个重新hash取模对其他区域造成影响。</p>
-<ul>
-<li>server_id_ 字段，如果配置id字段，则使用id字段作为server标识，否则使用server ip和端口作为server标识，<ul>
-<li>使用id字段可以手动设置server的标识，比如一台机器的ip或者端口变化，id仍然可以表示这台机器。使用id字段</li>
-<li>可以减低增减服务器时hash的波动。</li>
-</ul>
-</li>
-<li>server <em>weight</em> 字段，作为server权重，对应虚拟节点数目</li>
-<li>具体算法，将每个server虚拟成n个节点，均匀分布到hash环上，每次请求，根据配置的参数计算出一个hash值，在hash环<ul>
-<li>上查找离这个hash最近的虚拟节点，对应的server作为该次请求的后端机器。</li>
-</ul>
-</li>
-<li>该模块可以根据配置参数采取不同的方式将请求均匀映射到后端机器，比如：<ul>
-<li><code>consistent_hash $remote_addr</code>：可以根据客户端ip映射</li>
-<li><code>consistent_hash $request_uri</code>： 根据客户端请求的uri映射</li>
-<li><code>consistent_hash $args</code>：根据客户端携带的参数进行映射<br>安装 ngx_http_upstream_consistent_hash  第三方模块：</li>
-</ul>
-</li>
-<li>下载解压 <a href="https://github.com/replay/ngx_http_consistent_hash">https://github.com/replay/ngx_http_consistent_hash</a></li>
-<li>添加模块 <code>./configure --add-module=/&#123;目录&#125;/ngx_http_consistent_hash-master</code></li>
-<li>make</li>
-<li>make install</li>
-</ul>
-<figure class="highlight properties"><table><tr><td class="code"><pre><span class="line"><span class="attr">upstream</span> <span class="string">test &#123;</span></span><br><span class="line">	<span class="attr">consistent_hash</span> <span class="string">$request_uri;</span></span><br><span class="line"></span><br><span class="line">	<span class="attr">server</span> <span class="string">192.168.31.96:8088 id=1001 weight=3;</span></span><br><span class="line">	<span class="attr">server</span> <span class="string">192.168.31.226:8088 id=1002 weight=10;</span></span><br><span class="line">	<span class="attr">server</span> <span class="string">192.168.31.23:8088 id=1003 weight=20;</span></span><br><span class="line"><span class="attr">&#125;</span></span><br></pre></td></tr></table></figure></li>
-<li><h4 id="反向代理缓存"><a href="#反向代理缓存" class="headerlink" title="反向代理缓存"></a>反向代理缓存</h4><p>主要缓存上游的资源文件到nginx中</p>
-<figure class="highlight properties"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 配置上游服务器</span></span><br><span class="line"><span class="attr">upstream</span> <span class="string">tomcats &#123;</span></span><br><span class="line">	<span class="attr">server</span> <span class="string">192.168.31.96:8088;</span></span><br><span class="line">	<span class="attr">server</span> <span class="string">192.168.31.226:8088;</span></span><br><span class="line">	<span class="attr">server</span> <span class="string">192.168.31.23:8088;</span></span><br><span class="line"><span class="attr">&#125;</span></span><br><span class="line"><span class="comment"></span></span><br><span class="line"><span class="comment"># proxy_cache_path 设置缓存保存的目录</span></span><br><span class="line"><span class="comment"># keys_zone 设置共享内存以及占用空间大小</span></span><br><span class="line"><span class="comment"># max_size 设置缓存大小</span></span><br><span class="line"><span class="comment"># inactive 超过此时间则缓存自动清理</span></span><br><span class="line"><span class="comment"># use_temp_path 临时目录，使用后会影响nginx性能</span></span><br><span class="line"><span class="attr">proxy_cache_path</span> <span class="string">/usr/local/nginx/upstream_cache keys_zone=myNginxCache:5m max_size=1g inactive=30s use_temp_path=off; </span></span><br><span class="line"></span><br><span class="line">    <span class="attr">server</span> <span class="string">&#123;</span></span><br><span class="line">        <span class="attr">listen</span>       <span class="string">80;</span></span><br><span class="line">        <span class="attr">server_name</span>  <span class="string">www.shop.com;</span></span><br><span class="line"><span class="comment">		</span></span><br><span class="line"><span class="comment">		# 开启并使用myNginxCache缓存</span></span><br><span class="line">		<span class="attr">proxy_cache</span> <span class="string">myNginxCache;</span></span><br><span class="line"><span class="comment">		# 针对200 304 状态码的缓存设置过期时间</span></span><br><span class="line">		<span class="attr">proxy_cache_valid</span> <span class="string">200 304 8h;</span></span><br><span class="line">		</span><br><span class="line">        <span class="attr">location</span> <span class="string">/ &#123;</span></span><br><span class="line">			<span class="attr">proxy_pass</span> <span class="string">http://tomcats;</span></span><br><span class="line">        <span class="attr">&#125;</span></span><br><span class="line">    <span class="attr">&#125;</span></span><br></pre></td></tr></table></figure></li>
-<li><h4 id="配置HTTPS域名证书"><a href="#配置HTTPS域名证书" class="headerlink" title="配置HTTPS域名证书"></a>配置HTTPS域名证书</h4><ul>
-<li>安装SSL模块(通过nginx -V 检查下有没有安装过，安装过则省略)<ul>
-<li>新增ssl模块(原来的那些模块需要保留)<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">./configure \</span><br><span class="line">--prefix=/usr/local/nginx \</span><br><span class="line">--pid-path=/var/run/nginx/nginx.pid \</span><br><span class="line">--lock-path=/var/lock/nginx.lock \</span><br><span class="line">--error-log-path=/var/log/nginx/error.log \</span><br><span class="line">--http-log-path=/var/log/nginx/access.log \</span><br><span class="line">--with-http_gzip_static_module \</span><br><span class="line">--http-client-body-temp-path=/var/temp/nginx/client \</span><br><span class="line">--http-proxy-temp-path=/var/temp/nginx/proxy \</span><br><span class="line">--http-fastcgi-temp-path=/var/temp/nginx/fastcgi \</span><br><span class="line">--http-uwsgi-temp-path=/var/temp/nginx/uwsgi \</span><br><span class="line">--http-scgi-temp-path=/var/temp/nginx/scgi \</span><br><span class="line">--with-http_ssl_module</span><br></pre></td></tr></table></figure></li>
-<li>编译和安装<br><code>make</code><br><code>make install</code></li>
-</ul>
-</li>
-<li>域名证书下载后，解压上传<code>*.crt</code> 和 私钥 <code>*.key</code>到 /usr/local/nginx/conf 目录中</li>
-<li>新加一个server监听443的端口<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">server &#123;</span><br><span class="line">	listen 443;</span><br><span class="line">	server_name www.wangjialun.top;</span><br><span class="line"><span class="meta">	</span></span><br><span class="line"><span class="meta">	#</span><span class="bash"> 开启ssl</span></span><br><span class="line">	ssl on;</span><br><span class="line"><span class="meta">	#</span><span class="bash"> 配置ssl证书 同级目录，直接填写相对路径就行</span></span><br><span class="line">	ssl_certificate 1_www.wangjialun.top_bundle.crt;</span><br><span class="line"><span class="meta">	#</span><span class="bash"> 配置证书秘钥</span></span><br><span class="line">	ssl_certificate_key 2_www.wangjialun.top.key;</span><br><span class="line"><span class="meta">	#</span><span class="bash"> ssl会话cache</span></span><br><span class="line">	ssl_session_cache shared:SSL:1m;</span><br><span class="line"><span class="meta">	#</span><span class="bash"> ssl会话超时时间</span></span><br><span class="line">	ssl_session_timeout 5m;</span><br><span class="line"><span class="meta">	#</span><span class="bash"> 配置加密套件，写法遵循 openssl 标准</span></span><br><span class="line">	ssl_protocols TLSv1 TLSv1.1 TLSv1.2;</span><br><span class="line">	ssl_ciphers ECDHE-RSA-AES128-GCM-SHA256:HIGH:!aNULL:!MD5:!RC4:!DHE;</span><br><span class="line">	ssl_prefer_server_ciphers on;</span><br><span class="line">	</span><br><span class="line">	location / &#123;</span><br><span class="line">		proxy_pass http://tomcats/;</span><br><span class="line">		index index.html;</span><br><span class="line">	&#125;	</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
-</ul>
-</li>
-</ul>
-]]></content>
-      <categories>
-        <category>nginx</category>
-      </categories>
-      <tags>
-        <tag>工具</tag>
       </tags>
   </entry>
   <entry>
@@ -1089,6 +942,181 @@
       </tags>
   </entry>
   <entry>
+    <title>nginx.conf 详解</title>
+    <url>/2021-07-27-nginx.conf%20%E8%AF%A6%E8%A7%A3/</url>
+    <content><![CDATA[<h2 id="nginx-conf-详解"><a href="#nginx-conf-详解" class="headerlink" title="nginx.conf 详解"></a>nginx.conf 详解</h2><h3 id="结构"><a href="#结构" class="headerlink" title="结构"></a>结构</h3><ul>
+<li>main （全局配置）<ul>
+<li>event （配置工作模式以及连接数）</li>
+<li>http （http模块相关配置）<ul>
+<li>server （虚拟主机配置，可以配置多个虚拟主机）<ul>
+<li>location (路由规则)</li>
+<li>upstream (集群，内网服务器)</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<span id="more"></span>
+
+<h3 id="参数"><a href="#参数" class="headerlink" title="参数"></a>参数</h3><figure class="highlight yaml"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 设置worker进程的用户，指的linux中的用户，涉及到nginx操作目录或文件的一权限，默认为 nobody</span></span><br><span class="line"><span class="comment">#user  nobody;</span></span><br><span class="line"><span class="comment"># worker进程工作数设置，CPU有几个，就可以设置几个，或者设置为N-1也行</span></span><br><span class="line"><span class="string">worker_processes</span>  <span class="number">1</span><span class="string">;</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 错误日志级别 debug | info | notice | warn | error | crit | alert | emerg ，错误级别从左到右越来越大</span></span><br><span class="line"><span class="comment">#error_log  logs/error.log;</span></span><br><span class="line"><span class="comment">#error_log  logs/error.log  notice;</span></span><br><span class="line"><span class="comment">#error_log  logs/error.log  info;</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#pid        logs/nginx.pid;</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="string">events</span> &#123;</span><br><span class="line">    <span class="comment"># 默认使用epoll多路复用IO模型</span></span><br><span class="line">    <span class="string">use</span> <span class="string">epoll;</span></span><br><span class="line">    <span class="comment"># 每个workder允许连接的客户端最大连接数</span></span><br><span class="line">    <span class="string">worker_connections</span>  <span class="number">10240</span><span class="string">;</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="string">http</span> &#123;</span><br><span class="line">    <span class="comment"># include 导入外部mime.types（请求类型）文件 </span></span><br><span class="line">    <span class="string">include</span>       <span class="string">mime.types;</span></span><br><span class="line">    <span class="comment"># 配置默认type类型</span></span><br><span class="line">    <span class="string">default_type</span>  <span class="string">application/octet-stream;</span></span><br><span class="line">    </span><br><span class="line">    <span class="comment"># $remote_addr 客户端ip</span></span><br><span class="line">    <span class="comment"># $remote_user 远程客户端用户名，一般为：’-’</span></span><br><span class="line">    <span class="comment"># $time_local 时间和时区</span></span><br><span class="line">    <span class="comment"># $request 请求的url以及method</span></span><br><span class="line">    <span class="comment"># $status 响应状态码</span></span><br><span class="line">    <span class="comment"># $body_bytes_send 响应客户端内容字节数</span></span><br><span class="line">    <span class="comment"># $http_referer 记录用户从哪个链接跳转过来的</span></span><br><span class="line">    <span class="comment"># $http_user_agent 用户所使用的代理，一般来时都是浏览器</span></span><br><span class="line">    <span class="comment"># $http_x_forwarded_for 通过代理服务器来记录客户端的ip</span></span><br><span class="line">    </span><br><span class="line">    <span class="comment">#log_format  main  &#x27;$remote_addr - $remote_user [$time_local] &quot;$request&quot; &#x27;</span></span><br><span class="line">    <span class="comment">#                  &#x27;$status $body_bytes_sent &quot;$http_referer&quot; &#x27;</span></span><br><span class="line">    <span class="comment">#                  &#x27;&quot;$http_user_agent&quot; &quot;$http_x_forwarded_for&quot;&#x27;;</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">#access_log  logs/access.log  main;</span></span><br><span class="line"></span><br><span class="line">    <span class="comment"># 使用高效文件传输，提升传输性能。启用后才能使用 tcp_nopush ，是指当数据表累积一定大小后才发送，提高了效率</span></span><br><span class="line">    <span class="string">sendfile</span>        <span class="string">on;</span></span><br><span class="line">    <span class="comment"># tcp_nopush     on;</span></span><br><span class="line">    </span><br><span class="line">    <span class="comment"># 设置客户端与服务端请求的超时时间，保证客户端多次请求的时候不会重复建立新的连接，节约资源损耗</span></span><br><span class="line">    <span class="comment"># keepalive_timeout  0;</span></span><br><span class="line">    <span class="string">keepalive_timeout</span>  <span class="number">65</span><span class="string">;</span></span><br><span class="line">    </span><br><span class="line">    <span class="comment">#gzip  on;</span></span><br><span class="line"></span><br><span class="line">    <span class="comment"># 虚拟主机配置</span></span><br><span class="line">    <span class="string">server</span> &#123;</span><br><span class="line">        <span class="comment"># 监听端口号</span></span><br><span class="line">        <span class="string">listen</span>       <span class="number">80</span><span class="string">;</span></span><br><span class="line">        <span class="comment"># 虚拟主机名称</span></span><br><span class="line">        <span class="comment"># 如果同时匹配多个，按下列1，2，3，4顺序规则确定主机。和server顺序无关</span></span><br><span class="line">        <span class="comment"># 1.精确名称</span></span><br><span class="line">        <span class="comment"># 2.以星号开头最长的通配符名称，例如*.example.org”</span></span><br><span class="line">        <span class="comment"># 3.以星号结尾的最长通配符名称，例如mail.*</span></span><br><span class="line">        <span class="comment"># 4.第一个匹配的正则表达式(按配置文件中配置的顺序)</span></span><br><span class="line">        <span class="string">server_name</span>  <span class="string">localhost;</span></span><br><span class="line">        </span><br><span class="line">        <span class="comment">#允许跨域请求的域，*代表所有</span></span><br><span class="line">        <span class="string">add_header</span> <span class="string">&#x27;Access-Control-Allow-Origin&#x27;</span> <span class="string">*;</span></span><br><span class="line">        <span class="comment">#允许带上cookie请求</span></span><br><span class="line">        <span class="string">add_header</span> <span class="string">&#x27;Access-Control-Allow-Credentials&#x27;</span> <span class="string">&#x27;true&#x27;</span><span class="string">;</span></span><br><span class="line">        <span class="comment">#允许请求的方法，比如 GET/POST/PUT/DELETE</span></span><br><span class="line">        <span class="string">add_header</span> <span class="string">&#x27;Access-Control-Allow-Methods&#x27;</span> <span class="string">*;</span></span><br><span class="line">        <span class="comment">#允许请求的header</span></span><br><span class="line">        <span class="string">add_header</span> <span class="string">&#x27;Access-Control-Allow-Headers&#x27;</span> <span class="string">*;</span></span><br><span class="line">        </span><br><span class="line">        <span class="comment">#对源站点验证</span></span><br><span class="line">        <span class="string">valid_referers</span> <span class="string">*.wangjialun.top;</span></span><br><span class="line">        <span class="comment">#非法引入会进入下方判断</span></span><br><span class="line">        <span class="string">if</span> <span class="string">($invalid_referer)</span> &#123;</span><br><span class="line">            <span class="string">return</span> <span class="number">404</span><span class="string">;</span></span><br><span class="line">        &#125;</span><br><span class="line">        </span><br><span class="line">        <span class="comment"># 路由 </span></span><br><span class="line">        <span class="string">location</span> <span class="string">/</span> &#123;</span><br><span class="line">            <span class="string">root</span>   <span class="string">html;</span></span><br><span class="line">            <span class="string">index</span>  <span class="string">index.html</span> <span class="string">index.htm;</span></span><br><span class="line">            </span><br><span class="line">            <span class="comment"># expires 浏览器缓存</span></span><br><span class="line">            <span class="string">expires</span> <span class="string">10s;</span></span><br><span class="line">        &#125;</span><br><span class="line">        </span><br><span class="line">        <span class="comment"># 错误页面</span></span><br><span class="line">        <span class="string">error_page</span>   <span class="number">500</span> <span class="number">502</span> <span class="number">503</span> <span class="number">504</span>  <span class="string">/50x.html;</span></span><br><span class="line">        <span class="string">location</span> <span class="string">=</span> <span class="string">/50x.html</span> &#123;</span><br><span class="line">            <span class="string">root</span>   <span class="string">html;</span></span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line"><span class="comment"># 配置上游服务器 默认轮询</span></span><br><span class="line"><span class="string">upstream</span> <span class="string">tomcats</span> &#123;</span><br><span class="line">	<span class="string">server</span> <span class="number">192.168</span><span class="number">.31</span><span class="number">.96</span><span class="string">:8088;</span></span><br><span class="line">	<span class="string">server</span> <span class="number">192.168</span><span class="number">.31</span><span class="number">.226</span><span class="string">:8088;</span></span><br><span class="line">	<span class="string">server</span> <span class="number">192.168</span><span class="number">.31</span><span class="number">.23</span><span class="string">:8088;</span></span><br><span class="line">&#125;</span><br><span class="line">	</span><br><span class="line">    <span class="string">server</span> &#123;</span><br><span class="line">        <span class="string">listen</span>       <span class="number">80</span><span class="string">;</span></span><br><span class="line">        <span class="string">server_name</span>  <span class="string">www.shop.com;</span></span><br><span class="line">        <span class="string">location</span> <span class="string">/</span> &#123;</span><br><span class="line">			<span class="string">proxy_pass</span> <span class="string">http://tomcats;</span></span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="备注"><a href="#备注" class="headerlink" title="备注"></a>备注</h3><ul>
+<li><h4 id="路由-root-与-alias-区别"><a href="#路由-root-与-alias-区别" class="headerlink" title="路由 root 与 alias 区别"></a>路由 root 与 alias 区别</h4><p>假如服务器路径为：/home/resource/files/img/face.png root </p>
+<ul>
+<li>路径完全匹配访问 配置的时候为： <figure class="highlight properties"><table><tr><td class="code"><pre><span class="line"><span class="attr">location</span> <span class="string">/resource &#123; </span></span><br><span class="line">  	<span class="attr">root</span> <span class="string">/home </span></span><br><span class="line"><span class="meta">&#125;</span> <span class="string"></span></span><br></pre></td></tr></table></figure></li>
+</ul>
+<p>用户访问的时候请求为： url:port/resource/files/img/face.png </p>
+<ul>
+<li><p>alias 可以为你的路径做一个别名，对用户透明 配置的时候为： </p>
+ <figure class="highlight properties"><table><tr><td class="code"><pre><span class="line"><span class="attr">location</span> <span class="string">/hello &#123; </span></span><br><span class="line"> 	<span class="attr">alias</span> <span class="string">/home/resource </span></span><br><span class="line"><span class="attr">&#125;</span></span><br></pre></td></tr></table></figure></li>
+</ul>
+<p> 用户访问的时候请求为： url:port/hello/files/img/face.png ，如此相当于为目录 resource 做一个自定义的别名。</p>
+</li>
+<li><h4 id="Gzip压缩"><a href="#Gzip压缩" class="headerlink" title="Gzip压缩"></a>Gzip压缩</h4><p>开启gzip压缩功能，目的：提高传输效率，节约带宽</p>
+<figure class="highlight properties"><table><tr><td class="code"><pre><span class="line"><span class="attr">gzip</span>  <span class="string">on;</span></span><br><span class="line"><span class="comment"># 限制最小压缩，小于1字节文件不会压缩</span></span><br><span class="line"><span class="attr">gzip_min_length</span> <span class="string">1;</span></span><br><span class="line"><span class="comment"># 定义压缩级别(压缩比，文件越大,压缩越多，cpu使用率也会提高)</span></span><br><span class="line"><span class="attr">gzip_comp_level</span> <span class="string">3;</span></span><br><span class="line"><span class="comment"># 定义压缩文件的类型</span></span><br><span class="line"><span class="attr">gzip_types</span> <span class="string">text/plain text/css application/json application/javascript text/xml application/xml application/xml+rss text/javascript;</span></span><br></pre></td></tr></table></figure></li>
+<li><h4 id="location-的匹配规则"><a href="#location-的匹配规则" class="headerlink" title="location 的匹配规则"></a>location 的匹配规则</h4><ul>
+<li><p><code>空格</code> ：默认匹配，普通匹配 </p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">location / &#123;</span><br><span class="line">	root /home; </span><br><span class="line">&#125; </span><br></pre></td></tr></table></figure></li>
+<li><p><code>=</code> ：精确匹配 </p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">location = /resource/img/face1.png &#123;</span><br><span class="line">	root /home; </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+<li><p><code> ~*</code> ：匹配正则表达式，不区分大小写 </p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash">符合图片的显示</span> </span><br><span class="line">location ~* \.(GIF|jpg|png|jpeg) &#123; </span><br><span class="line">	root /home; </span><br><span class="line">&#125; </span><br></pre></td></tr></table></figure></li>
+<li><p><code>~</code> ：匹配正则表达式，区分大小写</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta"> #</span><span class="bash">GIF必须大写才能匹配到</span> </span><br><span class="line">location ~ \.(GIF|jpg|png|jpeg) &#123; </span><br><span class="line">	root /home; </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+<li><p><code>^~</code> ：以某个字符路径开头 </p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">location ^~ /resource/img &#123;</span><br><span class="line">	root /home; </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+</ul>
+</li>
+<li><h4 id="跨域支持"><a href="#跨域支持" class="headerlink" title="跨域支持"></a>跨域支持</h4><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash">允许跨域请求的域，*代表所有</span></span><br><span class="line">add_header &#x27;Access-Control-Allow-Origin&#x27; *;</span><br><span class="line"><span class="meta">#</span><span class="bash">允许带上cookie请求</span></span><br><span class="line">add_header &#x27;Access-Control-Allow-Credentials&#x27; &#x27;true&#x27;;</span><br><span class="line"><span class="meta">#</span><span class="bash">允许请求的方法，比如 GET/POST/PUT/DELETE</span></span><br><span class="line">add_header &#x27;Access-Control-Allow-Methods&#x27; *;</span><br><span class="line"><span class="meta">#</span><span class="bash">允许请求的header</span></span><br><span class="line">add_header &#x27;Access-Control-Allow-Headers&#x27; *;</span><br></pre></td></tr></table></figure></li>
+<li><h4 id="防盗链配置支持"><a href="#防盗链配置支持" class="headerlink" title="防盗链配置支持"></a>防盗链配置支持</h4><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash">对源站点验证</span></span><br><span class="line">valid_referers *.wangjialun.top;</span><br><span class="line"><span class="meta">#</span><span class="bash">非法引入会进入下方判断</span></span><br><span class="line">if ($invalid_referer) &#123;</span><br><span class="line">	return 404;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+<li><h4 id="upstream-集群配置"><a href="#upstream-集群配置" class="headerlink" title="upstream 集群配置"></a>upstream 集群配置</h4><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash">配置上游服务器</span></span><br><span class="line">upstream tomcats &#123;</span><br><span class="line">	server 192.168.31.96:8088 down;</span><br><span class="line">	server 192.168.31.226:8088;</span><br><span class="line">	server 192.168.31.23:8088;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">    server &#123;</span><br><span class="line">        listen       80;</span><br><span class="line">        server_name  www.shop.com;</span><br><span class="line">        location / &#123;</span><br><span class="line">			proxy_pass http://tomcats;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+
+<h5 id="常用指令"><a href="#常用指令" class="headerlink" title="常用指令"></a>常用指令</h5><table>
+<thead>
+<tr>
+<th>指令</th>
+<th align="left">介绍</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>weight</td>
+<td align="left">默认是1,数值越小，权重越小</td>
+</tr>
+<tr>
+<td>down</td>
+<td align="left">用于标记服务节点不可用</td>
+</tr>
+<tr>
+<td>backup</td>
+<td align="left">表示当前服务器节点是备用机，只有在其他的服务器都宕机以后，自己才会加入到集群中，被用户访问。不能在 hash 和 random load balancing 中使用。</td>
+</tr>
+<tr>
+<td>max_conns</td>
+<td align="left">最大连接数</td>
+</tr>
+<tr>
+<td>max_fails</td>
+<td align="left">表示失败几次，则标记server已宕机，剔出上游服务。</td>
+</tr>
+<tr>
+<td>fail_timeout</td>
+<td align="left">表示失败的重试时间, 配合max_fails 使用</td>
+</tr>
+<tr>
+<td>slow_start</td>
+<td align="left">设置服务器权重从0恢复到标准值的时间</td>
+</tr>
+</tbody></table>
+</li>
+<li><h4 id="配置keepalived提供吞吐量"><a href="#配置keepalived提供吞吐量" class="headerlink" title="配置keepalived提供吞吐量"></a>配置keepalived提供吞吐量</h4><ul>
+<li><p>keepalived ： 设置长连接处理的数量 </p>
+</li>
+<li><p>proxy_http_version ：设置长连接http版本为1.1 </p>
+</li>
+<li><p>proxy_set_header ：清除connection header 信息</p>
+</li>
+</ul>
+<figure class="highlight properties"><table><tr><td class="code"><pre><span class="line"><span class="attr">upstream</span> <span class="string">tomcats &#123;</span></span><br><span class="line">	<span class="attr">server</span> <span class="string">192.168.31.96:8088;</span></span><br><span class="line">	<span class="attr">server</span> <span class="string">192.168.31.226:8088;</span></span><br><span class="line">	<span class="attr">server</span> <span class="string">192.168.31.23:8088;</span></span><br><span class="line"><span class="comment">	</span></span><br><span class="line"><span class="comment">	# 设置长连接处理的数量</span></span><br><span class="line">	<span class="attr">keepalive</span> <span class="string">32;</span></span><br><span class="line"><span class="attr">&#125;</span></span><br><span class="line">    <span class="attr">server</span> <span class="string">&#123;</span></span><br><span class="line">        <span class="attr">listen</span>       <span class="string">80;</span></span><br><span class="line">        <span class="attr">server_name</span>  <span class="string">www.shop.com;</span></span><br><span class="line">        <span class="attr">location</span> <span class="string">/ &#123;</span></span><br><span class="line">			<span class="attr">proxy_pass</span> <span class="string">http://tomcats;</span></span><br><span class="line"><span class="comment">			# 设置长连接http版本为1.1</span></span><br><span class="line">			<span class="attr">proxy_http_version</span> <span class="string">1.1;</span></span><br><span class="line"><span class="comment">			# 清除connection header 信息</span></span><br><span class="line">			<span class="attr">proxy_set_header</span> <span class="string">Connection &quot;&quot;;</span></span><br><span class="line">        <span class="attr">&#125;</span></span><br><span class="line">    <span class="attr">&#125;</span></span><br><span class="line"><span class="attr">&#125;</span></span><br></pre></td></tr></table></figure></li>
+<li><h4 id="ip-hash"><a href="#ip-hash" class="headerlink" title="ip_hash"></a>ip_hash</h4><p>通过客户端请求ip的前三段进行hash求模，再通过hash值选择后端server。<br>当需要某ip一直请求同一台服务器时候，例如分片上传文件场景。<br><strong>注意</strong>： 当需要删除某台服务器时候，使用down，不可以直接删除。<br>​            直接删除hash会重新计算，会导致用户会话，缓存失效等很多问题。</p>
+<figure class="highlight properties"><table><tr><td class="code"><pre><span class="line"><span class="attr">upstream</span> <span class="string">tomcats &#123;</span></span><br><span class="line">	<span class="attr">ip_hash;</span></span><br><span class="line">	<span class="attr">server</span> <span class="string">192.168.31.96:8088;</span></span><br><span class="line">	<span class="attr">server</span> <span class="string">192.168.31.226:8088;</span></span><br><span class="line">	<span class="attr">server</span> <span class="string">192.168.31.23:8088;</span></span><br><span class="line"><span class="attr">&#125;</span></span><br></pre></td></tr></table></figure></li>
+<li><h4 id="url-hash-和-least-conn"><a href="#url-hash-和-least-conn" class="headerlink" title="url_hash 和 least_conn"></a>url_hash 和 least_conn</h4><p>根据每次请求的url地址，hash后访问到固定的服务器节点</p>
+<figure class="highlight properties"><table><tr><td class="code"><pre><span class="line"><span class="attr">upstream</span> <span class="string">tomcats &#123;</span></span><br><span class="line"><span class="comment">    # url_hash </span></span><br><span class="line">	<span class="attr">hash</span> <span class="string">$request_uri;</span></span><br><span class="line"><span class="comment">	# 最少连接数</span></span><br><span class="line"><span class="comment">	# least_conn</span></span><br><span class="line">	</span><br><span class="line">	<span class="attr">server</span> <span class="string">192.168.31.96:8088;</span></span><br><span class="line">	<span class="attr">server</span> <span class="string">192.168.31.226:8088;</span></span><br><span class="line">	<span class="attr">server</span> <span class="string">192.168.31.23:8088;</span></span><br><span class="line"><span class="attr">&#125;</span></span><br></pre></td></tr></table></figure></li>
+<li><h4 id="一致性hash"><a href="#一致性hash" class="headerlink" title="一致性hash"></a>一致性hash</h4><p>当某台务器宕机后，hash也会重新计算，导致很多问题。可以配置一致性hash算法<br>理解成一个hash闭环，用户和服务器都hash后落在环上。访问通过顺时针命中最近的服务器，当某台服务器宕机，访问落在下一台上面。不会整个重新hash取模对其他区域造成影响。</p>
+<ul>
+<li>server_id_ 字段，如果配置id字段，则使用id字段作为server标识，否则使用server ip和端口作为server标识，<ul>
+<li>使用id字段可以手动设置server的标识，比如一台机器的ip或者端口变化，id仍然可以表示这台机器。使用id字段</li>
+<li>可以减低增减服务器时hash的波动。</li>
+</ul>
+</li>
+<li>server <em>weight</em> 字段，作为server权重，对应虚拟节点数目</li>
+<li>具体算法，将每个server虚拟成n个节点，均匀分布到hash环上，每次请求，根据配置的参数计算出一个hash值，在hash环<ul>
+<li>上查找离这个hash最近的虚拟节点，对应的server作为该次请求的后端机器。</li>
+</ul>
+</li>
+<li>该模块可以根据配置参数采取不同的方式将请求均匀映射到后端机器，比如：<ul>
+<li><code>consistent_hash $remote_addr</code>：可以根据客户端ip映射</li>
+<li><code>consistent_hash $request_uri</code>： 根据客户端请求的uri映射</li>
+<li><code>consistent_hash $args</code>：根据客户端携带的参数进行映射<br>安装 ngx_http_upstream_consistent_hash  第三方模块：</li>
+</ul>
+</li>
+<li>下载解压 <a href="https://github.com/replay/ngx_http_consistent_hash">https://github.com/replay/ngx_http_consistent_hash</a></li>
+<li>添加模块 <code>./configure --add-module=/&#123;目录&#125;/ngx_http_consistent_hash-master</code></li>
+<li>make</li>
+<li>make install</li>
+</ul>
+<figure class="highlight properties"><table><tr><td class="code"><pre><span class="line"><span class="attr">upstream</span> <span class="string">test &#123;</span></span><br><span class="line">	<span class="attr">consistent_hash</span> <span class="string">$request_uri;</span></span><br><span class="line"></span><br><span class="line">	<span class="attr">server</span> <span class="string">192.168.31.96:8088 id=1001 weight=3;</span></span><br><span class="line">	<span class="attr">server</span> <span class="string">192.168.31.226:8088 id=1002 weight=10;</span></span><br><span class="line">	<span class="attr">server</span> <span class="string">192.168.31.23:8088 id=1003 weight=20;</span></span><br><span class="line"><span class="attr">&#125;</span></span><br></pre></td></tr></table></figure></li>
+<li><h4 id="反向代理缓存"><a href="#反向代理缓存" class="headerlink" title="反向代理缓存"></a>反向代理缓存</h4><p>主要缓存上游的资源文件到nginx中</p>
+<figure class="highlight properties"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 配置上游服务器</span></span><br><span class="line"><span class="attr">upstream</span> <span class="string">tomcats &#123;</span></span><br><span class="line">	<span class="attr">server</span> <span class="string">192.168.31.96:8088;</span></span><br><span class="line">	<span class="attr">server</span> <span class="string">192.168.31.226:8088;</span></span><br><span class="line">	<span class="attr">server</span> <span class="string">192.168.31.23:8088;</span></span><br><span class="line"><span class="attr">&#125;</span></span><br><span class="line"><span class="comment"></span></span><br><span class="line"><span class="comment"># proxy_cache_path 设置缓存保存的目录</span></span><br><span class="line"><span class="comment"># keys_zone 设置共享内存以及占用空间大小</span></span><br><span class="line"><span class="comment"># max_size 设置缓存大小</span></span><br><span class="line"><span class="comment"># inactive 超过此时间则缓存自动清理</span></span><br><span class="line"><span class="comment"># use_temp_path 临时目录，使用后会影响nginx性能</span></span><br><span class="line"><span class="attr">proxy_cache_path</span> <span class="string">/usr/local/nginx/upstream_cache keys_zone=myNginxCache:5m max_size=1g inactive=30s use_temp_path=off; </span></span><br><span class="line"></span><br><span class="line">    <span class="attr">server</span> <span class="string">&#123;</span></span><br><span class="line">        <span class="attr">listen</span>       <span class="string">80;</span></span><br><span class="line">        <span class="attr">server_name</span>  <span class="string">www.shop.com;</span></span><br><span class="line"><span class="comment">		</span></span><br><span class="line"><span class="comment">		# 开启并使用myNginxCache缓存</span></span><br><span class="line">		<span class="attr">proxy_cache</span> <span class="string">myNginxCache;</span></span><br><span class="line"><span class="comment">		# 针对200 304 状态码的缓存设置过期时间</span></span><br><span class="line">		<span class="attr">proxy_cache_valid</span> <span class="string">200 304 8h;</span></span><br><span class="line">		</span><br><span class="line">        <span class="attr">location</span> <span class="string">/ &#123;</span></span><br><span class="line">			<span class="attr">proxy_pass</span> <span class="string">http://tomcats;</span></span><br><span class="line">        <span class="attr">&#125;</span></span><br><span class="line">    <span class="attr">&#125;</span></span><br></pre></td></tr></table></figure></li>
+<li><h4 id="配置HTTPS域名证书"><a href="#配置HTTPS域名证书" class="headerlink" title="配置HTTPS域名证书"></a>配置HTTPS域名证书</h4><ul>
+<li>安装SSL模块(通过nginx -V 检查下有没有安装过，安装过则省略)<ul>
+<li>新增ssl模块(原来的那些模块需要保留)<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">./configure \</span><br><span class="line">--prefix=/usr/local/nginx \</span><br><span class="line">--pid-path=/var/run/nginx/nginx.pid \</span><br><span class="line">--lock-path=/var/lock/nginx.lock \</span><br><span class="line">--error-log-path=/var/log/nginx/error.log \</span><br><span class="line">--http-log-path=/var/log/nginx/access.log \</span><br><span class="line">--with-http_gzip_static_module \</span><br><span class="line">--http-client-body-temp-path=/var/temp/nginx/client \</span><br><span class="line">--http-proxy-temp-path=/var/temp/nginx/proxy \</span><br><span class="line">--http-fastcgi-temp-path=/var/temp/nginx/fastcgi \</span><br><span class="line">--http-uwsgi-temp-path=/var/temp/nginx/uwsgi \</span><br><span class="line">--http-scgi-temp-path=/var/temp/nginx/scgi \</span><br><span class="line">--with-http_ssl_module</span><br></pre></td></tr></table></figure></li>
+<li>编译和安装<br><code>make</code><br><code>make install</code></li>
+</ul>
+</li>
+<li>域名证书下载后，解压上传<code>*.crt</code> 和 私钥 <code>*.key</code>到 /usr/local/nginx/conf 目录中</li>
+<li>新加一个server监听443的端口<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">server &#123;</span><br><span class="line">	listen 443;</span><br><span class="line">	server_name www.wangjialun.top;</span><br><span class="line"><span class="meta">	</span></span><br><span class="line"><span class="meta">	#</span><span class="bash"> 开启ssl</span></span><br><span class="line">	ssl on;</span><br><span class="line"><span class="meta">	#</span><span class="bash"> 配置ssl证书 同级目录，直接填写相对路径就行</span></span><br><span class="line">	ssl_certificate 1_www.wangjialun.top_bundle.crt;</span><br><span class="line"><span class="meta">	#</span><span class="bash"> 配置证书秘钥</span></span><br><span class="line">	ssl_certificate_key 2_www.wangjialun.top.key;</span><br><span class="line"><span class="meta">	#</span><span class="bash"> ssl会话cache</span></span><br><span class="line">	ssl_session_cache shared:SSL:1m;</span><br><span class="line"><span class="meta">	#</span><span class="bash"> ssl会话超时时间</span></span><br><span class="line">	ssl_session_timeout 5m;</span><br><span class="line"><span class="meta">	#</span><span class="bash"> 配置加密套件，写法遵循 openssl 标准</span></span><br><span class="line">	ssl_protocols TLSv1 TLSv1.1 TLSv1.2;</span><br><span class="line">	ssl_ciphers ECDHE-RSA-AES128-GCM-SHA256:HIGH:!aNULL:!MD5:!RC4:!DHE;</span><br><span class="line">	ssl_prefer_server_ciphers on;</span><br><span class="line">	</span><br><span class="line">	location / &#123;</span><br><span class="line">		proxy_pass http://tomcats/;</span><br><span class="line">		index index.html;</span><br><span class="line">	&#125;	</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+</ul>
+</li>
+</ul>
+]]></content>
+      <categories>
+        <category>nginx</category>
+      </categories>
+      <tags>
+        <tag>工具</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>redis 三主三从集群模式</title>
+    <url>/2021-08-10-redis%20%E4%B8%89%E4%B8%BB%E4%B8%89%E4%BB%8E%E9%9B%86%E7%BE%A4%E6%A8%A1%E5%BC%8F/</url>
+    <content><![CDATA[<h2 id="Redis-三主三从集群模式"><a href="#Redis-三主三从集群模式" class="headerlink" title="Redis 三主三从集群模式"></a><strong>Redis 三主三从集群模式</strong></h2><p>redis单机安装参照之前的 <a href="https://www.wangjialun.top/2021-08-03-centos7%20%E5%AE%89%E8%A3%85%20redis/">centos7安装redis</a> </p>
+<p>安装完成后在<code>redis.conf</code>修改配置</p>
+<figure class="highlight properties"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 开启集群模式</span></span><br><span class="line"><span class="meta">cluster-enabled</span> <span class="string">yes</span></span><br><span class="line"><span class="comment"># 每个集群节点都有一个集群配置文件。它是由Redis节点自动创建和更新的。每个Redis集群节点都需要一个不同的集群配置文件。</span></span><br><span class="line"><span class="comment"># 注：确保在同一系统中运行的实例没有重叠的集群配置文件名。集群的配置,配置文件首次启动自动生成。</span></span><br><span class="line"><span class="meta">cluster-config-file</span> <span class="string">nodes-6379.conf</span></span><br><span class="line"><span class="comment"># 超时时间，超时则认为master宕机，随后主备切换</span></span><br><span class="line"><span class="meta">cluster-node-timeout</span> <span class="string">5000</span></span><br><span class="line"><span class="comment"># 开启AOF</span></span><br><span class="line"><span class="attr">appendonly</span> <span class="string">yes</span></span><br></pre></td></tr></table></figure>
+
+<span id="more"></span>
+
+<p>启动6台redis节点,启动报错就删除清空rdb,appendonly等文件再试.</p>
+<p>创建集群(注意: <strong>redis3.</strong> *版本需要用<code>redis-trib.rb</code>构建集群, 之后版本不用)</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"># 创建集群，主节点和从节点比例为<span class="number">1</span>，<span class="number">1</span>-<span class="number">3</span>为主，<span class="number">4</span>-<span class="number">6</span>为从，<span class="number">1</span>和<span class="number">4</span>，<span class="number">2</span>和<span class="number">5</span>，<span class="number">3</span>和<span class="number">6</span>分别对应为主从关系</span><br><span class="line">redis-cli  --cluster create <span class="number">192.168</span><span class="number">.31</span><span class="number">.161</span>:<span class="number">6379</span> <span class="number">192.168</span><span class="number">.31</span><span class="number">.187</span>:<span class="number">6379</span> <span class="number">192.168</span><span class="number">.31</span><span class="number">.202</span>:<span class="number">6379</span> <span class="number">192.168</span><span class="number">.31</span><span class="number">.172</span>:<span class="number">6379</span> <span class="number">192.168</span><span class="number">.31</span><span class="number">.25</span>:<span class="number">6379</span> <span class="number">192.168</span><span class="number">.31</span><span class="number">.188</span>:<span class="number">6379</span> --cluster-replicas <span class="number">1</span></span><br></pre></td></tr></table></figure>
+
+<p>检查集群信息 (check任意一个节点)</p>
+<p><code>redis-cli --cluster check 192.168.31.161:6379 </code></p>
+<p>集群模式<code>redis-cli</code> 添加 -c -h -p 指令</p>
+<p><code>redis-cli -c  -h 192.168.31.161 -p 6379</code></p>
+<p>集群模式下的客户端命令</p>
+<figure class="highlight properties"><table><tr><td class="code"><pre><span class="line"><span class="attr">cluster</span> <span class="string">info ：打印集群的信息</span></span><br><span class="line"><span class="attr">cluster</span> <span class="string">nodes ：列出集群当前已知的所有节点（ node），以及这些节点的相关信息。</span></span><br><span class="line"></span><br><span class="line"><span class="attr">cluster</span> <span class="string">meet &lt;ip&gt; &lt;port&gt; ：将 ip 和 port 所指定的节点添加到集群当中，让它成为集群的一份子。</span></span><br><span class="line"><span class="attr">cluster</span> <span class="string">forget &lt;node_id&gt; ：从集群中移除 node_id 指定的节点。</span></span><br><span class="line"><span class="attr">cluster</span> <span class="string">replicate &lt;node_id&gt; ：将当前节点设置为 node_id 指定的节点的从节点。</span></span><br><span class="line"><span class="attr">cluster</span> <span class="string">saveconfig ：将节点的配置文件保存到硬盘里面。</span></span><br><span class="line"></span><br><span class="line"><span class="attr">cluster</span> <span class="string">addslots &lt;slot&gt; [slot ...] ：将一个或多个槽（ slot）指派（ assign）给当前节点。</span></span><br><span class="line"><span class="attr">cluster</span> <span class="string">delslots &lt;slot&gt; [slot ...] ：移除一个或多个槽对当前节点的指派。</span></span><br><span class="line"><span class="attr">cluster</span> <span class="string">flushslots ：移除指派给当前节点的所有槽，让当前节点变成一个没有指派任何槽的节点。</span></span><br><span class="line"><span class="attr">cluster</span> <span class="string">setslot &lt;slot&gt; node &lt;node_id&gt; ：将槽 slot 指派给 node_id 指定的节点，如果槽已经指派给另一个节点，那么先让另一个节点删除该槽&gt;，然后再进行指派。</span></span><br><span class="line"><span class="attr">cluster</span> <span class="string">setslot &lt;slot&gt; migrating &lt;node_id&gt; ：将本节点的槽 slot 迁移到 node_id 指定的节点中。</span></span><br><span class="line"><span class="attr">cluster</span> <span class="string">setslot &lt;slot&gt; importing &lt;node_id&gt; ：从 node_id 指定的节点中导入槽 slot 到本节点。</span></span><br><span class="line"><span class="attr">cluster</span> <span class="string">setslot &lt;slot&gt; stable ：取消对槽 slot 的导入（ import）或者迁移（ migrate）。</span></span><br><span class="line"></span><br><span class="line"><span class="attr">cluster</span> <span class="string">keyslot &lt;key&gt; ：计算键 key 应该被放置在哪个槽上。</span></span><br><span class="line"><span class="attr">cluster</span> <span class="string">countkeysinslot &lt;slot&gt; ：返回槽 slot 目前包含的键值对数量。</span></span><br><span class="line"><span class="attr">cluster</span> <span class="string">getkeysinslot &lt;slot&gt; &lt;count&gt; ：返回 count 个 slot 槽中的键</span></span><br></pre></td></tr></table></figure>
+
+]]></content>
+      <categories>
+        <category>redis</category>
+      </categories>
+      <tags>
+        <tag>redis</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>redis 主从复制（读写分离）</title>
     <url>/2021-08-07-redis%20%E4%B8%BB%E4%BB%8E%E5%A4%8D%E5%88%B6%EF%BC%88%E8%AF%BB%E5%86%99%E5%88%86%E7%A6%BB%EF%BC%89/</url>
     <content><![CDATA[<h1 id="redis-主从复制（读写分离）"><a href="#redis-主从复制（读写分离）" class="headerlink" title="redis 主从复制（读写分离）"></a><strong>redis 主从复制（读写分离）</strong></h1><ul>
@@ -1131,34 +1159,6 @@
       </tags>
   </entry>
   <entry>
-    <title>redis 三主三从集群模式</title>
-    <url>/2021-08-10-redis%20%E4%B8%89%E4%B8%BB%E4%B8%89%E4%BB%8E%E9%9B%86%E7%BE%A4%E6%A8%A1%E5%BC%8F/</url>
-    <content><![CDATA[<h2 id="Redis-三主三从集群模式"><a href="#Redis-三主三从集群模式" class="headerlink" title="Redis 三主三从集群模式"></a><strong>Redis 三主三从集群模式</strong></h2><p>redis单机安装参照之前的 <a href="https://www.wangjialun.top/2021-08-03-centos7%20%E5%AE%89%E8%A3%85%20redis/">centos7安装redis</a> </p>
-<p>安装完成后在<code>redis.conf</code>修改配置</p>
-<figure class="highlight properties"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 开启集群模式</span></span><br><span class="line"><span class="meta">cluster-enabled</span> <span class="string">yes</span></span><br><span class="line"><span class="comment"># 每个集群节点都有一个集群配置文件。它是由Redis节点自动创建和更新的。每个Redis集群节点都需要一个不同的集群配置文件。</span></span><br><span class="line"><span class="comment"># 注：确保在同一系统中运行的实例没有重叠的集群配置文件名。集群的配置,配置文件首次启动自动生成。</span></span><br><span class="line"><span class="meta">cluster-config-file</span> <span class="string">nodes-6379.conf</span></span><br><span class="line"><span class="comment"># 超时时间，超时则认为master宕机，随后主备切换</span></span><br><span class="line"><span class="meta">cluster-node-timeout</span> <span class="string">5000</span></span><br><span class="line"><span class="comment"># 开启AOF</span></span><br><span class="line"><span class="attr">appendonly</span> <span class="string">yes</span></span><br></pre></td></tr></table></figure>
-
-<span id="more"></span>
-
-<p>启动6台redis节点,启动报错就删除清空rdb,appendonly等文件再试.</p>
-<p>创建集群(注意: <strong>redis3.</strong> *版本需要用<code>redis-trib.rb</code>构建集群, 之后版本不用)</p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"># 创建集群，主节点和从节点比例为<span class="number">1</span>，<span class="number">1</span>-<span class="number">3</span>为主，<span class="number">4</span>-<span class="number">6</span>为从，<span class="number">1</span>和<span class="number">4</span>，<span class="number">2</span>和<span class="number">5</span>，<span class="number">3</span>和<span class="number">6</span>分别对应为主从关系</span><br><span class="line">redis-cli  --cluster create <span class="number">192.168</span><span class="number">.31</span><span class="number">.161</span>:<span class="number">6379</span> <span class="number">192.168</span><span class="number">.31</span><span class="number">.187</span>:<span class="number">6379</span> <span class="number">192.168</span><span class="number">.31</span><span class="number">.202</span>:<span class="number">6379</span> <span class="number">192.168</span><span class="number">.31</span><span class="number">.172</span>:<span class="number">6379</span> <span class="number">192.168</span><span class="number">.31</span><span class="number">.25</span>:<span class="number">6379</span> <span class="number">192.168</span><span class="number">.31</span><span class="number">.188</span>:<span class="number">6379</span> --cluster-replicas <span class="number">1</span></span><br></pre></td></tr></table></figure>
-
-<p>检查集群信息 (check任意一个节点)</p>
-<p><code>redis-cli --cluster check 192.168.31.161:6379 </code></p>
-<p>集群模式<code>redis-cli</code> 添加 -c -h -p 指令</p>
-<p><code>redis-cli -c  -h 192.168.31.161 -p 6379</code></p>
-<p>集群模式下的客户端命令</p>
-<figure class="highlight properties"><table><tr><td class="code"><pre><span class="line"><span class="attr">cluster</span> <span class="string">info ：打印集群的信息</span></span><br><span class="line"><span class="attr">cluster</span> <span class="string">nodes ：列出集群当前已知的所有节点（ node），以及这些节点的相关信息。</span></span><br><span class="line"></span><br><span class="line"><span class="attr">cluster</span> <span class="string">meet &lt;ip&gt; &lt;port&gt; ：将 ip 和 port 所指定的节点添加到集群当中，让它成为集群的一份子。</span></span><br><span class="line"><span class="attr">cluster</span> <span class="string">forget &lt;node_id&gt; ：从集群中移除 node_id 指定的节点。</span></span><br><span class="line"><span class="attr">cluster</span> <span class="string">replicate &lt;node_id&gt; ：将当前节点设置为 node_id 指定的节点的从节点。</span></span><br><span class="line"><span class="attr">cluster</span> <span class="string">saveconfig ：将节点的配置文件保存到硬盘里面。</span></span><br><span class="line"></span><br><span class="line"><span class="attr">cluster</span> <span class="string">addslots &lt;slot&gt; [slot ...] ：将一个或多个槽（ slot）指派（ assign）给当前节点。</span></span><br><span class="line"><span class="attr">cluster</span> <span class="string">delslots &lt;slot&gt; [slot ...] ：移除一个或多个槽对当前节点的指派。</span></span><br><span class="line"><span class="attr">cluster</span> <span class="string">flushslots ：移除指派给当前节点的所有槽，让当前节点变成一个没有指派任何槽的节点。</span></span><br><span class="line"><span class="attr">cluster</span> <span class="string">setslot &lt;slot&gt; node &lt;node_id&gt; ：将槽 slot 指派给 node_id 指定的节点，如果槽已经指派给另一个节点，那么先让另一个节点删除该槽&gt;，然后再进行指派。</span></span><br><span class="line"><span class="attr">cluster</span> <span class="string">setslot &lt;slot&gt; migrating &lt;node_id&gt; ：将本节点的槽 slot 迁移到 node_id 指定的节点中。</span></span><br><span class="line"><span class="attr">cluster</span> <span class="string">setslot &lt;slot&gt; importing &lt;node_id&gt; ：从 node_id 指定的节点中导入槽 slot 到本节点。</span></span><br><span class="line"><span class="attr">cluster</span> <span class="string">setslot &lt;slot&gt; stable ：取消对槽 slot 的导入（ import）或者迁移（ migrate）。</span></span><br><span class="line"></span><br><span class="line"><span class="attr">cluster</span> <span class="string">keyslot &lt;key&gt; ：计算键 key 应该被放置在哪个槽上。</span></span><br><span class="line"><span class="attr">cluster</span> <span class="string">countkeysinslot &lt;slot&gt; ：返回槽 slot 目前包含的键值对数量。</span></span><br><span class="line"><span class="attr">cluster</span> <span class="string">getkeysinslot &lt;slot&gt; &lt;count&gt; ：返回 count 个 slot 槽中的键</span></span><br></pre></td></tr></table></figure>
-
-]]></content>
-      <categories>
-        <category>redis</category>
-      </categories>
-      <tags>
-        <tag>redis</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>redis 哨兵机制实现</title>
     <url>/2021-08-10-redis%20%E5%93%A8%E5%85%B5%E6%9C%BA%E5%88%B6%E5%AE%9E%E7%8E%B0/</url>
     <content><![CDATA[<h2 id="Redis-哨兵-sentinel-模式实现"><a href="#Redis-哨兵-sentinel-模式实现" class="headerlink" title="Redis 哨兵(sentinel)模式实现"></a><strong>Redis 哨兵(sentinel)模式实现</strong></h2><p>之前搭建的<a href="https://www.wangjialun.top/2021-08-07-redis%20%E4%B8%BB%E4%BB%8E%E5%A4%8D%E5%88%B6%EF%BC%88%E8%AF%BB%E5%86%99%E5%88%86%E7%A6%BB%EF%BC%89/">主从复制(读写分离)</a>在主节点宕机后，从节点依然可以提供数据读，但是不能进行数据写操作。</p>
@@ -1179,33 +1179,6 @@
 <p>sentinel监测到了<code>master</code>节点的故障状态，并从<code>slave</code>节点中选举了一个新的<code>master</code>节点出来，</p>
 <p>通知其他的<code>slave</code>节点切换<code>master</code>节点。</p>
 <p>当之前故障的<code>master</code>恢复后，发现自己变成了<code>slave</code>节点。注意<code>info replication</code>可能会发现<code>master_link_status:down</code>显示主节点down的状态，是因为没有配置主节点密码导致。需要修改自己的<code>redis.conf</code>中的<code>masterauth</code></p>
-]]></content>
-      <categories>
-        <category>redis</category>
-      </categories>
-      <tags>
-        <tag>redis</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>redis 缓存过期处理与内存淘汰机制</title>
-    <url>/2021-08-10-redis%20%E7%BC%93%E5%AD%98%E8%BF%87%E6%9C%9F%E5%A4%84%E7%90%86%E4%B8%8E%E5%86%85%E5%AD%98%E6%B7%98%E6%B1%B0%E6%9C%BA%E5%88%B6/</url>
-    <content><![CDATA[<h2 id="Redis-缓存过期处理与内存淘汰机制"><a href="#Redis-缓存过期处理与内存淘汰机制" class="headerlink" title="Redis 缓存过期处理与内存淘汰机制"></a><strong>Redis 缓存过期处理与内存淘汰机制</strong></h2><h3 id="缓存过期处理"><a href="#缓存过期处理" class="headerlink" title="缓存过期处理"></a>缓存过期处理</h3><ul>
-<li><p>（主动）定时删除</p>
-<p>定时随机的检查过期的key，如果过期则清理删除。</p>
-<figure class="highlight properties"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 默认每秒钟10次，把这个设置的越大意味着占用的CPU也就越多</span></span><br><span class="line"><span class="attr">hz</span> <span class="string">10</span></span><br></pre></td></tr></table></figure></li>
-<li><p>（被动）惰性删除</p>
-<p>当客户端请求一个已经过期的key的时候，那么redis会检查这个key是否过期，如果过期了，则删除，然后返回一个nil。这种策略对 CPU 比较友好，不会有太多的损耗，但是内存占用会比较高。</p>
-</li>
-</ul>
-<span id="more"></span>
-
-<h3 id="内存淘汰机制"><a href="#内存淘汰机制" class="headerlink" title="内存淘汰机制"></a>内存淘汰机制</h3><ul>
-<li><p>maxmemory ：当内存已使用率到达配置值，则开始清理缓存</p>
-<p>如果没有设置maxmemory，将导致Redis在达到堆限制时以内存不足异常终止。</p>
-<p>在设置了maxmemory之后，当内存使用达到maxmemory时，Redis将使用maxmemory-policy指定的策略对缓存进行删除。</p>
-   <figure class="highlight properties"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 当内存已使用值达到 maxmemory，开始清理缓存 </span></span><br><span class="line"><span class="comment"># 单位：bytes（字节），123000000Byte ≈ 117.3M</span></span><br><span class="line"><span class="attr">maxmemory</span> <span class="string">123000000</span></span><br><span class="line">  </span><br><span class="line"><span class="meta">maxmemory-policy</span> <span class="string">缓存淘汰策略值枚举：</span></span><br><span class="line"><span class="comment">  </span></span><br><span class="line"><span class="comment"># volatile开头的策略针对设置了过期时间的key</span></span><br><span class="line"><span class="comment"># allkeys开头的策略针对内存中所有的key</span></span><br><span class="line"><span class="comment">  </span></span><br><span class="line"><span class="comment"># noeviction：旧缓存永不过期，新缓存设置不了，返回错误</span></span><br><span class="line"><span class="comment"># allkeys-lru：清除最少用的旧缓存，然后保存新的缓存（推荐使用）</span></span><br><span class="line"><span class="comment"># allkeys-random：在所有的缓存中随机删除（不推荐）</span></span><br><span class="line"><span class="comment"># volatile-lru：在那些设置了expire过期时间的缓存中，清除最少用的旧缓存，然后保存新的缓存</span></span><br><span class="line"><span class="comment"># volatile-random：在那些设置了expire过期时间的缓存中，随机删除缓存</span></span><br><span class="line"><span class="meta">*</span> <span class="string">volatile-ttl：在那些设置了expire过期时间的缓存中，删除即将过期的</span></span><br></pre></td></tr></table></figure></li>
-</ul>
 ]]></content>
       <categories>
         <category>redis</category>
@@ -1273,6 +1246,33 @@
 <li>如果只用redis做缓存的话，可以把持久化关闭</li>
 <li>如果实际场景可以接受 丢失一段缓存可以试用RDB模式，不能则使用AOF</li>
 <li>如果要使用redis持久化，且数据很重要的话。可以RDB和AOF同时开启</li>
+</ul>
+]]></content>
+      <categories>
+        <category>redis</category>
+      </categories>
+      <tags>
+        <tag>redis</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>redis 缓存过期处理与内存淘汰机制</title>
+    <url>/2021-08-10-redis%20%E7%BC%93%E5%AD%98%E8%BF%87%E6%9C%9F%E5%A4%84%E7%90%86%E4%B8%8E%E5%86%85%E5%AD%98%E6%B7%98%E6%B1%B0%E6%9C%BA%E5%88%B6/</url>
+    <content><![CDATA[<h2 id="Redis-缓存过期处理与内存淘汰机制"><a href="#Redis-缓存过期处理与内存淘汰机制" class="headerlink" title="Redis 缓存过期处理与内存淘汰机制"></a><strong>Redis 缓存过期处理与内存淘汰机制</strong></h2><h3 id="缓存过期处理"><a href="#缓存过期处理" class="headerlink" title="缓存过期处理"></a>缓存过期处理</h3><ul>
+<li><p>（主动）定时删除</p>
+<p>定时随机的检查过期的key，如果过期则清理删除。</p>
+<figure class="highlight properties"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 默认每秒钟10次，把这个设置的越大意味着占用的CPU也就越多</span></span><br><span class="line"><span class="attr">hz</span> <span class="string">10</span></span><br></pre></td></tr></table></figure></li>
+<li><p>（被动）惰性删除</p>
+<p>当客户端请求一个已经过期的key的时候，那么redis会检查这个key是否过期，如果过期了，则删除，然后返回一个nil。这种策略对 CPU 比较友好，不会有太多的损耗，但是内存占用会比较高。</p>
+</li>
+</ul>
+<span id="more"></span>
+
+<h3 id="内存淘汰机制"><a href="#内存淘汰机制" class="headerlink" title="内存淘汰机制"></a>内存淘汰机制</h3><ul>
+<li><p>maxmemory ：当内存已使用率到达配置值，则开始清理缓存</p>
+<p>如果没有设置maxmemory，将导致Redis在达到堆限制时以内存不足异常终止。</p>
+<p>在设置了maxmemory之后，当内存使用达到maxmemory时，Redis将使用maxmemory-policy指定的策略对缓存进行删除。</p>
+   <figure class="highlight properties"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 当内存已使用值达到 maxmemory，开始清理缓存 </span></span><br><span class="line"><span class="comment"># 单位：bytes（字节），123000000Byte ≈ 117.3M</span></span><br><span class="line"><span class="attr">maxmemory</span> <span class="string">123000000</span></span><br><span class="line">  </span><br><span class="line"><span class="meta">maxmemory-policy</span> <span class="string">缓存淘汰策略值枚举：</span></span><br><span class="line"><span class="comment">  </span></span><br><span class="line"><span class="comment"># volatile开头的策略针对设置了过期时间的key</span></span><br><span class="line"><span class="comment"># allkeys开头的策略针对内存中所有的key</span></span><br><span class="line"><span class="comment">  </span></span><br><span class="line"><span class="comment"># noeviction：旧缓存永不过期，新缓存设置不了，返回错误</span></span><br><span class="line"><span class="comment"># allkeys-lru：清除最少用的旧缓存，然后保存新的缓存（推荐使用）</span></span><br><span class="line"><span class="comment"># allkeys-random：在所有的缓存中随机删除（不推荐）</span></span><br><span class="line"><span class="comment"># volatile-lru：在那些设置了expire过期时间的缓存中，清除最少用的旧缓存，然后保存新的缓存</span></span><br><span class="line"><span class="comment"># volatile-random：在那些设置了expire过期时间的缓存中，随机删除缓存</span></span><br><span class="line"><span class="meta">*</span> <span class="string">volatile-ttl：在那些设置了expire过期时间的缓存中，删除即将过期的</span></span><br></pre></td></tr></table></figure></li>
 </ul>
 ]]></content>
       <categories>
@@ -1520,6 +1520,30 @@
       </tags>
   </entry>
   <entry>
+    <title>no sapjco3 in java.library.path</title>
+    <url>/2021-09-29-sap%20%E9%97%AE%E9%A2%98%E8%AE%B0%E5%BD%95%20no%20sapjco3%20in%20java.library.path/</url>
+    <content><![CDATA[<h3 id="问题记录-no-sapjco3-in-java-library-path"><a href="#问题记录-no-sapjco3-in-java-library-path" class="headerlink" title="问题记录: no sapjco3 in java.library.path"></a>问题记录: no sapjco3 in java.library.path</h3><p>对接厂家的SAP系统, 部署至linux环境时报下面的错误日志, 查了缺libsapjco3.so包</p>
+<p>对应包下载地址 <code>链接：https://pan.baidu.com/s/1YO0ZJq4J_SL9dI8VyuDsBg 提取码：8888</code></p>
+<p>查了很多帖子是放在tomcat里, 现在springboot直接jar跑不方便加进去, 下面是配置到环境变量中</p>
+<ul>
+<li><p>错误日志</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line">java.lang.UnsatisfiedLinkError: no sapjco3 in java.library.path</span><br><span class="line">	at java.lang.ClassLoader.loadLibrary(ClassLoader.java:<span class="number">1886</span>)</span><br><span class="line">	at java.lang.Runtime.loadLibrary0(Runtime.java:<span class="number">849</span>)</span><br><span class="line">	at java.lang.System.loadLibrary(System.java:<span class="number">1088</span>)</span><br><span class="line">	at com.sap.conn.jco.rt.DefaultJCoRuntime.loadLibrary(DefaultJCoRuntime.java:<span class="number">441</span>)</span><br><span class="line">	at com.sap.conn.jco.rt.DefaultJCoRuntime.registerNativeMethods(DefaultJCoRuntime.java:<span class="number">307</span>)</span><br><span class="line">	at com.sap.conn.jco.rt.JCoRuntime.registerNatives(JCoRuntime.java:<span class="number">969</span>)</span><br><span class="line">	at com.sap.conn.rfc.driver.CpicDriver.&lt;clinit&gt;(CpicDriver.java:<span class="number">955</span>)</span><br><span class="line">	at com.sap.conn.rfc.engine.DefaultRfcRuntime.getVersion(DefaultRfcRuntime.java:<span class="number">43</span>)</span><br><span class="line">	at com.sap.conn.rfc.api.RfcApi.RfcGetVersion(RfcApi.java:<span class="number">261</span>)</span><br><span class="line">	at com.sap.conn.jco.rt.MiddlewareJavaRfc.&lt;clinit&gt;(MiddlewareJavaRfc.java:<span class="number">200</span>)</span><br><span class="line">	at com.sap.conn.jco.rt.DefaultJCoRuntime.initialize(DefaultJCoRuntime.java:<span class="number">73</span>)</span><br><span class="line">	at com.sap.conn.jco.rt.JCoRuntimeFactory.&lt;clinit&gt;(JCoRuntimeFactory.java:<span class="number">23</span>)</span><br><span class="line">	at java.lang.Class.forName0(Native Method)</span><br><span class="line">	at java.lang.Class.forName(Class.java:<span class="number">191</span>)</span><br><span class="line">	at com.sap.conn.jco.JCo.createJCo(JCo.java:<span class="number">52</span>)</span><br><span class="line">	at com.sap.conn.jco.JCo.&lt;clinit&gt;(JCo.java:<span class="number">26</span>)</span><br><span class="line">	at com.sap.conn.jco.JCoDestinationManager.getDestination(JCoDestinationManager.java:<span class="number">61</span>)</span><br><span class="line">	at com.changhong.vmi.admin.xfire.jco.SrmSapJCo.getGoodsPlan(SrmSapJCo.java:<span class="number">79</span>)</span><br></pre></td></tr></table></figure></li>
+</ul>
+<p>​    <span id="more"></span></p>
+<ul>
+<li><p>解决方案</p>
+<p>将<code>sapjco3.jar</code>和<code>libsapjco3.so</code>上传到服务器上, 配置 /etc/profile</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash">java environment</span></span><br><span class="line">export JAVA_HOME=/usr/local/jdk/jdk1.8.0_181</span><br><span class="line">export CLASSPATH=.:$&#123;JAVA_HOME&#125;/jre/lib/rt.jar:$&#123;JAVA_HOME&#125;/lib/dt.jar:$&#123;JAVA_HOME&#125;/lib/tools.jar:$&#123;JAVA_HOME&#125;/lib/sapjco3.jar</span><br><span class="line">export PATH=$PATH:$&#123;JAVA_HOME&#125;/bin</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> 我把libsapjco3.so上传到这个路径下了</span></span><br><span class="line">export LD_LIBRARY_PATH=/usr/local/jdk/jdk1.8.0_181/jre/lib/amd64/server</span><br></pre></td></tr></table></figure></li>
+</ul>
+]]></content>
+      <categories>
+        <category>sap</category>
+      </categories>
+      <tags>
+        <tag>sap</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>URL请求流程和ip addr解读</title>
     <url>/2019-07-11-url%E8%AF%B7%E6%B1%82%E6%B5%81%E7%A8%8B%E4%BB%A5%E5%8F%8Aipaddr%E8%A7%A3%E8%AF%BB/</url>
     <content><![CDATA[<h2 id="发起一次URL请求流程"><a href="#发起一次URL请求流程" class="headerlink" title="发起一次URL请求流程"></a>发起一次URL请求流程</h2><ol>
@@ -1620,6 +1644,18 @@ inet 172.16.12.178/18 brd 172.16.63.255 scope global dynamic eth0
 </li>
 </ul>
 ]]></content>
+  </entry>
+  <entry>
+    <title>分布式限流</title>
+    <url>/2022-02-20-%E5%88%86%E5%B8%83%E5%BC%8F%E9%99%90%E6%B5%81/</url>
+    <content><![CDATA[<p>[TOC]</p>
+<h1 id="分布式限流"><a href="#分布式限流" class="headerlink" title="分布式限流"></a>分布式限流</h1><h2 id="Guava-RateLimiter-客户端限流"><a href="#Guava-RateLimiter-客户端限流" class="headerlink" title="Guava RateLimiter 客户端限流"></a>Guava RateLimiter 客户端限流</h2><h2 id="基于Nginx的IP限流"><a href="#基于Nginx的IP限流" class="headerlink" title="基于Nginx的IP限流"></a>基于Nginx的IP限流</h2><h2 id="基于Nginx的连接数限制"><a href="#基于Nginx的连接数限制" class="headerlink" title="基于Nginx的连接数限制"></a>基于Nginx的连接数限制</h2>]]></content>
+      <categories>
+        <category>分布式限流</category>
+      </categories>
+      <tags>
+        <tag>分布式限流</tag>
+      </tags>
   </entry>
   <entry>
     <title>MariaDB</title>
@@ -2083,42 +2119,6 @@ step[Step] --- iterWriter[Item Writer]</pre>
       </categories>
       <tags>
         <tag>docker</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>no sapjco3 in java.library.path</title>
-    <url>/2021-09-29-sap%20%E9%97%AE%E9%A2%98%E8%AE%B0%E5%BD%95%20no%20sapjco3%20in%20java.library.path/</url>
-    <content><![CDATA[<h3 id="问题记录-no-sapjco3-in-java-library-path"><a href="#问题记录-no-sapjco3-in-java-library-path" class="headerlink" title="问题记录: no sapjco3 in java.library.path"></a>问题记录: no sapjco3 in java.library.path</h3><p>对接厂家的SAP系统, 部署至linux环境时报下面的错误日志, 查了缺libsapjco3.so包</p>
-<p>对应包下载地址 <code>链接：https://pan.baidu.com/s/1YO0ZJq4J_SL9dI8VyuDsBg 提取码：8888</code></p>
-<p>查了很多帖子是放在tomcat里, 现在springboot直接jar跑不方便加进去, 下面是配置到环境变量中</p>
-<ul>
-<li><p>错误日志</p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line">java.lang.UnsatisfiedLinkError: no sapjco3 in java.library.path</span><br><span class="line">	at java.lang.ClassLoader.loadLibrary(ClassLoader.java:<span class="number">1886</span>)</span><br><span class="line">	at java.lang.Runtime.loadLibrary0(Runtime.java:<span class="number">849</span>)</span><br><span class="line">	at java.lang.System.loadLibrary(System.java:<span class="number">1088</span>)</span><br><span class="line">	at com.sap.conn.jco.rt.DefaultJCoRuntime.loadLibrary(DefaultJCoRuntime.java:<span class="number">441</span>)</span><br><span class="line">	at com.sap.conn.jco.rt.DefaultJCoRuntime.registerNativeMethods(DefaultJCoRuntime.java:<span class="number">307</span>)</span><br><span class="line">	at com.sap.conn.jco.rt.JCoRuntime.registerNatives(JCoRuntime.java:<span class="number">969</span>)</span><br><span class="line">	at com.sap.conn.rfc.driver.CpicDriver.&lt;clinit&gt;(CpicDriver.java:<span class="number">955</span>)</span><br><span class="line">	at com.sap.conn.rfc.engine.DefaultRfcRuntime.getVersion(DefaultRfcRuntime.java:<span class="number">43</span>)</span><br><span class="line">	at com.sap.conn.rfc.api.RfcApi.RfcGetVersion(RfcApi.java:<span class="number">261</span>)</span><br><span class="line">	at com.sap.conn.jco.rt.MiddlewareJavaRfc.&lt;clinit&gt;(MiddlewareJavaRfc.java:<span class="number">200</span>)</span><br><span class="line">	at com.sap.conn.jco.rt.DefaultJCoRuntime.initialize(DefaultJCoRuntime.java:<span class="number">73</span>)</span><br><span class="line">	at com.sap.conn.jco.rt.JCoRuntimeFactory.&lt;clinit&gt;(JCoRuntimeFactory.java:<span class="number">23</span>)</span><br><span class="line">	at java.lang.Class.forName0(Native Method)</span><br><span class="line">	at java.lang.Class.forName(Class.java:<span class="number">191</span>)</span><br><span class="line">	at com.sap.conn.jco.JCo.createJCo(JCo.java:<span class="number">52</span>)</span><br><span class="line">	at com.sap.conn.jco.JCo.&lt;clinit&gt;(JCo.java:<span class="number">26</span>)</span><br><span class="line">	at com.sap.conn.jco.JCoDestinationManager.getDestination(JCoDestinationManager.java:<span class="number">61</span>)</span><br><span class="line">	at com.changhong.vmi.admin.xfire.jco.SrmSapJCo.getGoodsPlan(SrmSapJCo.java:<span class="number">79</span>)</span><br></pre></td></tr></table></figure></li>
-</ul>
-<p>​    <span id="more"></span></p>
-<ul>
-<li><p>解决方案</p>
-<p>将<code>sapjco3.jar</code>和<code>libsapjco3.so</code>上传到服务器上, 配置 /etc/profile</p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash">java environment</span></span><br><span class="line">export JAVA_HOME=/usr/local/jdk/jdk1.8.0_181</span><br><span class="line">export CLASSPATH=.:$&#123;JAVA_HOME&#125;/jre/lib/rt.jar:$&#123;JAVA_HOME&#125;/lib/dt.jar:$&#123;JAVA_HOME&#125;/lib/tools.jar:$&#123;JAVA_HOME&#125;/lib/sapjco3.jar</span><br><span class="line">export PATH=$PATH:$&#123;JAVA_HOME&#125;/bin</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> 我把libsapjco3.so上传到这个路径下了</span></span><br><span class="line">export LD_LIBRARY_PATH=/usr/local/jdk/jdk1.8.0_181/jre/lib/amd64/server</span><br></pre></td></tr></table></figure></li>
-</ul>
-]]></content>
-      <categories>
-        <category>sap</category>
-      </categories>
-      <tags>
-        <tag>sap</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>分布式限流</title>
-    <url>/2022-02-20-%E5%88%86%E5%B8%83%E5%BC%8F%E9%99%90%E6%B5%81/</url>
-    <content><![CDATA[<p>[TOC]</p>
-<h1 id="分布式限流"><a href="#分布式限流" class="headerlink" title="分布式限流"></a>分布式限流</h1><h2 id="Guava-RateLimiter-客户端限流"><a href="#Guava-RateLimiter-客户端限流" class="headerlink" title="Guava RateLimiter 客户端限流"></a>Guava RateLimiter 客户端限流</h2><h2 id="基于Nginx的IP限流"><a href="#基于Nginx的IP限流" class="headerlink" title="基于Nginx的IP限流"></a>基于Nginx的IP限流</h2><h2 id="基于Nginx的连接数限制"><a href="#基于Nginx的连接数限制" class="headerlink" title="基于Nginx的连接数限制"></a>基于Nginx的连接数限制</h2>]]></content>
-      <categories>
-        <category>分布式限流</category>
-      </categories>
-      <tags>
-        <tag>分布式限流</tag>
       </tags>
   </entry>
 </search>
