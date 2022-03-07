@@ -182,6 +182,576 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://www.wangjialun.top/2022-03-07-%E8%B4%9F%E8%BD%BD%E5%9D%87%E8%A1%A1/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/author.jpg">
+      <meta itemprop="name" content="wangJiaLun">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="wangJiaLun-go">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2022-03-07-%E8%B4%9F%E8%BD%BD%E5%9D%87%E8%A1%A1/" class="post-title-link" itemprop="url">负载均衡</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+			
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2022-03-07 13:51:52" itemprop="dateCreated datePublished" datetime="2022-03-07T13:51:52+08:00">2022-03-07</time>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://www.wangjialun.top/2022-03-03-eureka-%E6%9C%8D%E5%8A%A1%E5%BF%83%E8%B7%B3%E6%A3%80%E6%B5%8B%E5%92%8C%E5%81%A5%E5%BA%B7%E5%BA%A6%E6%A3%80%E6%9F%A5/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/author.jpg">
+      <meta itemprop="name" content="wangJiaLun">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="wangJiaLun-go">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2022-03-03-eureka-%E6%9C%8D%E5%8A%A1%E5%BF%83%E8%B7%B3%E6%A3%80%E6%B5%8B%E5%92%8C%E5%81%A5%E5%BA%B7%E5%BA%A6%E6%A3%80%E6%9F%A5/" class="post-title-link" itemprop="url">eureka 服务心跳检测和健康度检查</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+			
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2022-03-03 14:07:11 / 修改时间：14:16:43" itemprop="dateCreated datePublished" datetime="2022-03-03T14:07:11+08:00">2022-03-03</time>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h3 id="自我保护机制"><a href="#自我保护机制" class="headerlink" title="自我保护机制"></a>自我保护机制</h3><p>当EurekaServer与EurekaClient网络不通的情况下，EurekaServer不会将EurekaClient服务剔除。</p>
+<p>通过一个场景来了解一下：</p>
+<p>有两个服务：用户服务app-user、订单服务app-order，用户服务做了集群，有两台机器，分别是8010和8011</p>
+<p><img src="https://gitee.com/wangjialun-china/drawing-bed/raw/master/picture/202203031408226.png" alt="img"></p>
+<p>现在order使用负载均衡的轮询机制，调用user的接口，可以看到是8010和8011轮询访问的。</p>
+<p><img src="https://gitee.com/wangjialun-china/drawing-bed/raw/master/picture/202203031409602.gif" alt="img"></p>
+<p> 那如果现在8010这台服务宕机了，会是什么情况？</p>
+<p>​    <img src="https://gitee.com/wangjialun-china/drawing-bed/raw/master/picture/202203031409047.gif" alt="img"></p>
+<p>当访问8010的时候，就报错了，我们再看一下Eureka的注册列表，宕机的8010还在列表之中</p>
+<p><img src="https://gitee.com/wangjialun-china/drawing-bed/raw/master/picture/202203031409093.png" alt="img"></p>
+<p>自我保护机制说明：</p>
+<p><img src="https://gitee.com/wangjialun-china/drawing-bed/raw/master/picture/202203031409414.png" alt="img"></p>
+<p>默认情况下，“EurekaClient客户端”会定时（默认5秒）向“EurekaServer注册中心”发送心跳包，就是说EurekaClient会定时向EurekaServer发送一个请求，如果EurekaServer能收到，就知道当前这个EurekaClient是存活状态。</p>
+<p>如果EurekaServer在一定时间内（一般默认是90秒），没有收到EurekaClient发送的心跳包，就会从服务列表中剔除该服务。但是如果在短时间内丢失了大量服务实例的心跳，这时候EurekaServer就会开启自我保护机制，不会剔除服务。</p>
+<h4 id="在什么环境下开启自我保护机制？"><a href="#在什么环境下开启自我保护机制？" class="headerlink" title="在什么环境下开启自我保护机制？"></a>在什么环境下开启自我保护机制？</h4><ul>
+<li><p>本地环境<br>建议关闭自我保护机制。因为在本地开发环境中，EurekaServer端相对来说重启频率不高，但是在EurekaClient端，可能改动代码之后需要重启，频率相对来说比较高；那么EurekaClient端重启之后就不会及时去向EurekaServer端发送心跳包，EurekaServer端就会认为是网络延迟或者其他原因，不会剔除服务，这样的话就会影响开发效率。</p>
+</li>
+<li><p>生产环境<br>建议开启自我保护机制。因为生产环境不会频繁重启服务器，并且EurekaClient端与EurekaServer端存在网络延迟的几率较高，所以需要开启自我保护机制避免误删服务。</p>
+</li>
+</ul>
+<h4 id="如何关闭自我保护机制？"><a href="#如何关闭自我保护机制？" class="headerlink" title="如何关闭自我保护机制？"></a>如何关闭自我保护机制？</h4><ul>
+<li>在EurekaServer端的yml配置文件中加入如下配置：</li>
+</ul>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">eureka:</span></span><br><span class="line">  <span class="attr">server:</span></span><br><span class="line">    <span class="comment"># 服务自保机制，默认开启</span></span><br><span class="line">    <span class="attr">enable-self-preservation:</span> <span class="literal">true</span></span><br><span class="line">    <span class="comment"># 每隔多久触发一次服务剔除（单位ms毫秒）</span></span><br><span class="line">    <span class="attr">eviction-interval-timer-in-ms:</span> <span class="number">10000</span></span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><p>然后再在EurekaClient端的yml配置文件中添加如下配置：</p>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">eureka:</span></span><br><span class="line">  <span class="attr">client:</span></span><br><span class="line">    <span class="attr">service-url:</span></span><br><span class="line">      <span class="attr">defaultZone:</span> <span class="string">http://localhost:20000/eureka/</span></span><br><span class="line">  <span class="attr">instance:</span></span><br><span class="line">    <span class="comment"># 每间隔5秒钟，向服务中心发送一条续约指令</span></span><br><span class="line">    <span class="comment"># 心跳检测与续约时间（开发环境可以将值设小一点，保证服务关闭后注册中心能及时剔除）</span></span><br><span class="line">    <span class="attr">lease-expiration-duration-in-seconds:</span> <span class="number">5</span></span><br><span class="line">    <span class="comment"># 如果30秒内，依然没有收到续约请求，判断服务过期</span></span><br><span class="line">    <span class="attr">lease-renewal-interval-in-seconds:</span> <span class="number">30</span></span><br></pre></td></tr></table></figure></li>
+</ul>
+<p>同样还是用之前的例子，把服务都打开，看一下注册列表： </p>
+<p><img src="https://gitee.com/wangjialun-china/drawing-bed/raw/master/picture/202203031413961.png" alt="img"></p>
+<p>user有两台，然后现在把8011这台服务关了，再刷新一下，8011就被剔除了。</p>
+<p><img src="https://gitee.com/wangjialun-china/drawing-bed/raw/master/picture/202203031413046.png" alt="img"></p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://www.wangjialun.top/2022-03-03-eureka%20%E6%9C%8D%E5%8A%A1%E6%B3%A8%E5%86%8C%E5%8F%91%E7%8E%B0%E4%BB%A5%E5%8F%8A%E6%9C%8D%E5%8A%A1%E8%B0%83%E7%94%A8/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/author.jpg">
+      <meta itemprop="name" content="wangJiaLun">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="wangJiaLun-go">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2022-03-03-eureka%20%E6%9C%8D%E5%8A%A1%E6%B3%A8%E5%86%8C%E5%8F%91%E7%8E%B0%E4%BB%A5%E5%8F%8A%E6%9C%8D%E5%8A%A1%E8%B0%83%E7%94%A8/" class="post-title-link" itemprop="url">eureka 服务注册发现以及服务调用</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+			
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2022-03-03 13:38:14 / 修改时间：14:05:58" itemprop="dateCreated datePublished" datetime="2022-03-03T13:38:14+08:00">2022-03-03</time>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h3 id="搭建服务提供者"><a href="#搭建服务提供者" class="headerlink" title="搭建服务提供者"></a>搭建服务提供者</h3><ul>
+<li><p>新建maven项目配置pom</p>
+<p>引入eureka客户端</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">dependencies</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springframework.cloud<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-cloud-starter-netflix-eureka-client<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springframework.boot<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-boot-starter-web<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependencies</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>配置yml</p>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">spring:</span></span><br><span class="line">  <span class="attr">application:</span></span><br><span class="line">    <span class="attr">name:</span> <span class="string">eureka-client</span></span><br><span class="line"><span class="attr">server:</span></span><br><span class="line">  <span class="attr">port:</span> <span class="number">20001</span></span><br><span class="line"><span class="attr">eureka:</span></span><br><span class="line">  <span class="attr">client:</span></span><br><span class="line">    <span class="attr">service-url:</span></span><br><span class="line">      <span class="attr">defaultZone:</span> <span class="string">http://localhost:20000/eureka/</span></span><br></pre></td></tr></table></figure>
+
+<p>配置启动类</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@SpringBootApplication</span></span><br><span class="line"><span class="meta">@EnableDiscoveryClient</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">EurekaClientApplication</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">new</span> SpringApplicationBuilder(EurekaClientApplication.class)</span><br><span class="line">                .web(WebApplicationType.SERVLET)</span><br><span class="line">                .run(args);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>编写一个测试接口服务</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Slf4j</span></span><br><span class="line"><span class="meta">@RestController</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Controller</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Value(&quot;$&#123;server.port&#125;&quot;)</span></span><br><span class="line">    <span class="keyword">private</span> String port;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@GetMapping(&quot;/sayHi&quot;)</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">sayHi</span><span class="params">()</span></span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="string">&quot;This is &quot;</span> + port;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+</ul>
+<h3 id="搭建服务调用者"><a href="#搭建服务调用者" class="headerlink" title="搭建服务调用者"></a>搭建服务调用者</h3><ul>
+<li><p>新建maven项目配置pom</p>
+<p>引入eureka客户端</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">dependencies</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springframework.cloud<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-cloud-starter-netflix-eureka-client<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springframework.boot<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-boot-starter-web<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependencies</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>配置yml</p>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">spring:</span></span><br><span class="line">  <span class="attr">application:</span></span><br><span class="line">    <span class="attr">name:</span> <span class="string">eureka-consumer</span></span><br><span class="line"><span class="attr">server:</span></span><br><span class="line">  <span class="attr">port:</span> <span class="number">20002</span></span><br><span class="line"><span class="attr">eureka:</span></span><br><span class="line">  <span class="attr">client:</span></span><br><span class="line">    <span class="attr">service-url:</span></span><br><span class="line">      <span class="attr">defaultZone:</span> <span class="string">http://localhost:20000/eureka/</span></span><br></pre></td></tr></table></figure>
+
+<p>配置启动类</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@SpringBootApplication</span></span><br><span class="line"><span class="meta">@EnableDiscoveryClient</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">EurekaConsumerApplication</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">new</span> SpringApplicationBuilder(EurekaConsumerApplication.class)</span><br><span class="line">                .web(WebApplicationType.SERVLET)</span><br><span class="line">                .run(args);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>编写一个调用测试接口服务</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@RestController</span></span><br><span class="line"><span class="meta">@Slf4j</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Controller</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Autowired</span></span><br><span class="line">    <span class="keyword">private</span> LoadBalancerClient client;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Autowired</span></span><br><span class="line">    <span class="keyword">private</span> RestTemplate restTemplate;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@GetMapping(&quot;/hello&quot;)</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">hello</span><span class="params">()</span></span>&#123;</span><br><span class="line">        <span class="comment">// eureka-client是服务提供项目里面配置的application.name</span></span><br><span class="line">        ServiceInstance instance = client.choose(<span class="string">&quot;eureka-client&quot;</span>);</span><br><span class="line">        <span class="keyword">if</span> (<span class="keyword">null</span> == instance) &#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="string">&quot;no available instance&quot;</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        String target = String.format(<span class="string">&quot;http://%s:%s/sayHi&quot;</span>, instance.getHost(), instance.getPort());</span><br><span class="line">        log.info(<span class="string">&quot;url is &#123;&#125;&quot;</span>,target);</span><br><span class="line">        <span class="keyword">return</span> restTemplate.getForObject(target, String.class);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+</ul>
+<p>测试通过访问localhost:20002/hello可以获取到服务提供项目中sayHi接口的返回结果</p>
+<p>项目地址：<a target="_blank" rel="noopener" href="https://github.com/wangJiaLun-china/spring-cloud-demo/tree/master/eureka">https://github.com/wangJiaLun-china/spring-cloud-demo/tree/master/eureka</a></p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://www.wangjialun.top/2022-03-03-eureka%20%E6%9C%8D%E5%8A%A1%E6%90%AD%E5%BB%BA%E4%BB%A5%E5%8F%8A%E7%95%8C%E9%9D%A2%E8%A7%A3%E8%AF%BB/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/author.jpg">
+      <meta itemprop="name" content="wangJiaLun">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="wangJiaLun-go">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2022-03-03-eureka%20%E6%9C%8D%E5%8A%A1%E6%90%AD%E5%BB%BA%E4%BB%A5%E5%8F%8A%E7%95%8C%E9%9D%A2%E8%A7%A3%E8%AF%BB/" class="post-title-link" itemprop="url">eureka 服务搭建以及界面解读</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+			
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2022-03-03 09:59:34 / 修改时间：14:05:35" itemprop="dateCreated datePublished" datetime="2022-03-03T09:59:34+08:00">2022-03-03</time>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h3 id="单机版eureka服务搭建以及界面解读"><a href="#单机版eureka服务搭建以及界面解读" class="headerlink" title="单机版eureka服务搭建以及界面解读"></a>单机版eureka服务搭建以及界面解读</h3><ul>
+<li><p>创建复合maven工程</p>
+<p>父项目配置pom文件</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">project</span> <span class="attr">xmlns</span>=<span class="string">&quot;http://maven.apache.org/POM/4.0.0&quot;</span></span></span><br><span class="line"><span class="tag">         <span class="attr">xmlns:xsi</span>=<span class="string">&quot;http://www.w3.org/2001/XMLSchema-instance&quot;</span></span></span><br><span class="line"><span class="tag">         <span class="attr">xsi:schemaLocation</span>=<span class="string">&quot;http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd&quot;</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">modelVersion</span>&gt;</span>4.0.0<span class="tag">&lt;/<span class="name">modelVersion</span>&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.wjl<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-cloud-demo<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">packaging</span>&gt;</span>pom<span class="tag">&lt;/<span class="name">packaging</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">version</span>&gt;</span>1.0-SNAPSHOT<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">modules</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">modules</span>&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="tag">&lt;<span class="name">properties</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">maven.compiler.source</span>&gt;</span>8<span class="tag">&lt;/<span class="name">maven.compiler.source</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">maven.compiler.target</span>&gt;</span>8<span class="tag">&lt;/<span class="name">maven.compiler.target</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">properties</span>&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="tag">&lt;<span class="name">dependencyManagement</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">dependencies</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springframework.cloud<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-cloud-dependencies<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">version</span>&gt;</span>Greenwich.SR1<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">type</span>&gt;</span>pom<span class="tag">&lt;/<span class="name">type</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">scope</span>&gt;</span>import<span class="tag">&lt;/<span class="name">scope</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line"></span><br><span class="line">            <span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springframework.boot<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-boot-starter-parent<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">version</span>&gt;</span>2.1.5.RELEASE<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">dependencies</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">dependencyManagement</span>&gt;</span></span><br><span class="line"></span><br><span class="line">        <span class="tag">&lt;<span class="name">dependencies</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.projectlombok<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>lombok<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">version</span>&gt;</span>1.18.22<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">dependencies</span>&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="tag">&lt;<span class="name">build</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">plugins</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">plugin</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.apache.maven.plugins<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>maven-compiler-plugin<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">version</span>&gt;</span>3.6.0<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">configuration</span>&gt;</span></span><br><span class="line">                    <span class="tag">&lt;<span class="name">source</span>&gt;</span>1.8<span class="tag">&lt;/<span class="name">source</span>&gt;</span></span><br><span class="line">                    <span class="tag">&lt;<span class="name">target</span>&gt;</span>1.8<span class="tag">&lt;/<span class="name">target</span>&gt;</span></span><br><span class="line">                    <span class="tag">&lt;<span class="name">encoding</span>&gt;</span>UTF-8<span class="tag">&lt;/<span class="name">encoding</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;/<span class="name">configuration</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;/<span class="name">plugin</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">plugins</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">build</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">project</span>&gt;</span></span><br></pre></td></tr></table></figure></li>
+<li><p>新建maven模块工程</p>
+<p>配置pom文件</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">project</span> <span class="attr">xmlns</span>=<span class="string">&quot;http://maven.apache.org/POM/4.0.0&quot;</span></span></span><br><span class="line"><span class="tag">         <span class="attr">xmlns:xsi</span>=<span class="string">&quot;http://www.w3.org/2001/XMLSchema-instance&quot;</span></span></span><br><span class="line"><span class="tag">         <span class="attr">xsi:schemaLocation</span>=<span class="string">&quot;http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd&quot;</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">parent</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.wjl<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-cloud-demo<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">version</span>&gt;</span>1.0-SNAPSHOT<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">parent</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">modelVersion</span>&gt;</span>4.0.0<span class="tag">&lt;/<span class="name">modelVersion</span>&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>eureka-server<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="tag">&lt;<span class="name">properties</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">maven.compiler.source</span>&gt;</span>8<span class="tag">&lt;/<span class="name">maven.compiler.source</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">maven.compiler.target</span>&gt;</span>8<span class="tag">&lt;/<span class="name">maven.compiler.target</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">properties</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">packaging</span>&gt;</span>jar<span class="tag">&lt;/<span class="name">packaging</span>&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="tag">&lt;<span class="name">dependencies</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springframework.cloud<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-cloud-starter-netflix-eureka-server<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">dependencies</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;/<span class="name">project</span>&gt;</span></span><br></pre></td></tr></table></figure></li>
+<li><p>创建SpringBootApplication启动类</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@SpringBootApplication</span></span><br><span class="line"><span class="meta">@EnableEurekaServer</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">EurekaServerApplication</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">new</span> SpringApplicationBuilder(EurekaServerApplication.class)</span><br><span class="line">                .web(WebApplicationType.SERVLET)</span><br><span class="line">                .run(args);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+<li><p>配置resoures下配置文件</p>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">spring:</span></span><br><span class="line">  <span class="attr">application:</span></span><br><span class="line">    <span class="attr">name:</span> <span class="string">eureka-server</span></span><br><span class="line"><span class="attr">server:</span></span><br><span class="line">  <span class="attr">port:</span> <span class="number">20000</span></span><br><span class="line"><span class="attr">eureka:</span></span><br><span class="line">  <span class="attr">instance:</span></span><br><span class="line">    <span class="attr">hostname:</span> <span class="string">localhost</span></span><br><span class="line">  <span class="attr">client:</span></span><br><span class="line">    <span class="comment">#是否将自己注册到Eureka-Server中，默认的为true</span></span><br><span class="line">    <span class="attr">register-with-eureka:</span> <span class="literal">false</span></span><br><span class="line">    <span class="comment">#是否从Eureka-Server中获取服务注册信息，默认为true</span></span><br><span class="line">    <span class="attr">fetch-registry:</span> <span class="literal">false</span></span><br></pre></td></tr></table></figure></li>
+<li><p>启动项目访问对应端口</p>
+<p><img src="https://gitee.com/wangjialun-china/drawing-bed/raw/master/picture/202203031023605.png" alt="无标题"></p>
+</li>
+</ul>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://www.wangjialun.top/2022-03-02-%E6%9C%8D%E5%8A%A1%E6%B2%BB%E7%90%86%E7%9A%84%E6%8A%80%E6%9C%AF%E9%80%89%E5%9E%8B/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/author.jpg">
+      <meta itemprop="name" content="wangJiaLun">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="wangJiaLun-go">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2022-03-02-%E6%9C%8D%E5%8A%A1%E6%B2%BB%E7%90%86%E7%9A%84%E6%8A%80%E6%9C%AF%E9%80%89%E5%9E%8B/" class="post-title-link" itemprop="url">服务治理的技术选型</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+			
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2022-03-02 17:26:10" itemprop="dateCreated datePublished" datetime="2022-03-02T17:26:10+08:00">2022-03-02</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2022-03-07 13:52:44" itemprop="dateModified" datetime="2022-03-07T13:52:44+08:00">2022-03-07</time>
+              </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h3 id="分布式系统CAP定理"><a href="#分布式系统CAP定理" class="headerlink" title="分布式系统CAP定理"></a>分布式系统CAP定理</h3><p><strong>分布式系统协议只能在CAP这三者间有所折中。</strong></p>
+<ul>
+<li><p><strong>Consistenct</strong> (强一致性）也称原子一致性/线性一致性</p>
+<p>在任意时刻，更新操作成功并返回客户端完成后，所有节点在同一时间的数据完全一致。</p>
+<ul>
+<li><p>强一致性</p>
+</li>
+<li><p>顺序一致性</p>
+<ul>
+<li>任何一次读都能读到某个数据的最近一次写的数据。</li>
+<li>系统的所有进程的顺序一致，而且是合理的。即不需要和全局时钟下的顺序一致，错的话一起错，对的话一起对。</li>
+</ul>
+</li>
+<li><p>弱一致性</p>
+<ul>
+<li><p>系统中的某个数据被更新后，后续对该数据的读取操作可能得到更新后的值，也可能是更改前的值。</p>
+</li>
+<li><p>但即使过了“不一致时间窗口”这段时间后，后续对该数据的读取也不一定是最新的值。</p>
+</li>
+<li><p>所以说，可以理解为数据更新后，如果能容忍后续的访问只能访问到部分或者全部访问不到，则是弱一致性。</p>
+</li>
+</ul>
+</li>
+<li><p>最终一致性</p>
+<ul>
+<li>是弱一致性的特殊形式，存储系统保证在没有新的更新的条件下，最终所有的访问都是最后更新的值。</li>
+<li>不保证在任意时刻任意节点上的同一份数据都是相同的，但是随着时间的迁移，不同节点上的同一份数据总是在向趋同的方向变化。</li>
+<li>简单说，就是在一段时间后，节点间的数据会最终达到一致状态。</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p><strong>Availiablity</strong>（高可用性）</p>
+<p>服务一直可用，而且是正常响应时间。</p>
+<p>系统再出现异常时仍然可用提供服务。</p>
+<p>通用衡量标准是宕机时间的比例。</p>
+</li>
+<li><p><strong>Partition tolerance</strong>（分区容错性）</p>
+<p>系统可以对网络分区这种异常情况进行容错处理。</p>
+</li>
+</ul>
+<h3 id="服务治理组件对比"><a href="#服务治理组件对比" class="headerlink" title="服务治理组件对比"></a>服务治理组件对比</h3><table>
+<thead>
+<tr>
+<th></th>
+<th>EureKa</th>
+<th>Consul</th>
+<th>Nacos</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>一致性</td>
+<td>弱一致性（AP）</td>
+<td>弱一致性（AP）</td>
+<td>AP/CP</td>
+</tr>
+<tr>
+<td>性能</td>
+<td>快</td>
+<td>慢（RAFT协议Leader选举）</td>
+<td>快</td>
+</tr>
+<tr>
+<td>访问协议</td>
+<td>HTTP</td>
+<td>HTTP/DNS</td>
+<td>HTTP/DNS/UDP</td>
+</tr>
+</tbody></table>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://www.wangjialun.top/2022-03-01-%E5%BE%AE%E6%9C%8D%E5%8A%A1%E5%88%A9%E4%B8%8E%E5%BC%8A%E7%9A%84%E6%80%9D%E8%80%83/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/author.jpg">
+      <meta itemprop="name" content="wangJiaLun">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="wangJiaLun-go">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2022-03-01-%E5%BE%AE%E6%9C%8D%E5%8A%A1%E5%88%A9%E4%B8%8E%E5%BC%8A%E7%9A%84%E6%80%9D%E8%80%83/" class="post-title-link" itemprop="url">微服务利与弊的思考</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+			
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2022-03-01 17:26:10" itemprop="dateCreated datePublished" datetime="2022-03-01T17:26:10+08:00">2022-03-01</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2022-03-07 13:52:56" itemprop="dateModified" datetime="2022-03-07T13:52:56+08:00">2022-03-07</time>
+              </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>[TOC]</p>
+<h2 id="优点"><a href="#优点" class="headerlink" title="优点"></a>优点</h2><ul>
+<li><p>快速响应变更</p>
+<ul>
+<li>单一职责</li>
+<li>独立部署</li>
+</ul>
+</li>
+<li><p>独立拓展</p>
+<ul>
+<li>边界清晰</li>
+<li>不过度受制于技术栈</li>
+</ul>
+</li>
+<li><p> 精细粒度业务控制</p>
+</li>
+<li><p>降级熔断</p>
+</li>
+<li><p>局部限流</p>
+</li>
+<li><p> 面向业务/领域模型</p>
+</li>
+<li><p>不依赖数据模型</p>
+</li>
+<li><p>易于抽象</p>
+</li>
+</ul>
+<h2 id="缺点"><a href="#缺点" class="headerlink" title="缺点"></a>缺点</h2><ul>
+<li>部署结构复杂<ul>
+<li>模块众多</li>
+<li>额外组件</li>
+</ul>
+</li>
+<li>依赖平台支撑<ul>
+<li>依赖微服务组件</li>
+<li>研发成本</li>
+</ul>
+</li>
+<li>分布式问题<ul>
+<li>一致性</li>
+<li>异常补偿</li>
+</ul>
+</li>
+<li>拆分的水平<ul>
+<li>粒度过粗/过细</li>
+</ul>
+</li>
+</ul>
+<h2 id="采不采用微服务"><a href="#采不采用微服务" class="headerlink" title="采不采用微服务"></a>采不采用微服务</h2><ul>
+<li>业务规模 （成本收益）</li>
+<li>预期迭代的次数以及需要的效率</li>
+<li>研发团队配置</li>
+<li>业务领域 （服务如何拆分以及粒度）<ul>
+<li>业务架构</li>
+<li>领域模型</li>
+</ul>
+</li>
+</ul>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
     <link itemprop="mainEntityOfPage" href="http://www.wangjialun.top/2022-02-20-%E5%88%86%E5%B8%83%E5%BC%8F%E9%99%90%E6%B5%81/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -520,543 +1090,10 @@
   
   
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://www.wangjialun.top/2021-08-23-centos7%E5%AE%89%E8%A3%85%20fastFDS/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/author.jpg">
-      <meta itemprop="name" content="wangJiaLun">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="wangJiaLun-go">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2021-08-23-centos7%E5%AE%89%E8%A3%85%20fastFDS/" class="post-title-link" itemprop="url">centos7 安装fastDFS</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-			
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2021-08-23 14:12:31" itemprop="dateCreated datePublished" datetime="2021-08-23T14:12:31+08:00">2021-08-23</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2022-02-10 17:15:34" itemprop="dateModified" datetime="2022-02-10T17:15:34+08:00">2022-02-10</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/fastFDS/" itemprop="url" rel="index"><span itemprop="name">fastFDS</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h2 id="centos7-安装fastDFS"><a href="#centos7-安装fastDFS" class="headerlink" title="centos7 安装fastDFS"></a><strong>centos7 安装fastDFS</strong></h2><ul>
-<li><p>安装gcc</p>
-<p><code>yum install -y gcc gcc-c++</code></p>
-</li>
-<li><p>安装libevent</p>
-<p><code>yum -y install libevent</code></p>
-</li>
-<li><p>安装libfastcommon</p>
-<p>libfastcommon是官方提供的FastDFS运行依赖的库 <a target="_blank" rel="noopener" href="https://github.com/happyfish100/libfastcommon/tags">点此下载</a></p>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/2021-08-23-centos7%E5%AE%89%E8%A3%85%20fastFDS/#more" rel="contents">
-                阅读全文 &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://www.wangjialun.top/2021-08-20-%E5%9F%BA%E4%BA%8Elogstash%E5%90%8C%E6%AD%A5mysql%E6%95%B0%E6%8D%AE%E5%88%B0elasticsearch/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/author.jpg">
-      <meta itemprop="name" content="wangJiaLun">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="wangJiaLun-go">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2021-08-20-%E5%9F%BA%E4%BA%8Elogstash%E5%90%8C%E6%AD%A5mysql%E6%95%B0%E6%8D%AE%E5%88%B0elasticsearch/" class="post-title-link" itemprop="url">基于logstash同步mysql数据到elasticsearch</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-			
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2021-08-20 11:22:31" itemprop="dateCreated datePublished" datetime="2021-08-20T11:22:31+08:00">2021-08-20</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2022-03-02 18:06:29" itemprop="dateModified" datetime="2022-03-02T18:06:29+08:00">2022-03-02</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/elasticsearch/" itemprop="url" rel="index"><span itemprop="name">elasticsearch</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h2 id="基于logstash同步mysql数据到elasticsearch"><a href="#基于logstash同步mysql数据到elasticsearch" class="headerlink" title="基于logstash同步mysql数据到elasticsearch"></a><strong>基于logstash同步mysql数据到elasticsearch</strong></h2><ul>
-<li><p>去官网<a target="_blank" rel="noopener" href="https://www.elastic.co/cn/downloads/past-releases#logstash%E4%B8%8B%E8%BD%BD%E4%B8%8Eelasticsearch%E5%90%8C%E7%89%88%E6%9C%AC%E7%9A%84%E5%AE%89%E8%A3%85%E5%8C%85">https://www.elastic.co/cn/downloads/past-releases#logstash下载与elasticsearch同版本的安装包</a></p>
-<p>wget <a target="_blank" rel="noopener" href="https://artifacts.elastic.co/downloads/logstash/logstash-6.4.3.tar.gz">https://artifacts.elastic.co/downloads/logstash/logstash-6.4.3.tar.gz</a></p>
-</li>
-</ul>
-<ul>
-<li><p>解压 <code>tar -zxvf logstash-6.4.3.tar.gz </code></p>
-</li>
-<li><p>下载一个mysql驱动包<code>mysql-connector-java-5.1.41.jar</code>可以从本地maven库上传</p>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/2021-08-20-%E5%9F%BA%E4%BA%8Elogstash%E5%90%8C%E6%AD%A5mysql%E6%95%B0%E6%8D%AE%E5%88%B0elasticsearch/#more" rel="contents">
-                阅读全文 &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://www.wangjialun.top/2021-08-18-word%E8%BD%ACpdf%E7%9A%84%E5%87%A0%E7%A7%8D%E6%96%B9%E6%B3%95/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/author.jpg">
-      <meta itemprop="name" content="wangJiaLun">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="wangJiaLun-go">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2021-08-18-word%E8%BD%ACpdf%E7%9A%84%E5%87%A0%E7%A7%8D%E6%96%B9%E6%B3%95/" class="post-title-link" itemprop="url">word转pdf的几种方法</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-			
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2021-08-18 13:37:01" itemprop="dateCreated datePublished" datetime="2021-08-18T13:37:01+08:00">2021-08-18</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2021-08-26 13:52:34" itemprop="dateModified" datetime="2021-08-26T13:52:34+08:00">2021-08-26</time>
-              </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h3 id="word转pdf的几种方法"><a href="#word转pdf的几种方法" class="headerlink" title="word转pdf的几种方法"></a>word转pdf的几种方法</h3><p>需求是实现将word转换成pdf在线预览, 试了几种方法发现样式效果最好的是<code>aspose-words</code>,但是需要破解, 附带了激活码</p>
-<ul>
-<li><h3 id="openOffice-与-libreOffice"><a href="#openOffice-与-libreOffice" class="headerlink" title="openOffice 与 libreOffice"></a>openOffice 与 libreOffice</h3><p>两款都是运行在服务器上面的office处理软件, 通过命令行的方式去执行转换命令</p>
-<ul>
-<li><a target="_blank" rel="noopener" href="https://www.openoffice.org/download/index.html">openOffice下载地址</a> </li>
-<li><a target="_blank" rel="noopener" href="https://zh-cn.libreoffice.org/download/libreoffice/">libreOffice下载地址</a></li>
-</ul>
-<p>下载安装好之后需要在代码中引入jodconverter相关jar包依赖(jodconverter.zip解压后lib下的都需要引入)</p>
-<p>相关软件及jar下载链接：<a target="_blank" rel="noopener" href="https://pan.baidu.com/s/1u0U5jYYAjWRYO7mL5ilD8Q">https://pan.baidu.com/s/1u0U5jYYAjWRYO7mL5ilD8Q</a>  提取码：8888 </p>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/2021-08-18-word%E8%BD%ACpdf%E7%9A%84%E5%87%A0%E7%A7%8D%E6%96%B9%E6%B3%95/#more" rel="contents">
-                阅读全文 &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://www.wangjialun.top/2021-08-17-centos7%E5%AE%89%E8%A3%85%20elasticsearch/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/author.jpg">
-      <meta itemprop="name" content="wangJiaLun">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="wangJiaLun-go">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2021-08-17-centos7%E5%AE%89%E8%A3%85%20elasticsearch/" class="post-title-link" itemprop="url">centos7安装elasticsearch</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-			
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2021-08-17 14:22:51" itemprop="dateCreated datePublished" datetime="2021-08-17T14:22:51+08:00">2021-08-17</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2021-08-20 11:17:46" itemprop="dateModified" datetime="2021-08-20T11:17:46+08:00">2021-08-20</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/elasticsearch/" itemprop="url" rel="index"><span itemprop="name">elasticsearch</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h2 id="centos7安装elasticsearch"><a href="#centos7安装elasticsearch" class="headerlink" title="centos7安装elasticsearch"></a><strong>centos7安装elasticsearch</strong></h2><ul>
-<li><p>去官网<a target="_blank" rel="noopener" href="https://www.elastic.co/cn/downloads/past-releases%E4%B8%8B%E8%BD%BD%E5%AF%B9%E5%BA%94%E7%9A%84%E5%AE%89%E8%A3%85%E5%8C%85%E5%8C%85">https://www.elastic.co/cn/downloads/past-releases下载对应的安装包包</a></p>
-<p>wget <a target="_blank" rel="noopener" href="https://artifacts.elastic.co/downloads/elasticsearch/elasticsearch-6.4.3.tar.gz">https://artifacts.elastic.co/downloads/elasticsearch/elasticsearch-6.4.3.tar.gz</a></p>
-</li>
-</ul>
-<ul>
-<li><p>解压 <code>tar -zxvf elasticsearch-6.4.3.tar.gz </code></p>
-</li>
-<li><p>修改配置文件,默认不支持远程连接</p>
-<figure class="highlight properties"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">cluster.name</span>: <span class="string">es6</span></span><br><span class="line"><span class="meta">node.name</span>: <span class="string">node0</span></span><br><span class="line"><span class="meta">path.data</span>: <span class="string">/usr/local/elasticsearch-6.4.3/data</span></span><br><span class="line"><span class="meta">path.logs</span>: <span class="string">/usr/local/elasticsearch-6.4.3/logs</span></span><br><span class="line"><span class="meta">network.host</span>: <span class="string">0.0.0.0</span></span><br></pre></td></tr></table></figure></li>
-<li><p>ElasticSearch 可以接收脚本执行,默认不支持root用户启动</p>
-<ul>
-<li>添加专门用户<code>useradd elastic</code></li>
-<li>修改解压后elasticsearch文件夹所属用户<code>chown -R elastic:elastic elasticsearch-6.4.3</code></li>
-<li>切换用户<code>su elsearch</code>后台启动<code>./elasticsearch -d</code></li>
-</ul>
-</li>
-<li><p>启动后会占用两个端口</p>
-<ul>
-<li>9200 是ES节点与外部通讯使用的端口, 是http协议的RESTful接口.</li>
-<li>9300 是ES节点之间通讯使用的端口, 是tcp通讯端口，集群间和TCPclient都走的9300。（java程序中使用ES时，在配置文件中要配置该端口）</li>
-</ul>
-</li>
-</ul>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/2021-08-17-centos7%E5%AE%89%E8%A3%85%20elasticsearch/#more" rel="contents">
-                阅读全文 &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://www.wangjialun.top/2021-08-13-%E8%A7%A3%E5%86%B3%E5%85%AC%E7%BD%91ip%E7%BB%8F%E5%B8%B8%E5%8F%98%E5%8A%A8/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/author.jpg">
-      <meta itemprop="name" content="wangJiaLun">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="wangJiaLun-go">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2021-08-13-%E8%A7%A3%E5%86%B3%E5%85%AC%E7%BD%91ip%E7%BB%8F%E5%B8%B8%E5%8F%98%E5%8A%A8/" class="post-title-link" itemprop="url">解决公网ip经常变动</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-			
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2021-08-13 13:37:01" itemprop="dateCreated datePublished" datetime="2021-08-13T13:37:01+08:00">2021-08-13</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2021-08-11 13:59:12" itemprop="dateModified" datetime="2021-08-11T13:59:12+08:00">2021-08-11</time>
-              </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h2 id="解决公网ip经常变动"><a href="#解决公网ip经常变动" class="headerlink" title="解决公网ip经常变动"></a>解决公网ip经常变动</h2><h3 id="问题"><a href="#问题" class="headerlink" title="问题"></a>问题</h3><p>​    家里申请了电信的公网ip, 但是如果停电或者重新拨号都会导致这个ip变更.很多配置好的应用都需要重新配置ip地址太麻烦了</p>
-<h3 id="思考"><a href="#思考" class="headerlink" title="思考"></a>思考</h3><ul>
-<li><p>现成的产品类似花生壳这些内网穿透都要收费, 我已有公网ip感觉不划算</p>
-</li>
-<li><p>想到了域名配置dns解析, 应用里面都配置域名代替ip地址.每次ip变了我只需要去改一下域名的dns解析就可以了</p>
-<p>但是还会有问题, 每次都需要手动改一下, 并且还必须得连上家里网才能知道最新的公网ip</p>
-</li>
-<li><p>查了阿里云/腾讯云/华为云等等dns解析都对外提供了<code>api</code>文档, 思路是写个定时脚本获取到公网ip再与阿里云上的解析记录做比对,</p>
-<p>阿里云解析记录不是当前的公网ip的话, 更新阿里云的解析记录</p>
-</li>
-</ul>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/2021-08-13-%E8%A7%A3%E5%86%B3%E5%85%AC%E7%BD%91ip%E7%BB%8F%E5%B8%B8%E5%8F%98%E5%8A%A8/#more" rel="contents">
-                阅读全文 &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://www.wangjialun.top/2021-08-10-redis%20%E4%B8%89%E4%B8%BB%E4%B8%89%E4%BB%8E%E9%9B%86%E7%BE%A4%E6%A8%A1%E5%BC%8F/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/author.jpg">
-      <meta itemprop="name" content="wangJiaLun">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="wangJiaLun-go">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2021-08-10-redis%20%E4%B8%89%E4%B8%BB%E4%B8%89%E4%BB%8E%E9%9B%86%E7%BE%A4%E6%A8%A1%E5%BC%8F/" class="post-title-link" itemprop="url">redis 三主三从集群模式</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-			
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2021-08-10 16:22:51" itemprop="dateCreated datePublished" datetime="2021-08-10T16:22:51+08:00">2021-08-10</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2021-08-11 10:18:44" itemprop="dateModified" datetime="2021-08-11T10:18:44+08:00">2021-08-11</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/redis/" itemprop="url" rel="index"><span itemprop="name">redis</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h2 id="Redis-三主三从集群模式"><a href="#Redis-三主三从集群模式" class="headerlink" title="Redis 三主三从集群模式"></a><strong>Redis 三主三从集群模式</strong></h2><p>redis单机安装参照之前的 <a href="https://www.wangjialun.top/2021-08-03-centos7%20%E5%AE%89%E8%A3%85%20redis/">centos7安装redis</a> </p>
-<p>安装完成后在<code>redis.conf</code>修改配置</p>
-<figure class="highlight properties"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 开启集群模式</span></span><br><span class="line"><span class="meta">cluster-enabled</span> <span class="string">yes</span></span><br><span class="line"><span class="comment"># 每个集群节点都有一个集群配置文件。它是由Redis节点自动创建和更新的。每个Redis集群节点都需要一个不同的集群配置文件。</span></span><br><span class="line"><span class="comment"># 注：确保在同一系统中运行的实例没有重叠的集群配置文件名。集群的配置,配置文件首次启动自动生成。</span></span><br><span class="line"><span class="meta">cluster-config-file</span> <span class="string">nodes-6379.conf</span></span><br><span class="line"><span class="comment"># 超时时间，超时则认为master宕机，随后主备切换</span></span><br><span class="line"><span class="meta">cluster-node-timeout</span> <span class="string">5000</span></span><br><span class="line"><span class="comment"># 开启AOF</span></span><br><span class="line"><span class="attr">appendonly</span> <span class="string">yes</span></span><br></pre></td></tr></table></figure>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/2021-08-10-redis%20%E4%B8%89%E4%B8%BB%E4%B8%89%E4%BB%8E%E9%9B%86%E7%BE%A4%E6%A8%A1%E5%BC%8F/#more" rel="contents">
-                阅读全文 &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
 
   
   <nav class="pagination">
-    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="page-number" href="/page/3/">3</a><a class="extend next" rel="next" href="/page/2/"><i class="fa fa-angle-right" aria-label="下一页"></i></a>
+    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><span class="space">&hellip;</span><a class="page-number" href="/page/4/">4</a><a class="extend next" rel="next" href="/page/2/"><i class="fa fa-angle-right" aria-label="下一页"></i></a>
   </nav>
 
 
@@ -1123,7 +1160,7 @@
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
           <a href="/archives">
-          <span class="site-state-item-count">27</span>
+          <span class="site-state-item-count">33</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -1136,7 +1173,7 @@
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">12</span>
+        <span class="site-state-item-count">13</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>
@@ -1159,28 +1196,28 @@
     </div>
     <ul class="links-of-recent-posts-list">
         <li class="links-of-recent-posts-item">
+          <a href="/2022-03-07-%E8%B4%9F%E8%BD%BD%E5%9D%87%E8%A1%A1/" title="2022-03-07-负载均衡&#x2F;">负载均衡</a>
+        </li>
+        <li class="links-of-recent-posts-item">
+          <a href="/2022-03-03-eureka-%E6%9C%8D%E5%8A%A1%E5%BF%83%E8%B7%B3%E6%A3%80%E6%B5%8B%E5%92%8C%E5%81%A5%E5%BA%B7%E5%BA%A6%E6%A3%80%E6%9F%A5/" title="2022-03-03-eureka-服务心跳检测和健康度检查&#x2F;">eureka 服务心跳检测和健康度检查</a>
+        </li>
+        <li class="links-of-recent-posts-item">
+          <a href="/2022-03-03-eureka%20%E6%9C%8D%E5%8A%A1%E6%B3%A8%E5%86%8C%E5%8F%91%E7%8E%B0%E4%BB%A5%E5%8F%8A%E6%9C%8D%E5%8A%A1%E8%B0%83%E7%94%A8/" title="2022-03-03-eureka 服务注册发现以及服务调用&#x2F;">eureka 服务注册发现以及服务调用</a>
+        </li>
+        <li class="links-of-recent-posts-item">
+          <a href="/2022-03-03-eureka%20%E6%9C%8D%E5%8A%A1%E6%90%AD%E5%BB%BA%E4%BB%A5%E5%8F%8A%E7%95%8C%E9%9D%A2%E8%A7%A3%E8%AF%BB/" title="2022-03-03-eureka 服务搭建以及界面解读&#x2F;">eureka 服务搭建以及界面解读</a>
+        </li>
+        <li class="links-of-recent-posts-item">
+          <a href="/2022-03-02-%E6%9C%8D%E5%8A%A1%E6%B2%BB%E7%90%86%E7%9A%84%E6%8A%80%E6%9C%AF%E9%80%89%E5%9E%8B/" title="2022-03-02-服务治理的技术选型&#x2F;">服务治理的技术选型</a>
+        </li>
+        <li class="links-of-recent-posts-item">
+          <a href="/2022-03-01-%E5%BE%AE%E6%9C%8D%E5%8A%A1%E5%88%A9%E4%B8%8E%E5%BC%8A%E7%9A%84%E6%80%9D%E8%80%83/" title="2022-03-01-微服务利与弊的思考&#x2F;">微服务利与弊的思考</a>
+        </li>
+        <li class="links-of-recent-posts-item">
           <a href="/2022-02-20-%E5%88%86%E5%B8%83%E5%BC%8F%E9%99%90%E6%B5%81/" title="2022-02-20-分布式限流&#x2F;">分布式限流</a>
         </li>
         <li class="links-of-recent-posts-item">
           <a href="/2021-09-29-sap%20%E9%97%AE%E9%A2%98%E8%AE%B0%E5%BD%95%20no%20sapjco3%20in%20java.library.path/" title="2021-09-29-sap 问题记录 no sapjco3 in java.library.path&#x2F;">no sapjco3 in java.library.path</a>
-        </li>
-        <li class="links-of-recent-posts-item">
-          <a href="/2021-09-02-centos7%E5%AE%89%E8%A3%85rabbitMQ/" title="2021-09-02-centos7安装rabbitMQ&#x2F;">centos7安装rabbitMQ</a>
-        </li>
-        <li class="links-of-recent-posts-item">
-          <a href="/2021-08-26-fastDFS%E9%85%8D%E7%BD%AEnginx%E8%AE%BF%E9%97%AE/" title="2021-08-26-fastDFS配置nginx访问&#x2F;">fastDFS配置nginx访问</a>
-        </li>
-        <li class="links-of-recent-posts-item">
-          <a href="/2021-08-23-centos7%E5%AE%89%E8%A3%85%20fastFDS/" title="2021-08-23-centos7安装 fastFDS&#x2F;">centos7 安装fastDFS</a>
-        </li>
-        <li class="links-of-recent-posts-item">
-          <a href="/2021-08-20-%E5%9F%BA%E4%BA%8Elogstash%E5%90%8C%E6%AD%A5mysql%E6%95%B0%E6%8D%AE%E5%88%B0elasticsearch/" title="2021-08-20-基于logstash同步mysql数据到elasticsearch&#x2F;">基于logstash同步mysql数据到elasticsearch</a>
-        </li>
-        <li class="links-of-recent-posts-item">
-          <a href="/2021-08-18-word%E8%BD%ACpdf%E7%9A%84%E5%87%A0%E7%A7%8D%E6%96%B9%E6%B3%95/" title="2021-08-18-word转pdf的几种方法&#x2F;">word转pdf的几种方法</a>
-        </li>
-        <li class="links-of-recent-posts-item">
-          <a href="/2021-08-17-centos7%E5%AE%89%E8%A3%85%20elasticsearch/" title="2021-08-17-centos7安装 elasticsearch&#x2F;">centos7安装elasticsearch</a>
         </li>
     </ul>
   </div>
