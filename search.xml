@@ -309,7 +309,7 @@
 
 <ul>
 <li><p>rabbitMQ命令</p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> 启动服务</span></span><br><span class="line">systemctl start rabbitmq-server</span><br><span class="line"><span class="meta">#</span><span class="bash"> 查看状态</span></span><br><span class="line">systemctl status rabbitmq-server</span><br><span class="line"><span class="meta">#</span><span class="bash"> 停止服务</span></span><br><span class="line">systemctl stop rabbitmq-server</span><br><span class="line"><span class="meta">#</span><span class="bash"> 设置开机启动</span></span><br><span class="line">systemctl enable rabbitmq-server</span><br><span class="line"><span class="meta">#</span><span class="bash"> 开启web管理插件, web默认访问端口是15672</span></span><br><span class="line">rabbitmq-plugins enable rabbitmq_management</span><br><span class="line"><span class="meta">#</span><span class="bash"> rabbitmq有一个默认的guest用户，但只能通过localhost访问，所以需要添加一个能够远程访问的用户。</span></span><br><span class="line"><span class="meta">#</span><span class="bash"> 添加用户</span></span><br><span class="line">rabbitmqctl add_user admin 123456</span><br><span class="line"><span class="meta">#</span><span class="bash"> 为用户分配操作权限</span></span><br><span class="line">rabbitmqctl set_user_tags admin administrator</span><br><span class="line"><span class="meta">#</span><span class="bash"> 为用户分配权限</span></span><br><span class="line">rabbitmqctl set_permissions -p / admin &quot;&quot;.&quot; &quot;.&quot;&quot; &quot;.*”</span><br></pre></td></tr></table></figure></li>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> 启动服务</span></span><br><span class="line">systemctl start rabbitmq-server</span><br><span class="line"><span class="meta">#</span><span class="bash"> 查看状态</span></span><br><span class="line">systemctl status rabbitmq-server</span><br><span class="line"><span class="meta">#</span><span class="bash"> 停止服务</span></span><br><span class="line">systemctl stop rabbitmq-server</span><br><span class="line"><span class="meta">#</span><span class="bash"> 设置开机启动</span></span><br><span class="line">systemctl enable rabbitmq-server</span><br><span class="line"><span class="meta">#</span><span class="bash"> 开启web管理插件, web默认访问端口是15672</span></span><br><span class="line">rabbitmq-plugins enable rabbitmq_management</span><br><span class="line"><span class="meta">#</span><span class="bash"> rabbitmq有一个默认的guest用户，但只能通过localhost访问，所以需要添加一个能够远程访问的用户。</span></span><br><span class="line"><span class="meta">#</span><span class="bash"> 添加用户</span></span><br><span class="line">rabbitmqctl add_user admin 123456</span><br><span class="line"><span class="meta">#</span><span class="bash"> 为用户分配操作权限</span></span><br><span class="line">rabbitmqctl set_user_tags admin administrator</span><br><span class="line"><span class="meta">#</span><span class="bash"> 为用户分配权限</span></span><br><span class="line">rabbitmqctl set_permissions -p / admin &quot;.&quot; &quot;.&quot; &quot;.*&quot;</span><br></pre></td></tr></table></figure></li>
 </ul>
 ]]></content>
       <categories>
@@ -2127,6 +2127,8 @@ step[Step] --- iterWriter[Item Writer]</pre>
     <content><![CDATA[<h3 id="单机版eureka服务搭建以及界面解读"><a href="#单机版eureka服务搭建以及界面解读" class="headerlink" title="单机版eureka服务搭建以及界面解读"></a>单机版eureka服务搭建以及界面解读</h3><ul>
 <li><p>创建复合maven工程</p>
 <p>父项目配置pom文件</p>
+<span id="more"></span>
+
 <figure class="highlight xml"><table><tr><td class="code"><pre><span class="line"><span class="meta">&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">project</span> <span class="attr">xmlns</span>=<span class="string">&quot;http://maven.apache.org/POM/4.0.0&quot;</span></span></span><br><span class="line"><span class="tag">         <span class="attr">xmlns:xsi</span>=<span class="string">&quot;http://www.w3.org/2001/XMLSchema-instance&quot;</span></span></span><br><span class="line"><span class="tag">         <span class="attr">xsi:schemaLocation</span>=<span class="string">&quot;http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd&quot;</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">modelVersion</span>&gt;</span>4.0.0<span class="tag">&lt;/<span class="name">modelVersion</span>&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.wjl<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-cloud-demo<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">packaging</span>&gt;</span>pom<span class="tag">&lt;/<span class="name">packaging</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">version</span>&gt;</span>1.0-SNAPSHOT<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">modules</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">modules</span>&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="tag">&lt;<span class="name">properties</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">maven.compiler.source</span>&gt;</span>8<span class="tag">&lt;/<span class="name">maven.compiler.source</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">maven.compiler.target</span>&gt;</span>8<span class="tag">&lt;/<span class="name">maven.compiler.target</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">properties</span>&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="tag">&lt;<span class="name">dependencyManagement</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">dependencies</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springframework.cloud<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-cloud-dependencies<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">version</span>&gt;</span>Greenwich.SR1<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">type</span>&gt;</span>pom<span class="tag">&lt;/<span class="name">type</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">scope</span>&gt;</span>import<span class="tag">&lt;/<span class="name">scope</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line"></span><br><span class="line">            <span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springframework.boot<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-boot-starter-parent<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">version</span>&gt;</span>2.1.5.RELEASE<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">dependencies</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">dependencyManagement</span>&gt;</span></span><br><span class="line"></span><br><span class="line">        <span class="tag">&lt;<span class="name">dependencies</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.projectlombok<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>lombok<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">version</span>&gt;</span>1.18.22<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">dependencies</span>&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="tag">&lt;<span class="name">build</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">plugins</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">plugin</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.apache.maven.plugins<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>maven-compiler-plugin<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">version</span>&gt;</span>3.6.0<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">configuration</span>&gt;</span></span><br><span class="line">                    <span class="tag">&lt;<span class="name">source</span>&gt;</span>1.8<span class="tag">&lt;/<span class="name">source</span>&gt;</span></span><br><span class="line">                    <span class="tag">&lt;<span class="name">target</span>&gt;</span>1.8<span class="tag">&lt;/<span class="name">target</span>&gt;</span></span><br><span class="line">                    <span class="tag">&lt;<span class="name">encoding</span>&gt;</span>UTF-8<span class="tag">&lt;/<span class="name">encoding</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;/<span class="name">configuration</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;/<span class="name">plugin</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">plugins</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">build</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">project</span>&gt;</span></span><br></pre></td></tr></table></figure></li>
 <li><p>新建maven模块工程</p>
 <p>配置pom文件</p>
@@ -2155,11 +2157,13 @@ step[Step] --- iterWriter[Item Writer]</pre>
 <p>配置yml</p>
 <figure class="highlight yaml"><table><tr><td class="code"><pre><span class="line"><span class="attr">spring:</span></span><br><span class="line">  <span class="attr">application:</span></span><br><span class="line">    <span class="attr">name:</span> <span class="string">eureka-client</span></span><br><span class="line"><span class="attr">server:</span></span><br><span class="line">  <span class="attr">port:</span> <span class="number">20001</span></span><br><span class="line"><span class="attr">eureka:</span></span><br><span class="line">  <span class="attr">client:</span></span><br><span class="line">    <span class="attr">service-url:</span></span><br><span class="line">      <span class="attr">defaultZone:</span> <span class="string">http://localhost:20000/eureka/</span></span><br></pre></td></tr></table></figure>
 
+<span id="more"></span>
+
 <p>配置启动类</p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="meta">@SpringBootApplication</span></span><br><span class="line"><span class="meta">@EnableDiscoveryClient</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">EurekaClientApplication</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">new</span> SpringApplicationBuilder(EurekaClientApplication.class)</span><br><span class="line">                .web(WebApplicationType.SERVLET)</span><br><span class="line">                .run(args);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line">  <span class="meta">@SpringBootApplication</span></span><br><span class="line">  <span class="meta">@EnableDiscoveryClient</span></span><br><span class="line">  <span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">EurekaClientApplication</span> </span>&#123;</span><br><span class="line">  </span><br><span class="line">      <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">          <span class="keyword">new</span> SpringApplicationBuilder(EurekaClientApplication.class)</span><br><span class="line">                  .web(WebApplicationType.SERVLET)</span><br><span class="line">                  .run(args);</span><br><span class="line">      &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 <p>编写一个测试接口服务</p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="meta">@Slf4j</span></span><br><span class="line"><span class="meta">@RestController</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Controller</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Value(&quot;$&#123;server.port&#125;&quot;)</span></span><br><span class="line">    <span class="keyword">private</span> String port;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@GetMapping(&quot;/sayHi&quot;)</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">sayHi</span><span class="params">()</span></span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="string">&quot;This is &quot;</span> + port;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line">  <span class="meta">@Slf4j</span></span><br><span class="line">  <span class="meta">@RestController</span></span><br><span class="line">  <span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Controller</span> </span>&#123;</span><br><span class="line">  </span><br><span class="line">      <span class="meta">@Value(&quot;$&#123;server.port&#125;&quot;)</span></span><br><span class="line">      <span class="keyword">private</span> String port;</span><br><span class="line">  </span><br><span class="line">      <span class="meta">@GetMapping(&quot;/sayHi&quot;)</span></span><br><span class="line">      <span class="function"><span class="keyword">public</span> String <span class="title">sayHi</span><span class="params">()</span></span>&#123;</span><br><span class="line">          <span class="keyword">return</span> <span class="string">&quot;This is &quot;</span> + port;</span><br><span class="line">      &#125;</span><br><span class="line">  </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
 </ul>
 <h3 id="搭建服务调用者"><a href="#搭建服务调用者" class="headerlink" title="搭建服务调用者"></a>搭建服务调用者</h3><ul>
 <li><p>新建maven项目配置pom</p>
@@ -2193,6 +2197,8 @@ step[Step] --- iterWriter[Item Writer]</pre>
 <p><img src="https://gitee.com/wangjialun-china/drawing-bed/raw/master/picture/202203031409602.gif" alt="img"></p>
 <p> 那如果现在8010这台服务宕机了，会是什么情况？</p>
 <p>​    <img src="https://gitee.com/wangjialun-china/drawing-bed/raw/master/picture/202203031409047.gif" alt="img"></p>
+<span id="more"></span>
+
 <p>当访问8010的时候，就报错了，我们再看一下Eureka的注册列表，宕机的8010还在列表之中</p>
 <p><img src="https://gitee.com/wangjialun-china/drawing-bed/raw/master/picture/202203031409093.png" alt="img"></p>
 <p>自我保护机制说明：</p>
@@ -2222,11 +2228,6 @@ step[Step] --- iterWriter[Item Writer]</pre>
       <tags>
         <tag>微服务</tag>
       </tags>
-  </entry>
-  <entry>
-    <title>负载均衡</title>
-    <url>/2022-03-07-%E8%B4%9F%E8%BD%BD%E5%9D%87%E8%A1%A1/</url>
-    <content><![CDATA[]]></content>
   </entry>
   <entry>
     <title>服务治理的技术选型</title>
@@ -2270,7 +2271,7 @@ step[Step] --- iterWriter[Item Writer]</pre>
 </li>
 <li><p><strong>Partition tolerance</strong>（分区容错性）</p>
 <p>系统可以对网络分区这种异常情况进行容错处理。</p>
-</li>
+<span id="more"></span></li>
 </ul>
 <h3 id="服务治理组件对比"><a href="#服务治理组件对比" class="headerlink" title="服务治理组件对比"></a>服务治理组件对比</h3><table>
 <thead>
@@ -2366,6 +2367,71 @@ step[Step] --- iterWriter[Item Writer]</pre>
 </ul>
 </li>
 </ul>
+]]></content>
+      <tags>
+        <tag>微服务</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>服务容错的解决思路</title>
+    <url>/2022-03-09-%E6%9C%8D%E5%8A%A1%E5%AE%B9%E9%94%99%E7%9A%84%E8%A7%A3%E5%86%B3%E6%80%9D%E8%B7%AF/</url>
+    <content><![CDATA[<h3 id="服务雪崩"><a href="#服务雪崩" class="headerlink" title="服务雪崩"></a>服务雪崩</h3><p>服务雪崩效应是一种因“服务提供者的不可用”（原因）导致“服务调用者不可用”（结果），并将不可用逐渐放大的现象</p>
+<p>如下图： 一个服务失败，导致整条链路的服务都失败的情形，我们称之为服务雪崩</p>
+<p><img src="https://gitee.com/wangjialun-china/drawing-bed/raw/master/picture/202203091533665.gif" alt="1"></p>
+<p>我把服务雪崩的参与者简化为 <strong>服务提供者</strong> 和 <strong>服务调用者</strong>，并将服务雪崩产生的过程分为以下三个阶段来分析形成的原因:</p>
+<ol>
+<li>服务提供者不可用</li>
+<li>重试加大流量</li>
+<li>服务调用者不可用</li>
+</ol>
+<span id="more"></span>
+
+<p>服务雪崩的每个阶段都可能由不同的原因造成，比如造成 <strong>服务不可用</strong> 的原因有:</p>
+<ul>
+<li>硬件故障</li>
+<li>程序 Bug</li>
+<li>缓存击穿</li>
+<li>用户大量请求</li>
+</ul>
+<p>硬件故障可能为硬件损坏造成的服务器主机宕机，网络硬件故障造成的服务提供者的不可访问。<br>缓存击穿一般发生在缓存应用重启，所有缓存被清空时，以及短时间内大量缓存失效时。大量的缓存不命中，使请求直击后端，造成服务提供者超负荷运行，引起服务不可用。<br>在秒杀和大促开始前，如果准备不充分，用户发起大量请求也会造成服务提供者的不可用。</p>
+<p>而形成 <strong>重试加大流量</strong> 的原因有:</p>
+<ul>
+<li>用户重试</li>
+<li>代码逻辑重试</li>
+</ul>
+<p>在服务提供者不可用后，用户由于忍受不了界面上长时间的等待，而不断刷新页面甚至提交表单。<br>服务调用端的会存在大量服务异常后的重试逻辑。<br>这些重试都会进一步加大请求流量。</p>
+<p>最后, <strong>服务调用者不可用</strong> 产生的主要原因是:</p>
+<ul>
+<li>同步等待造成的资源耗尽</li>
+</ul>
+<p>当服务调用者使用 <strong>同步调用</strong> 时，会产生大量的等待线程占用系统资源。一旦线程资源被耗尽，服务调用者提供的服务也将处于不可用状态，于是服务雪崩效应产生了。</p>
+<h3 id="应对策略"><a href="#应对策略" class="headerlink" title="应对策略"></a>应对策略</h3><p>针对造成服务雪崩的不同原因，可以使用不同的应对策略:</p>
+<p><strong>流量控制</strong></p>
+<ul>
+<li>网关限流</li>
+<li>用户交互限流</li>
+<li>关闭重试</li>
+</ul>
+<p>因为 Nginx 的高性能，目前一线互联网公司大量采用 Nginx+Lua 的网关进行流量控制，由此而来的 OpenResty 也越来越热门。</p>
+<p>用户交互限流的具体措施有: 1. 采用加载动画，提高用户的忍耐等待时间。2. 提交按钮添加强制等待时间机制。</p>
+<p><strong>改进缓存模式</strong></p>
+<ul>
+<li>缓存预加载</li>
+<li>同步改为异步刷新</li>
+</ul>
+<p><strong>服务自动扩容</strong></p>
+<ul>
+<li>AWS 的 auto scaling</li>
+</ul>
+<p><strong>服务调用者降级服务</strong></p>
+<ul>
+<li>资源隔离</li>
+<li>对依赖服务进行分类</li>
+<li>不可用服务的调用快速失败</li>
+</ul>
+<p>资源隔离主要是对调用服务的线程池进行隔离。</p>
+<p>我们根据具体业务，将依赖服务分为: 强依赖和若依赖。强依赖服务不可用会导致当前业务中止，而弱依赖服务的不可用不会导致当前业务的中止。</p>
+<p>不可用服务的调用快速失败一般通过 <strong>超时机制</strong>, <strong>熔断器</strong> 和熔断后的 <strong>降级方法</strong> 来实现。</p>
 ]]></content>
       <tags>
         <tag>微服务</tag>
