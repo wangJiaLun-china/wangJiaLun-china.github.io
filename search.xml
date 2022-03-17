@@ -2446,6 +2446,8 @@ step[Step] --- iterWriter[Item Writer]</pre>
 
 <p>如果没有jenkins镜像会自动下载，我下载的镜像是</p>
 <p><img src="https://gitee.com/wangjialun-china/drawing-bed/raw/master/picture/202203171032533.png" alt="image-20220317103238963"></p>
+<span id="more"></span>
+
 <p>执行成功后访问如图</p>
 <p><img src="https://gitee.com/wangjialun-china/drawing-bed/raw/master/picture/202203171037079.png" alt="image-20220317103732716"></p>
 <p>使用root用户进入容器</p>
