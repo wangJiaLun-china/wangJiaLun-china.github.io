@@ -182,6 +182,96 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://www.wangjialun.top/2021-08-26-fastDFS%E9%85%8D%E7%BD%AEnginx%E8%AE%BF%E9%97%AE/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/author.jpg">
+      <meta itemprop="name" content="wangJiaLun">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="wangJiaLun-go">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2021-08-26-fastDFS%E9%85%8D%E7%BD%AEnginx%E8%AE%BF%E9%97%AE/" class="post-title-link" itemprop="url">fastDFS配置nginx访问</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+			
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2021-08-26 14:32:55" itemprop="dateCreated datePublished" datetime="2021-08-26T14:32:55+08:00">2021-08-26</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2022-02-10 17:30:26" itemprop="dateModified" datetime="2022-02-10T17:30:26+08:00">2022-02-10</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/nginx/" itemprop="url" rel="index"><span itemprop="name">nginx</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h2 id="fastDFS配置nginx访问"><a href="#fastDFS配置nginx访问" class="headerlink" title="fastDFS配置nginx访问"></a><strong>fastDFS配置nginx访问</strong></h2><ul>
+<li><p><a href="https://www.wangjialun.top/2021-07-27-centos7%E5%AE%89%E8%A3%85%20nginx/">nginx 安装教程</a></p>
+</li>
+<li><p><a href="https://www.wangjialun.top/2021-08-23-centos7%E5%AE%89%E8%A3%85%20fastFDS/#more">fastDFS 安装教程</a></p>
+</li>
+<li><p>安装nginx插件  <a target="_blank" rel="noopener" href="https://github.com/happyfish100/fastdfs-nginx-module.git">下载地址</a> 或者fastDFS安装教程里面的百度云有</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> 解压nginx的fastdfs压缩包</span></span><br><span class="line">tar -zxvf fastdfs-nginx-module-1.22.tar.gz</span><br><span class="line">cp mod_fastdfs.conf /etc/fdfs/</span><br></pre></td></tr></table></figure></li>
+<li><p>nginx重新make下<code>add-module</code>是nginx插件解压后的目录</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">./configure \</span><br><span class="line">--prefix=/usr/local/nginx \</span><br><span class="line">--pid-path=/var/run/nginx/nginx.pid \</span><br><span class="line">--lock-path=/var/lock/nginx.lock \</span><br><span class="line">--error-log-path=/var/log/nginx/error.log \</span><br><span class="line">--http-log-path=/var/log/nginx/access.log \</span><br><span class="line">--with-http_gzip_static_module \</span><br><span class="line">--http-client-body-temp-path=/var/temp/nginx/client \</span><br><span class="line">--http-proxy-temp-path=/var/temp/nginx/proxy \</span><br><span class="line">--http-fastcgi-temp-path=/var/temp/nginx/fastcgi \</span><br><span class="line">--http-uwsgi-temp-path=/var/temp/nginx/uwsgi \</span><br><span class="line">--http-scgi-temp-path=/var/temp/nginx/scgi \</span><br><span class="line">--add-module=/usr/local/package/fastdfs-nginx-module-1.22/src</span><br></pre></td></tr></table></figure>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2021-08-26-fastDFS%E9%85%8D%E7%BD%AEnginx%E8%AE%BF%E9%97%AE/#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
     <link itemprop="mainEntityOfPage" href="http://www.wangjialun.top/2021-08-23-centos7%E5%AE%89%E8%A3%85%20fastFDS/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -966,93 +1056,6 @@
   
   
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://www.wangjialun.top/2021-08-07-redis%20%E6%8C%81%E4%B9%85%E5%8C%96%E6%9C%BA%E5%88%B6/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/author.jpg">
-      <meta itemprop="name" content="wangJiaLun">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="wangJiaLun-go">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2021-08-07-redis%20%E6%8C%81%E4%B9%85%E5%8C%96%E6%9C%BA%E5%88%B6/" class="post-title-link" itemprop="url">redis 持久化机制</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-			
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2021-08-07 11:35:11" itemprop="dateCreated datePublished" datetime="2021-08-07T11:35:11+08:00">2021-08-07</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2021-08-10 10:07:42" itemprop="dateModified" datetime="2021-08-10T10:07:42+08:00">2021-08-10</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/redis/" itemprop="url" rel="index"><span itemprop="name">redis</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h1 id="redis-持久化机制"><a href="#redis-持久化机制" class="headerlink" title="redis 持久化机制"></a><strong>redis 持久化机制</strong></h1><h2 id="RDB-Redis-DataBase"><a href="#RDB-Redis-DataBase" class="headerlink" title="RDB(Redis DataBase)"></a>RDB(Redis DataBase)</h2><ul>
-<li><p><strong>特点</strong></p>
-<p>通过配置触发条件或者手动触发将内存中数据写入到磁盘的临时文件中，作为快照存储。恢复时候把快照读进内存</p>
-<figure class="highlight properties"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 核心配置</span></span><br><span class="line"><span class="comment"># 900秒（15分钟）内至少1个key值改变（则进行数据库保存--持久化）  </span></span><br><span class="line"><span class="comment"># 300秒（5分钟）内至少10个key值改变（则进行数据库保存--持久化）  </span></span><br><span class="line"><span class="comment"># 60秒（1分钟）内至少10000个key值改变（则进行数据库保存--持久化）  </span></span><br><span class="line"><span class="attr">save</span> <span class="string">900 1  </span></span><br><span class="line"><span class="attr">save</span> <span class="string">300 10  </span></span><br><span class="line"><span class="attr">save</span> <span class="string">60 10000 </span></span><br><span class="line"><span class="comment"># 保存快照失败时,redis停止接受更新操作（例如持久化时候发现磁盘满了，不能再存储。redis会报错起到提示作用）</span></span><br><span class="line"><span class="meta">stop-writes-on-bgsave-error</span> <span class="string">yes</span></span><br><span class="line"><span class="comment"># 导出数据库的文件名称  </span></span><br><span class="line"><span class="attr">dbfilename</span> <span class="string">dump.rdb</span></span><br><span class="line"><span class="comment"># 配置工作目录 dir /usr/local/redis/workspace</span></span><br><span class="line"><span class="attr">dir</span> <span class="string">./</span></span><br><span class="line"><span class="comment"># 开启rdb压缩模式</span></span><br><span class="line"><span class="attr">rdbcompression</span> <span class="string">yes</span></span><br></pre></td></tr></table></figure>
-
-<p>手动触发 <code>bgsave</code></p>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/2021-08-07-redis%20%E6%8C%81%E4%B9%85%E5%8C%96%E6%9C%BA%E5%88%B6/#more" rel="contents">
-                阅读全文 &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
 
   
   <nav class="pagination">
@@ -1123,7 +1126,7 @@
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
           <a href="/archives">
-          <span class="site-state-item-count">33</span>
+          <span class="site-state-item-count">34</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -1136,7 +1139,7 @@
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">13</span>
+        <span class="site-state-item-count">14</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>
@@ -1159,6 +1162,9 @@
     </div>
     <ul class="links-of-recent-posts-list">
         <li class="links-of-recent-posts-item">
+          <a href="/2022-03-17-docker-jenkins-gitee%E9%85%8D%E7%BD%AE%E6%8C%81%E7%BB%AD%E9%9B%86%E6%88%90%E9%83%A8%E7%BD%B2/" title="2022-03-17-docker-jenkins-gitee配置持续集成部署&#x2F;">docker+jenkins+gitee配置持续集成部署</a>
+        </li>
+        <li class="links-of-recent-posts-item">
           <a href="/2022-03-09-%E6%9C%8D%E5%8A%A1%E5%AE%B9%E9%94%99%E7%9A%84%E8%A7%A3%E5%86%B3%E6%80%9D%E8%B7%AF/" title="2022-03-09-服务容错的解决思路&#x2F;">服务容错的解决思路</a>
         </li>
         <li class="links-of-recent-posts-item">
@@ -1178,9 +1184,6 @@
         </li>
         <li class="links-of-recent-posts-item">
           <a href="/2022-02-20-%E5%88%86%E5%B8%83%E5%BC%8F%E9%99%90%E6%B5%81/" title="2022-02-20-分布式限流&#x2F;">分布式限流</a>
-        </li>
-        <li class="links-of-recent-posts-item">
-          <a href="/2021-09-29-sap%20%E9%97%AE%E9%A2%98%E8%AE%B0%E5%BD%95%20no%20sapjco3%20in%20java.library.path/" title="2021-09-29-sap 问题记录 no sapjco3 in java.library.path&#x2F;">no sapjco3 in java.library.path</a>
         </li>
     </ul>
   </div>
